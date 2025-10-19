@@ -1,7 +1,7 @@
 import ast
 import csv
-import json
 from pathlib import Path
+import json
 
 from scipy.spatial.distance import cdist
 from sentence_transformers import SentenceTransformer
@@ -11,7 +11,7 @@ from src.conf import config
 
 NOTEBOOKS_ROOT_DIR = config.PROJECT_ROOT / 'converted_notebooks'
 OUTPUT_CSV_FILE = config.RESULTS_DIR / 'quantum_concept_matches_with_patterns.csv'
-
+UNCLASSIFIED_CONCEPTS_FILE = config.RESULTS_DIR / 'unclassified_concepts.csv'
 
 SIMILARITY_THRESHOLDS = {
     'name': 0.90,
@@ -92,6 +92,9 @@ def load_patterns_map(file_paths: list[Path]) -> dict[str, str]:
 
 def load_quantum_concepts(file_paths: list[Path], pattern_map: dict[str, str]) -> list[dict]:
     concepts = []
+    # Create a secondary map for faster short-name lookups
+    pattern_map_by_short_name = {extract_short_name(k): v for k, v in pattern_map.items()}
+
     for path in file_paths:
         if not path.exists():
             continue
@@ -101,15 +104,15 @@ def load_quantum_concepts(file_paths: list[Path], pattern_map: dict[str, str]) -
                 for item in data:
                     if 'name' in item and 'summary' in item:
                         full_name = item['name']
+                        short_name = extract_short_name(full_name)
                         found_pattern = 'N/A'
 
-                        # First, try a direct match. This works for PennyLane and Classiq
-                        # if their CSVs contain the full '/framework/path' name.
+                        # --- 3-STEP MATCHING LOGIC ---
                         if full_name in pattern_map:
                             found_pattern = pattern_map[full_name]
+                        elif short_name in pattern_map_by_short_name:
+                            found_pattern = pattern_map_by_short_name[short_name]
                         else:
-                            # If direct match fails, it might be a Qiskit-style partial match.
-                            # Check if the full JSON name ends with any of the shorter CSV keys.
                             for csv_key, pattern_value in pattern_map.items():
                                 if full_name.endswith(csv_key):
                                     found_pattern = pattern_value
@@ -118,18 +121,39 @@ def load_quantum_concepts(file_paths: list[Path], pattern_map: dict[str, str]) -
                         concepts.append({
                             'name': full_name,
                             'summary': item['summary'],
-                            'short_name': extract_short_name(full_name),
+                            'short_name': short_name,
                             'pattern': found_pattern
                         })
         except Exception as e:
             print(f"Error loading {path}: {e}")
     return concepts
 
-def main():
-    if not NOTEBOOKS_ROOT_DIR.exists() or not NOTEBOOKS_ROOT_DIR.is_dir():
-        print(f"Error: Directory '{NOTEBOOKS_ROOT_DIR}' does not exist.")
+
+def _save_unclassified_concepts(concepts: list[dict], output_path: Path):
+    """Saves a CSV of concepts that could not be mapped to a pattern."""
+    unclassified = [
+        {'name': c['name'], 'summary': c['summary']}
+        for c in concepts if c['pattern'] == 'N/A'
+    ]
+
+    if not unclassified:
+        # If the file exists but there are no unclassified concepts, clear it.
+        if output_path.exists():
+            output_path.unlink()
+        print("All concepts are classified. No 'unclassified_concepts.csv' needed.")
         return
 
+    print(f"\n⚠ Found {len(unclassified)} unclassified concepts. Saving to-do list to '{output_path}'...")
+    try:
+        with open(output_path, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.DictWriter(f, fieldnames=['name', 'summary'])
+            writer.writeheader()
+            writer.writerows(unclassified)
+    except IOError as e:
+        print(f"  - Error writing unclassified concepts file: {e}")
+
+
+def main():
     print(f"Loading patterns from {len(PATTERN_FILES)} CSV files...")
     pattern_map = load_patterns_map(PATTERN_FILES)
     print(f"Loaded a total of {len(pattern_map)} concept-to-pattern mappings.")
@@ -140,42 +164,32 @@ def main():
         return
     print(f"Loaded {len(quantum_concepts)} concepts defined across {len(CONCEPT_FILES)} files.")
 
-    found_patterns = sum(1 for c in quantum_concepts if c['pattern'] != 'N/A')
-    print(f"\n--- MAPPING SUMMARY ---")
-    print(f"Successfully matched {found_patterns} / {len(quantum_concepts)} concepts with a pattern.")
-    print(f"-----------------------\n")
 
-    unmatched_concepts = [c for c in quantum_concepts if c['pattern'] == 'N/A']
-    if unmatched_concepts:
-        print(f"--- {len(unmatched_concepts)} UNMATCHED CONCEPTS ---")
-        for concept in unmatched_concepts[:10]:
-            print(f"  - Could not find pattern for: {concept['name']}")
-        if len(unmatched_concepts) > 10:
-            print(f"  ... and {len(unmatched_concepts) - 10} more.")
-        print("--------------------------\n")
+    _save_unclassified_concepts(quantum_concepts, UNCLASSIFIED_CONCEPTS_FILE)
+
+    found_patterns_count = sum(1 for c in quantum_concepts if c['pattern'] != 'N/A')
+    print(f"\n--- MAPPING SUMMARY ---")
+    print(f"Successfully matched {found_patterns_count} / {len(quantum_concepts)} concepts with a pattern.")
+    print(f"-----------------------\n")
 
     print(f"Loading embedding model '{config.EMBEDDING_MODEL_NAME}'...")
     model = SentenceTransformer(config.EMBEDDING_MODEL_NAME)
 
     concept_short_names = [c['short_name'] for c in quantum_concepts]
     concept_summaries = [c['summary'] for c in quantum_concepts]
-
     concept_name_embeddings = model.encode(concept_short_names, convert_to_tensor=True)
     concept_summary_embeddings = model.encode(concept_summaries, convert_to_tensor=True)
 
     with open(OUTPUT_CSV_FILE, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f, delimiter=';')
-        writer.writerow([
-            "file_path", "concept_name", "pattern", "match_type",
-            "matched_text", "similarity_score"
-        ])
+        writer.writerow(["file_path", "concept_name", "pattern", "match_type", "matched_text", "similarity_score"])
 
         script_files = list(NOTEBOOKS_ROOT_DIR.rglob('*.py'))
         total_files = len(script_files)
         print(f"Found {total_files} Python files to analyze.")
 
         for i, file_path in enumerate(script_files):
-            if (i + 1) % 50 == 0 or (i + 1) == total_files:
+            if (i + 1) % 100 == 0 or (i + 1) == total_files:
                 print(f"Processing {i + 1}/{total_files}...")
 
             try:
@@ -184,6 +198,7 @@ def main():
                 print(f"Could not read file {file_path}: {e}")
                 continue
 
+            # Name-based matching
             code_elements = get_code_elements_from_script(script_content)
             if code_elements:
                 code_element_embeddings = model.encode(code_elements, convert_to_tensor=True)
@@ -198,6 +213,7 @@ def main():
                                 element, f"{score:.4f}"
                             ])
 
+            # Summary-based matching
             comment_block = extract_comments_from_script(file_path)
             if comment_block:
                 comment_embedding = model.encode([comment_block], convert_to_tensor=True)
