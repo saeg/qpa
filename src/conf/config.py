@@ -5,21 +5,15 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 TARGET_PROJECTS_BASE_PATH = PROJECT_ROOT / 'target_github_projects'
 
-DATA_FILES_PATH = PROJECT_ROOT / 'data'
-
-ZOO_HTML_FILE = DATA_FILES_PATH / 'quantum_zoo.txt'
-MIXED_TECHNIQUES_FILE = DATA_FILES_PATH / 'mixed_hybrid_techniques.txt'
-
-
 CORE_CONCEPT_SEARCH_DIRS = [
     TARGET_PROJECTS_BASE_PATH / "classiq-library/classiq/open_library/functions",
     TARGET_PROJECTS_BASE_PATH / "classiq-library/classiq/qmod/builtins/functions",
     TARGET_PROJECTS_BASE_PATH / "classiq-library/classiq/applications",
     ]
+
 EMBEDDING_MODEL_NAME = 'all-mpnet-base-v2'
 
 SIMILARITY_THRESHOLD = 0.6
-
 
 TARGET_PROJECTS_BASE_PATH = PROJECT_ROOT / 'target_github_projects'
 
@@ -28,14 +22,12 @@ try:
         name for name in os.listdir(TARGET_PROJECTS_BASE_PATH)
         if os.path.isdir(TARGET_PROJECTS_BASE_PATH / name)
     ]
-    print(f"Found {len(TARGET_PROJECTS)} projects to analyze in '{TARGET_PROJECTS_BASE_PATH}'.")
 
 except FileNotFoundError:
     print(f"ERROR: The directory '{TARGET_PROJECTS_BASE_PATH}' was not found.")
     print("Please make sure the TARGET_PROJECTS_BASE_PATH in conf/config.py is correct.")
     TARGET_PROJECTS = []
 
-# Directories and files to skip during analysis.
 SKIP_DIRS_COMMON = [
     'docs', 'examples', 'example_notebooks', 'optimizers', 'build', 'dist',
     '__pycache__', 'venv', '.venv', 'releasenotes', 'node_modules', '.git',
@@ -54,5 +46,4 @@ SKIP_FILES_COMMON = ['setup.py', 'conftest.py', '__init__.py']
 
 FUNCTION_NAME_SIMILARITY_THRESHOLD = 0.80
 
-RESULTS_DIR = PROJECT_ROOT / 'results'
-RESULTS_FILE = RESULTS_DIR / 'example_llm.json'
+RESULTS_DIR = PROJECT_ROOT / 'data'
