@@ -1,5 +1,5 @@
 set shell := ["bash", "-c"]
-# Define variables for our virtual environments to keep things clean.
+
 VENV            := ".venv"
 ANALYSIS_VENV   := ".venv-analysis"
 
