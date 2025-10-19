@@ -1,0 +1,296 @@
+# QUANTUM CONCEPT ANALYSIS REPORT
+
+## I. Overall Summary
+- **Total Matches Found:** 558
+- **Unique Files with Matches:** 241
+- **Unique Concepts Matched:** 115
+- **Total Patterns Defined:** 28
+- **Total Patterns Found:** 25
+- **Average Similarity Score:** 0.8950
+
+## II. Match Type Breakdown
+
+### Match Type Counts
+
+| match_type   |   count |
+|:-------------|--------:|
+| name         |     373 |
+| summary      |     185 |
+
+### Average Score by Match Type
+
+| match_type   |   similarity_score |
+|:-------------|-------------------:|
+| name         |             0.9931 |
+| summary      |             0.6971 |
+
+---
+
+## III. Source Framework & Target Project Breakdown
+
+### Matches by Source Framework
+
+| framework   |   count |
+|:------------|--------:|
+| classiq     |     343 |
+| qiskit      |     112 |
+| pennylane   |     103 |
+
+### Matches by Target Project
+
+| project                         |   count |
+|:--------------------------------|--------:|
+| classiq-library                 |     309 |
+| Qualtran                        |      63 |
+| amazon-braket-examples          |      40 |
+| Cirq                            |      19 |
+| qiskit-machine-learning         |      19 |
+| Qrisp                           |      18 |
+| amazon-braket-algorithm-library |      14 |
+| qiskit-finance                  |      13 |
+| catalyst                        |      10 |
+| tensorcircuit                   |       9 |
+| qiskit-algorithms               |       8 |
+| quimb                           |       7 |
+| ProjectQ                        |       4 |
+| qiskit-nature                   |       4 |
+| qibo                            |       4 |
+| torchquantum                    |       4 |
+| guppylang                       |       3 |
+| thewalrus                       |       2 |
+| Perceval                        |       2 |
+| qiskit-optimization             |       2 |
+| ReCirq                          |       1 |
+| qiskit-addon-cutting            |       1 |
+| OpenFermion                     |       1 |
+| grove                           |       1 |
+
+---
+
+## IV. Cross-Framework Pattern Analysis
+
+### Table 4.1: Source Pattern Analysis (Where patterns originate)
+
+| pattern                                           |   Total Matches | Source Frameworks          |
+|:--------------------------------------------------|----------------:|:---------------------------|
+| Basis Change                                      |             154 | classiq, pennylane, qiskit |
+| Quantum Phase Estimation (QPE)                    |              57 | classiq, pennylane         |
+| Quantum Arithmetic                                |              40 | classiq, pennylane, qiskit |
+| Data Encoding                                     |              35 | classiq, pennylane, qiskit |
+| Quantum Singular Value Transformation             |              34 | classiq                    |
+| Circuit Construction Utility                      |              33 | classiq, qiskit            |
+| Oracle                                            |              29 | classiq, pennylane, qiskit |
+| Amplitude Amplification                           |              25 | classiq                    |
+| Hamiltonian Simulation                            |              20 | classiq, pennylane, qiskit |
+| Initialization                                    |              17 | classiq, qiskit            |
+| Variational Quantum Algorithm (VQA)               |              13 | classiq, pennylane, qiskit |
+| Quantum Logical Operators                         |              13 | qiskit                     |
+| Quantum Neural Network (QNN)                      |              11 | pennylane                  |
+| Quantum Approximate Optimization Algorithm (QAOA) |              10 | classiq, pennylane, qiskit |
+| Grover                                            |              10 | classiq, pennylane, qiskit |
+| Quantum Amplitude Estimation (QAE)                |               9 | pennylane                  |
+| Linear Combination of Unitaries                   |               7 | classiq                    |
+| SWAP Test                                         |               6 | classiq                    |
+| Quantum Singular Value Transformation (QSVT)      |               5 | pennylane                  |
+| Variational Quantum Eigensolver (VQE)             |               5 | pennylane                  |
+| Creating Entanglement                             |               5 | classiq                    |
+| Controlled Linear Rotation                        |               5 | classiq                    |
+| Phase Shift                                       |               4 | classiq, pennylane         |
+| Quantum Amplitude Estimation                      |               1 | classiq                    |
+| Linear Combination of Unitaries (LCU)             |               1 | pennylane                  |
+
+### Table 4.2: Adoption Pattern Analysis (Where patterns are used)
+
+| pattern                                           |   Project Coverage | Found In Projects                                                                                                                             |
+|:--------------------------------------------------|-------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------|
+| Circuit Construction Utility                      |                  9 | Cirq, OpenFermion, Qualtran, ReCirq, amazon-braket-algorithm-library, amazon-braket-examples, classiq-library, qiskit-optimization, thewalrus |
+| Quantum Phase Estimation (QPE)                    |                  8 | ProjectQ, Qrisp, Qualtran, amazon-braket-algorithm-library, amazon-braket-examples, classiq-library, guppylang, qiskit-finance                |
+| Basis Change                                      |                  8 | Cirq, Qrisp, Qualtran, amazon-braket-algorithm-library, amazon-braket-examples, catalyst, classiq-library, qibo                               |
+| Oracle                                            |                  7 | Cirq, Qualtran, amazon-braket-algorithm-library, amazon-braket-examples, classiq-library, qiskit-algorithms, quimb                            |
+| Quantum Arithmetic                                |                  7 | Cirq, Qrisp, Qualtran, amazon-braket-examples, catalyst, classiq-library, qiskit-finance                                                      |
+| Quantum Approximate Optimization Algorithm (QAOA) |                  6 | ProjectQ, catalyst, classiq-library, qiskit-machine-learning, quimb, tensorcircuit                                                            |
+| Variational Quantum Algorithm (VQA)               |                  6 | Perceval, classiq-library, qiskit-addon-cutting, qiskit-finance, qiskit-nature, torchquantum                                                  |
+| Amplitude Amplification                           |                  5 | Qrisp, amazon-braket-examples, classiq-library, grove, qiskit-algorithms                                                                      |
+| Quantum Singular Value Transformation             |                  5 | Qualtran, amazon-braket-algorithm-library, amazon-braket-examples, classiq-library, guppylang                                                 |
+| Data Encoding                                     |                  5 | Cirq, Qualtran, catalyst, classiq-library, qiskit-machine-learning                                                                            |
+| Grover                                            |                  5 | amazon-braket-algorithm-library, catalyst, classiq-library, qiskit-algorithms, qiskit-optimization                                            |
+| Quantum Neural Network (QNN)                      |                  5 | Cirq, classiq-library, qiskit-machine-learning, quimb, tensorcircuit                                                                          |
+| Quantum Amplitude Estimation (QAE)                |                  5 | Qrisp, amazon-braket-examples, classiq-library, qibo, qiskit-finance                                                                          |
+| Initialization                                    |                  4 | Perceval, ProjectQ, amazon-braket-examples, classiq-library                                                                                   |
+| Quantum Logical Operators                         |                  3 | Qualtran, amazon-braket-examples, classiq-library                                                                                             |
+| Variational Quantum Eigensolver (VQE)             |                  3 | amazon-braket-examples, classiq-library, qiskit-nature                                                                                        |
+| Hamiltonian Simulation                            |                  2 | classiq-library, qiskit-algorithms                                                                                                            |
+| Controlled Linear Rotation                        |                  2 | Qualtran, classiq-library                                                                                                                     |
+| Phase Shift                                       |                  2 | catalyst, classiq-library                                                                                                                     |
+| Quantum Amplitude Estimation                      |                  1 | classiq-library                                                                                                                               |
+| Linear Combination of Unitaries (LCU)             |                  1 | classiq-library                                                                                                                               |
+| Linear Combination of Unitaries                   |                  1 | classiq-library                                                                                                                               |
+| Creating Entanglement                             |                  1 | classiq-library                                                                                                                               |
+| Quantum Singular Value Transformation (QSVT)      |                  1 | classiq-library                                                                                                                               |
+| SWAP Test                                         |                  1 | classiq-library                                                                                                                               |
+
+---
+
+## V. Quantum Pattern Analysis
+
+### Patterns by Match Count (Overall)
+
+| pattern                                           |   count |
+|:--------------------------------------------------|--------:|
+| Basis Change                                      |     154 |
+| Quantum Phase Estimation (QPE)                    |      57 |
+| Quantum Arithmetic                                |      40 |
+| Data Encoding                                     |      35 |
+| Quantum Singular Value Transformation             |      34 |
+| Circuit Construction Utility                      |      33 |
+| Oracle                                            |      29 |
+| Amplitude Amplification                           |      25 |
+| Hamiltonian Simulation                            |      20 |
+| Initialization                                    |      17 |
+| Quantum Logical Operators                         |      13 |
+| Variational Quantum Algorithm (VQA)               |      13 |
+| Quantum Neural Network (QNN)                      |      11 |
+| Grover                                            |      10 |
+| Quantum Approximate Optimization Algorithm (QAOA) |      10 |
+| Quantum Amplitude Estimation (QAE)                |       9 |
+| Linear Combination of Unitaries                   |       7 |
+| SWAP Test                                         |       6 |
+| Variational Quantum Eigensolver (VQE)             |       5 |
+| Controlled Linear Rotation                        |       5 |
+| Creating Entanglement                             |       5 |
+| Quantum Singular Value Transformation (QSVT)      |       5 |
+| Phase Shift                                       |       4 |
+| Linear Combination of Unitaries (LCU)             |       1 |
+| Quantum Amplitude Estimation                      |       1 |
+
+### Average Score by Pattern
+
+| pattern                                           |   similarity_score |
+|:--------------------------------------------------|-------------------:|
+| Quantum Amplitude Estimation                      |             1      |
+| Initialization                                    |             0.9848 |
+| Hamiltonian Simulation                            |             0.9826 |
+| Phase Shift                                       |             0.9595 |
+| Linear Combination of Unitaries                   |             0.9547 |
+| SWAP Test                                         |             0.9546 |
+| Basis Change                                      |             0.9538 |
+| Variational Quantum Algorithm (VQA)               |             0.952  |
+| Quantum Singular Value Transformation (QSVT)      |             0.9369 |
+| Quantum Logical Operators                         |             0.9211 |
+| Circuit Construction Utility                      |             0.9175 |
+| Data Encoding                                     |             0.9076 |
+| Amplitude Amplification                           |             0.9054 |
+| Oracle                                            |             0.9023 |
+| Creating Entanglement                             |             0.8982 |
+| Controlled Linear Rotation                        |             0.8897 |
+| Grover                                            |             0.8831 |
+| Variational Quantum Eigensolver (VQE)             |             0.8698 |
+| Quantum Phase Estimation (QPE)                    |             0.822  |
+| Quantum Arithmetic                                |             0.8112 |
+| Quantum Approximate Optimization Algorithm (QAOA) |             0.8017 |
+| Quantum Singular Value Transformation             |             0.798  |
+| Quantum Neural Network (QNN)                      |             0.7971 |
+| Linear Combination of Unitaries (LCU)             |             0.72   |
+| Quantum Amplitude Estimation (QAE)                |             0.6705 |
+
+### All Patterns within each Source Framework (Sorted by Frequency)
+
+
+#### Classiq
+
+| pattern                                           |   count |
+|:--------------------------------------------------|--------:|
+| Basis Change                                      |     107 |
+| Quantum Phase Estimation (QPE)                    |      56 |
+| Quantum Singular Value Transformation             |      34 |
+| Amplitude Amplification                           |      25 |
+| Circuit Construction Utility                      |      17 |
+| Hamiltonian Simulation                            |      15 |
+| Quantum Arithmetic                                |      14 |
+| Initialization                                    |      11 |
+| Data Encoding                                     |      10 |
+| Oracle                                            |       9 |
+| Linear Combination of Unitaries                   |       7 |
+| Grover                                            |       6 |
+| SWAP Test                                         |       6 |
+| Controlled Linear Rotation                        |       5 |
+| Creating Entanglement                             |       5 |
+| Phase Shift                                       |       3 |
+| Variational Quantum Algorithm (VQA)               |       2 |
+| Quantum Amplitude Estimation                      |       1 |
+| Quantum Approximate Optimization Algorithm (QAOA) |       1 |
+
+#### Pennylane
+
+| pattern                                           |   count |
+|:--------------------------------------------------|--------:|
+| Basis Change                                      |      21 |
+| Oracle                                            |      16 |
+| Quantum Neural Network (QNN)                      |      11 |
+| Data Encoding                                     |       9 |
+| Quantum Amplitude Estimation (QAE)                |       9 |
+| Quantum Arithmetic                                |       7 |
+| Quantum Approximate Optimization Algorithm (QAOA) |       6 |
+| Quantum Singular Value Transformation (QSVT)      |       5 |
+| Variational Quantum Algorithm (VQA)               |       5 |
+| Variational Quantum Eigensolver (VQE)             |       5 |
+| Hamiltonian Simulation                            |       4 |
+| Grover                                            |       2 |
+| Linear Combination of Unitaries (LCU)             |       1 |
+| Phase Shift                                       |       1 |
+| Quantum Phase Estimation (QPE)                    |       1 |
+
+#### Qiskit
+
+| pattern                                           |   count |
+|:--------------------------------------------------|--------:|
+| Basis Change                                      |      26 |
+| Quantum Arithmetic                                |      19 |
+| Circuit Construction Utility                      |      16 |
+| Data Encoding                                     |      16 |
+| Quantum Logical Operators                         |      13 |
+| Initialization                                    |       6 |
+| Variational Quantum Algorithm (VQA)               |       6 |
+| Oracle                                            |       4 |
+| Quantum Approximate Optimization Algorithm (QAOA) |       3 |
+| Grover                                            |       2 |
+| Hamiltonian Simulation                            |       1 |
+
+---
+
+## VI. Top Matched Concepts
+
+### Top 20 Most Frequently Matched Concepts
+
+| Framework   | Concept                    |   Matches |
+|:------------|:---------------------------|----------:|
+| Classiq     | ...hadamard_transform      |        52 |
+| Classiq     | ...qpe                     |        30 |
+| Classiq     | ...qft                     |        26 |
+| Classiq     | ...qpe_flexible            |        26 |
+| Qiskit      | ...QFT                     |        24 |
+| Pennylane   | ...QFT                     |        21 |
+| Classiq     | ...qsvt                    |        19 |
+| Classiq     | ...apply_to_all            |        16 |
+| Classiq     | ...suzuki_trotter          |        15 |
+| Qiskit      | ...AND                     |        11 |
+| Pennylane   | ...QuantumMonteCarlo       |         9 |
+| Classiq     | ...phase_oracle            |         9 |
+| Qiskit      | ...z_feature_map           |         8 |
+| Classiq     | ...grover_operator         |         8 |
+| Qiskit      | ...zz_feature_map          |         8 |
+| Classiq     | ...qft_no_swap             |         8 |
+| Qiskit      | ...Permutation             |         7 |
+| Classiq     | ...amplitude_amplification |         7 |
+| Classiq     | ...qct_qst_type2           |         7 |
+| Classiq     | ...qsvt_inversion          |         7 |
+
+---
+
+## VII. Unmatched Pattern Analysis
+
+The following **3** patterns from the source files were **NOT found** in any project:
+
+- Dynamic Circuit
+- Function Table
+- Schmidt Decomposition

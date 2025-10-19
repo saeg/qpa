@@ -1,0 +1,10 @@
+name,summary
+/classiq/open_library.functions.modular_exponentiation.modular_add_qft_space,Adds a constant `a` to a quantum number `phi_b` modulo the constant `n`. The quantum number `phi_b` is assumed to be in the QFT space.
+/classiq/open_library.functions.modular_exponentiation.modular_multiply,"Performs out-of-place multiplication of a quantum number `x` by a classical number `a` modulo classical number `n`, and adds the result to a quantum array `b` (Applies $b += xa \mod n$)."
+/classiq/open_library.functions.modular_exponentiation.inplace_modular_multiply,Performs multiplication of a quantum number `x` by a classical number `a` modulo classical number `n` (Applies $x=xa \mod n$).
+/classiq/open_library.functions.qsvt.gqsp,"Implements Generalized Quantum Signal Processing (GQSP), which realizes a (Laurent) polynomial transformation of degree d on the eigenvalues of the given signal unitary `u`. The protocol is according to https://arxiv."
+/classiq/open_library.functions.state_preparation.inplace_prepare_int,"This function is **deprecated**. Use in-place-xor assignment statement in the form _target-var_ **^=** _quantum-expression_ or **inplace_xor(**_quantum-expression_**,** _target-var_**)** instead."
+/classiq/open_library.functions.state_preparation.prepare_int,"This function is **deprecated**. Use assignment statement in the form _target-var_ **|=** _quantum-expression_ or **assign(**_quantum-expression_**,** _target-var_**)** instead."
+/classiq/open_library.functions.state_preparation.inplace_prepare_sparse_amplitudes,"Prepares a quantum state with the given (complex) amplitudes. The input is given sparse format, as a list of non-zero states and their corresponding amplitudes."
+/classiq/open_library.functions.state_preparation.prepare_sparse_amplitudes,"Initializes and prepares a quantum state with the given (complex) amplitudes. The input is given sparse format, as a list of non-zero states and their corresponding amplitudes."
+/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.self_product,Define a function map from R^n to R.

@@ -1,0 +1,840 @@
+[
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.adder.Adder",
+    "summary": "Compute the sum of two equally sized qubit registers.",
+    "docstring": "Compute the sum of two equally sized qubit registers.\n\nFor two registers :math:`|a\\rangle_n` and :math:`|b\\rangle_n` with :math:`n` qubits each, an\nadder performs the following operation",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.adder.HalfAdderGate",
+    "summary": "Compute the sum of two equally-sized qubit registers, including a carry-out bit.",
+    "docstring": "Compute the sum of two equally-sized qubit registers, including a carry-out bit.\n\nFor two registers :math:`|a\\rangle_n` and :math:`|b\\rangle_n` with :math:`n` qubits each, an\nadder performs the following operation",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.adder.ModularAdderGate",
+    "summary": "Compute the sum modulo :math:`2^n` of two :math:`n`-sized qubit registers.",
+    "docstring": "Compute the sum modulo :math:`2^n` of two :math:`n`-sized qubit registers.\n\nFor two registers :math:`|a\\rangle_n` and :math:`|b\\rangle_n` with :math:`n` qubits each, an\nadder performs the following operation",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.adder.FullAdderGate",
+    "summary": "Compute the sum of two :math:`n`-sized qubit registers, including carry-in and -out bits.",
+    "docstring": "Compute the sum of two :math:`n`-sized qubit registers, including carry-in and -out bits.\n\nFor two registers :math:`|a\\rangle_n` and :math:`|b\\rangle_n` with :math:`n` qubits each, an\nadder performs the following operation",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.cdkm_ripple_carry_adder.CDKMRippleCarryAdder",
+    "summary": "A ripple-carry circuit to perform in-place addition on two qubit registers.",
+    "docstring": "A ripple-carry circuit to perform in-place addition on two qubit registers.\n\nAs an example, a ripple-carry adder circuit that performs addition on two 3-qubit sized\nregisters with a carry-in bit (``kind=\"full\"``) is as follows:\n\nin this implementation the input register qubits are ordered as all qubits from\nthe first input register, followed by all qubits from the second input register.\n\nTwo different kinds of adders are supported. By setting the ``kind`` argument, you can also\nchoose a half-adder, which doesn't have a carry-in, and a fixed-sized-adder, which has neither\ncarry-in nor carry-out, and thus acts on fixed register sizes. Unlike the full-adder,\nthese circuits need one additional helper qubit.\n\nThe circuit diagram for the fixed-point adder (``kind=\"fixed\"``) on 3-qubit sized inputs is\n\na helper qubit instead of the carry-in, so it only has one less qubit, not two.\n\n.. seealso::\n\n    The following generic gate objects perform additions, like this circuit class,\n    but allow the compiler to select the optimal decomposition based on the context.\n    Specific implementations can be set via the :class:`.HLSConfig`, e.g. this circuit\n    can be chosen via ``Adder=[\"ripple_c04\"]``.\n\n    :class:`.ModularAdderGate`: A generic inplace adder, modulo :math:`2^n`. This\n        is functionally equivalent to ``kind=\"fixed\"``.\n\n    :class:`.AdderGate`: A generic inplace adder. This\n        is functionally equivalent to ``kind=\"half\"``.\n\n    :class:`.FullAdderGate`: A generic inplace adder, with a carry-in bit. This\n        is functionally equivalent to ``kind=\"full\"``.\n\nReferences:\n\n[1] Cuccaro et al., A new quantum ripple-carry addition circuit, 2004.\n`arXiv:quant-ph/0410184 <https://arxiv.org/pdf/quant-ph/0410184.pdf>`_\n\n[2] Vedral et al., Quantum Networks for Elementary Arithmetic Operations, 1995.\n`arXiv:quant-ph/9511018 <https://arxiv.org/pdf/quant-ph/9511018.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Adder"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.draper_qft_adder.DraperQFTAdder",
+    "summary": "A circuit that uses QFT to perform in-place addition on two qubit registers.",
+    "docstring": "A circuit that uses QFT to perform in-place addition on two qubit registers.\n\nFor registers with :math:`n` qubits, the QFT adder can perform addition modulo\n:math:`2^n` (with ``kind=\"fixed\"``) or ordinary addition by adding a carry qubits (with\n``kind=\"half\"``).\n\nAs an example, a non-fixed_point QFT adder circuit that performs addition on two 2-qubit sized\nregisters is as follows:\n\n`arXiv:quant-ph/0008033 <https://arxiv.org/pdf/quant-ph/0008033.pdf>`_\n\n[2] Ruiz-Perez et al., Quantum arithmetic with the Quantum Fourier Transform, 2017.\n`arXiv:1411.5949 <https://arxiv.org/pdf/1411.5949.pdf>`_\n\n[3] Vedral et al., Quantum Networks for Elementary Arithmetic Operations, 1995.\n`arXiv:quant-ph/9511018 <https://arxiv.org/pdf/quant-ph/9511018.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Adder"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.adders.vbe_ripple_carry_adder.VBERippleCarryAdder",
+    "summary": "The VBE ripple carry adder [1].",
+    "docstring": "The VBE ripple carry adder [1].\n\nThis circuit performs inplace addition of two equally-sized quantum registers.\nAs an example, a classical adder circuit that performs full addition (i.e. including\na carry-in bit) on two 2-qubit sized registers is as follows:\n\n*Carry_dg* correspond to the inverse of the *Carry* gate. Note that\nin this implementation the input register qubits are ordered as all qubits from\nthe first input register, followed by all qubits from the second input register.\nThis is different ordering as compared to Figure 2 in [1], which leads to a different\ndrawing of the circuit.\n\n.. seealso::\n\n    The following generic gate objects perform additions, like this circuit class,\n    but allow the compiler to select the optimal decomposition based on the context.\n    Specific implementations can be set via the :class:`.HLSConfig`, e.g. this circuit\n    can be chosen via ``Adder=[\"ripple_v95\"]``.\n\n    :class:`.ModularAdderGate`: A generic inplace adder, modulo :math:`2^n`. This\n        is functionally equivalent to ``kind=\"fixed\"``.\n\n    :class:`.AdderGate`: A generic inplace adder. This\n        is functionally equivalent to ``kind=\"half\"``.\n\n    :class:`.FullAdderGate`: A generic inplace adder, with a carry-in bit. This\n        is functionally equivalent to ``kind=\"full\"``.\n\nReferences:\n\n[1] Vedral et al., Quantum Networks for Elementary Arithmetic Operations, 1995.\n`arXiv:quant-ph/9511018 <https://arxiv.org/pdf/quant-ph/9511018.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Adder"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.exact_reciprocal.ExactReciprocal",
+    "summary": "Exact reciprocal",
+    "docstring": "Exact reciprocal",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.exact_reciprocal.ExactReciprocalGate",
+    "summary": "Implements an exact reciprocal function.",
+    "docstring": "Implements an exact reciprocal function.\n\nFor a state :math:`|x\\rangle` and a scaling factor :math:`s`, this gate implements the operation\n\nthis function would not be defined.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.functional_pauli_rotations.FunctionalPauliRotations",
+    "summary": "Base class for functional Pauli rotations.",
+    "docstring": "Base class for functional Pauli rotations.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "BlueprintCircuit",
+      "ABC"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparator",
+    "summary": "Integer Comparator.",
+    "docstring": "Integer Comparator.\n\nOperator compares basis states :math:`|i\\rangle_n` against a classically given integer\n:math:`L` of fixed value and flips a target qubit if :math:`i \\geq L`\n(or :math:`<` depending on the parameter ``geq``):\n\nuses carry bits and no actual result bits. If the most significant carry bit\n(the results bit) is 1, the :math:`\\geq` condition is ``True`` otherwise it is ``False``.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "BlueprintCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparatorGate",
+    "summary": "Perform a :math:`\\geq` (or :math:`<`) on a qubit register against a classical integer.",
+    "docstring": "Perform a :math:`\\geq` (or :math:`<`) on a qubit register against a classical integer.\n\nThis operator compares basis states :math:`|i\\rangle_n` against a classically given integer\n:math:`L` of fixed value and flips a target qubit if :math:`i \\geq L`\n(or :math:`<` depending on the parameter ``geq``):",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.linear_amplitude_function.LinearAmplitudeFunctionGate",
+    "summary": "A circuit implementing a (piecewise) linear function on qubit amplitudes.",
+    "docstring": "A circuit implementing a (piecewise) linear function on qubit amplitudes.\n\nAn amplitude function :math:`F` of a function :math:`f` is a mapping\n\n:math:`|x\\rangle` is a :math:`n` qubit state.\n\nThis circuit implements :math:`F` for piecewise linear functions :math:`\\hat{f}`.\nIn this case, the mapping :math:`F` can be approximately implemented using a Taylor expansion\nand linearly controlled Pauli-Y rotations, see [1, 2] for more detail. This approximation\nuses a ``rescaling_factor`` to determine the accuracy of the Taylor expansion.\n\nIn general, the function of interest :math:`f` is defined from some interval :math:`[a,b]`,\nthe ``domain`` to :math:`[c,d]`, the ``image``, instead of :math:`\\{ 1, ..., N \\}` to\n:math:`[0, 1]`. Using an affine transformation we can rescale :math:`f` to :math:`\\hat{f}`:\n\n:math:`[p_{i-1}, p_i], i \\in \\{1, ..., m\\}` with slopes :math:`\\alpha_i` and\noffsets :math:`\\beta_i` it can be written as\n\n:math:`[a, b]` and otherwise 0. The breakpoints :math:`p_i` can be specified by the\n``breakpoints`` argument.\n\nReferences:\n\n[1] Woerner, S., & Egger, D. J. (2018).\nQuantum Risk Analysis.\n`arXiv:1806.06893 <http://arxiv.org/abs/1806.06893>`_\n\n[2] Gacon, J., Zoufal, C., & Woerner, S. (2020).\nQuantum-Enhanced Simulation-Based Optimization.\n`arXiv:2005.10780 <http://arxiv.org/abs/2005.10780>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.linear_pauli_rotations.LinearPauliRotationsGate",
+    "summary": "Linearly-controlled X, Y or Z rotation.",
+    "docstring": "Linearly-controlled X, Y or Z rotation.\n\nFor a register of state qubits :math:`|x\\rangle`, a target qubit :math:`|0\\rangle` and the\nbasis ``'Y'`` this circuit acts as:\n\n.. parsed-literal::\n\n        q_0: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 ... \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n                                      \u2502\n                                      .\n                                      \u2502\n    q_(n-1): \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 ... \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n              \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510       \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n        q_n: \u2500\u2524 RY(offset) \u251c\u2500\u2500\u2524 RY(2^0 slope) \u251c  ...  \u2524 RY(2^(n-1) slope) \u251c\n              \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518       \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\nThis can for example be used to approximate linear functions, with :math:`a =` ``slope``:math:`/2`\nand :math:`b =` ``offset``:math:`/2` and the basis ``'Y'``:\n\nlinear functions.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.multipliers.hrs_cumulative_multiplier.HRSCumulativeMultiplier",
+    "summary": "A multiplication circuit to store product of two input registers out-of-place.",
+    "docstring": "A multiplication circuit to store product of two input registers out-of-place.\n\nCircuit uses the approach from [1]. As an example, a multiplier circuit that\nperforms a non-modular multiplication on two 3-qubit sized registers with\nthe default adder is as follows (where ``Adder`` denotes the\n``CDKMRippleCarryAdder``):\n\na series of shifted additions using one of the input registers while the qubits\nfrom the other input register act as control qubits for the adders.\n\n.. seealso::\n\n    The :class:`.MultiplierGate` objects represents a multiplication, like this circuit class,\n    but allows the compiler to select the optimal decomposition based on the context.\n    Specific implementations can be set via the :class:`.HLSConfig`, e.g. this circuit\n    can be chosen via ``Multiplier=[\"cumulative_h18\"]``.\n\nReferences:\n\n[1] H\u00e4ner et al., Optimizing Quantum Circuits for Arithmetic, 2018.\n`arXiv:1805.12445 <https://arxiv.org/pdf/1805.12445.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Multiplier"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.multipliers.multiplier.MultiplierGate",
+    "summary": "Compute the product of two equally sized qubit registers into a new register.",
+    "docstring": "Compute the product of two equally sized qubit registers into a new register.\n\nFor two input registers :math:`|a\\rangle_n`, :math:`|b\\rangle_n` with :math:`n` qubits each\nand an output register with :math:`2n` qubits, a multiplier performs the following operation\n\nof the multiplication without overflow we need :math:`t = 2n` bits.\n\nThe quantum register :math:`|a\\rangle_n` (analogously :math:`|b\\rangle_n` and\noutput register)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.multipliers.rg_qft_multiplier.RGQFTMultiplier",
+    "summary": "A QFT multiplication circuit to store product of two input registers out-of-place.",
+    "docstring": "A QFT multiplication circuit to store product of two input registers out-of-place.\n\nMultiplication in this circuit is implemented using the procedure of Fig. 3 in [1], where\nweighted sum rotations are implemented as given in Fig. 5 in [1]. QFT is used on the output\nregister and is followed by rotations controlled by input registers. The rotations\ntransform the state into the product of two input registers in QFT base, which is\nreverted from QFT base using inverse QFT.\nAs an example, a circuit that performs a modular QFT multiplication on two 2-qubit\nsized input registers with an output register of 2 qubits, is as follows:\n\n`arXiv:1411.5949 <https://arxiv.org/pdf/1411.5949.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Multiplier"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.piecewise_chebyshev.PiecewiseChebyshevGate",
+    "summary": "Piecewise Chebyshev approximation to an input function.",
+    "docstring": "Piecewise Chebyshev approximation to an input function.\n\nFor a given function :math:`f(x)` and degree :math:`d`, this class implements a piecewise\npolynomial Chebyshev approximation on :math:`n` qubits to :math:`f(x)` on the given intervals.\nAll the polynomials in the approximation are of degree :math:`d`.\n\nThe values of the parameters are calculated according to [1] and see [2] for a more\ndetailed explanation of the circuit construction and how it acts on the qubits.\n\nExamples:\n\n    .. plot::\n       :alt: Example of generating a circuit with the piecewise Chebyshev gate.\n       :include-source:\n\n        import numpy as np\n        from qiskit import QuantumCircuit\n        from qiskit.circuit.library.arithmetic import PiecewiseChebyshevGate\n\n        f_x, num_state_qubits, degree, breakpoints = lambda x: np.arcsin(1 / x), 2, 2, [2, 4]\n        pw_approximation = PiecewiseChebyshevGate(f_x, num_state_qubits, degree, breakpoints)\n\n        qc = QuantumCircuit(pw_approximation.num_qubits)\n        qc.h(list(range(num_state_qubits)))\n        qc.append(pw_approximation, qc.qubits)\n        qc.draw(output=\"mpl\")\n\nReferences:\n\n[1] Haener, T., Roetteler, M., & Svore, K. M. (2018).\nOptimizing Quantum Circuits for Arithmetic.\n`arXiv:1805.12445 <http://arxiv.org/abs/1805.12445>`_\n\n[2] Carrera Vazquez, A., Hiptmair, H., & Woerner, S. (2022).\nEnhancing the Quantum Linear Systems Algorithm Using Richardson Extrapolation.\n`ACM Transactions on Quantum Computing 3, 1, Article 2 <https://doi.org/10.1145/3490631>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.piecewise_linear_pauli_rotations.PiecewiseLinearPauliRotationsGate",
+    "summary": "Piecewise-linearly-controlled Pauli rotations.",
+    "docstring": "Piecewise-linearly-controlled Pauli rotations.\n\nFor a piecewise linear (not necessarily continuous) function :math:`f(x)`, which is defined\nthrough breakpoints, slopes and offsets as follows.\nSuppose the breakpoints :math:`(x_0, ..., x_J)` are a subset of :math:`[0, 2^n-1]`, where\n:math:`n` is the number of state qubits. Further on, denote the corresponding slopes and\noffsets by :math:`a_j` and :math:`b_j` respectively.\nThen f(x) is defined as:",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.piecewise_polynomial_pauli_rotations.PiecewisePolynomialPauliRotationsGate",
+    "summary": "Piecewise-polynomially-controlled Pauli rotations.",
+    "docstring": "Piecewise-polynomially-controlled Pauli rotations.\n\nThis class implements a piecewise polynomial (not necessarily continuous) function,\n:math:`f(x)`, on qubit amplitudes, which is defined through breakpoints and coefficients as\nfollows.\n\nSuppose the breakpoints :math:`(x_0, ..., x_J)` are a subset of :math:`[0, 2^n-1]`, where\n:math:`n` is the number of state qubits. Further on, denote the corresponding coefficients by\n:math:`[a_{j,1},...,a_{j,d}]`, where :math:`d` is the highest degree among all polynomials.\n\nThen :math:`f(x)` is defined as:\n\n:math:`x_{J+1} = 2^n`.\n\n.. note::\n\n    Note the :math:`1/2` factor in the coefficients of :math:`f(x)`, this is consistent with\n    Qiskit's Pauli rotations.\n\nExamples:\n    >>> from qiskit import QuantumCircuit\n    >>> from qiskit.circuit.library.arithmetic.piecewise_polynomial_pauli_rotations import\\\n    ... PiecewisePolynomialPauliRotationsGate\n    >>> qubits, breakpoints, coeffs = (2, [0, 2], [[0, -1.2],[-1, 1, 3]])\n    >>> poly_r = PiecewisePolynomialPauliRotationsGate(num_state_qubits=qubits,\n    ...breakpoints=breakpoints, coeffs=coeffs)\n    >>>\n    >>> qc = QuantumCircuit(poly_r.num_qubits)\n    >>> qc.h(list(range(qubits)));\n    >>> qc.append(poly_r, list(range(qc.num_qubits)));\n    >>> qc.draw()\n         \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u25240         \u251c\n         \u251c\u2500\u2500\u2500\u2524\u2502          \u2502\n    q_1: \u2524 H \u251c\u25241         \u251c\n         \u2514\u2500\u2500\u2500\u2518\u2502          \u2502\n    q_2: \u2500\u2500\u2500\u2500\u2500\u25242         \u251c\n              \u2502  pw_poly \u2502\n    q_3: \u2500\u2500\u2500\u2500\u2500\u25243         \u251c\n              \u2502          \u2502\n    q_4: \u2500\u2500\u2500\u2500\u2500\u25244         \u251c\n              \u2502          \u2502\n    q_5: \u2500\u2500\u2500\u2500\u2500\u25245         \u251c\n              \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\nReferences:\n\n[1] Haener, T., Roetteler, M., & Svore, K. M. (2018).\nOptimizing Quantum Circuits for Arithmetic.\n`arXiv:1805.12445 <http://arxiv.org/abs/1805.12445>`_\n\n[2] Carrera Vazquez, A., Hiptmair, R., & Woerner, S. (2022).\nEnhancing the Quantum Linear Systems Algorithm using Richardson Extrapolation.\n`ACM Transactions on Quantum Computing 3, 1, Article 2 <https://doi.org/10.1145/3490631>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.polynomial_pauli_rotations.PolynomialPauliRotations",
+    "summary": "A circuit implementing polynomial Pauli rotations.",
+    "docstring": "A circuit implementing polynomial Pauli rotations.\n\nFor a polynomial :math:`p(x)`, a basis state :math:`|i\\rangle` and a target qubit\n:math:`|0\\rangle` this operator acts as:\n\nwhere q_0 is the least significant qubit. Then for",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "FunctionalPauliRotations"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.polynomial_pauli_rotations.PolynomialPauliRotationsGate",
+    "summary": "A gate implementing polynomial Pauli rotations.",
+    "docstring": "A gate implementing polynomial Pauli rotations.\n\nFor a polynomial :math:`p(x)`, a basis state :math:`|i\\rangle` and a target qubit\n:math:`|0\\rangle` this operator acts as:\n\nwhere q_0 is the least significant qubit. Then for",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.quadratic_form.QuadraticFormGate",
+    "summary": "Implements a quadratic form on binary variables encoded in qubit registers.",
+    "docstring": "Implements a quadratic form on binary variables encoded in qubit registers.\n\nA quadratic form on binary variables is a quadratic function :math:`Q` acting on a binary\nvariable of :math:`n` bits, :math:`x = x_0 ... x_{n-1}`. For an integer matrix :math:`A`,\nan integer vector :math:`b` and an integer :math:`c` the function can be written as\n\nan approximation of the quadratic form.\n\nProvided with :math:`m` qubits to encode the value, this circuit computes :math:`Q(x) \\mod 2^m`\nin [two's complement](https://stackoverflow.com/questions/1049722/what-is-2s-complement)\nrepresentation.\n\nthe value and 1 bit for the sign: `3 = '011'` where the first `0` indicates a positive value.\nOn the other hand, :math:`Q(x) = -3` would be `-3 = '101'`, where the first `1` indicates\na negative value and `01` is the two's complement of `3`.\n\nIf the value of :math:`Q(x)` is too large to be represented with `m` qubits, the resulting\nbitstring is :math:`(Q(x) + 2^m) \\mod 2^m)`.\n\nThe implementation of this circuit is discussed in [1], Fig. 6.\n\nReferences:\n\n[1] Gilliam et al., Grover Adaptive Search for Constrained Polynomial Binary Optimization.\n`arXiv:1912.04088 <https://arxiv.org/pdf/1912.04088.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.weighted_adder.WeightedAdder",
+    "summary": "A circuit to compute the weighted sum of qubit registers.",
+    "docstring": "A circuit to compute the weighted sum of qubit registers.\n\nGiven :math:`n` qubit basis states :math:`q_0, \\ldots, q_{n-1} \\in \\{0, 1\\}` and non-negative\ninteger weights :math:`\\lambda_0, \\ldots, \\lambda_{n-1}`, this circuit performs the operation\n\nThis can be computed as\n\ninvalid).\n\nFor qubits in a circuit diagram, the first weight applies to the upper-most qubit.\nFor an example where the state of 4 qubits is added into a sum register, the circuit can\nbe schematically drawn as",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "BlueprintCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.arithmetic.weighted_adder.WeightedSumGate",
+    "summary": "A gate to compute the weighted sum of qubit registers.",
+    "docstring": "A gate to compute the weighted sum of qubit registers.\n\nGiven :math:`n` qubit basis states :math:`q_0, \\ldots, q_{n-1} \\in \\{0, 1\\}` and non-negative\ninteger weights :math:`\\lambda_0, \\ldots, \\lambda_{n-1}`, this implements the operation\n\nThis can be computed as\n\ninvalid).\n\nFor qubits in a circuit diagram, the first weight applies to the upper-most qubit.\nFor an example where the state of 4 qubits is added into a sum register, the circuit can\nbe schematically drawn as",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.basis_change.qft.QFT",
+    "summary": "Quantum Fourier Transform Circuit.",
+    "docstring": "Quantum Fourier Transform Circuit.\n\nThe Quantum Fourier Transform (QFT) on :math:`n` qubits is the operation\n\non each qubit, a series of controlled-U1 (or Z, depending on the phase) gates and a\nlayer of Swap gates. The layer of Swap gates can in principle be dropped if the QFT appears\nat the end of the circuit, since then the re-ordering can be done classically. They\ncan be turned off using the ``do_swaps`` attribute.\n\nFor 4 qubits, the circuit that implements this transformation is:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import QFT\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QFT(4)\n   _generate_circuit_library_visualization(circuit)\n\nThe inverse QFT can be obtained by calling the ``inverse`` method on this class.\nThe respective circuit diagram is:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import QFT\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QFT(4).inverse()\n   _generate_circuit_library_visualization(circuit)\n\nOne method to reduce circuit depth is to implement the QFT approximately by ignoring\ncontrolled-phase rotations where the angle is beneath a threshold. This is discussed\nin more detail in https://arxiv.org/abs/quant-ph/9601018 or\nhttps://arxiv.org/abs/quant-ph/0403071.\n\nHere, this can be adjusted using the ``approximation_degree`` attribute: the smallest\n``approximation_degree`` rotation angles are dropped from the QFT. For instance, a QFT\non 5 qubits with approximation degree 2 yields (the barriers are dropped in this example):\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import QFT\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QFT(5, approximation_degree=2)\n   _generate_circuit_library_visualization(circuit)",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "BlueprintCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.basis_change.qft.QFTGate",
+    "summary": "Quantum Fourier Transform Gate.",
+    "docstring": "Quantum Fourier Transform Gate.\n\nThe Quantum Fourier Transform (QFT) on :math:`n` qubits is the operation",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.bit_flip_oracle.BitFlipOracleGate",
+    "summary": "Implements a bit-flip oracle",
+    "docstring": "Implements a bit-flip oracle\n\nThe Bit-flip Oracle Gate object constructs circuits for any arbitrary\ninput logical expressions. A logical expression is composed of logical operators\n`&` (logical `AND`), `|` (logical  `OR`),\n`~` (logical  `NOT`), and `^` (logical  `XOR`).\nas well as symbols for literals (variables).\nFor example, `'a & b'`, and `(v0 | ~v1) & (~v2 & v3)`\nare both valid string representation of boolean logical expressions.\n\nA bit-flip oracle for a boolean function `f(x)` performs the following\nquantum operation:\n\nalso supports input strings in the `DIMACS CNF format\n<https://web.archive.org/web/20190325181937/https://www.satcompetition.org/2009/format-benchmarks2009.html>`__,\nwhich is the standard format for specifying SATisfiability (SAT) problem instances in\n`Conjunctive Normal Form (CNF) <https://en.wikipedia.org/wiki/Conjunctive_normal_form>`__,\nwhich is a conjunction of one or more clauses, where a clause is a disjunction of one\nor more literals.\nSee :meth:`qiskit.circuit.library.bit_flip_oracle.BitFlipOracleGate.from_dimacs_file`.\n\nFrom 16 variables on, possible performance issues should be expected when using the\ndefault synthesizer.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.blueprintcircuit.BlueprintCircuit",
+    "summary": "Blueprint circuit object.",
+    "docstring": "Blueprint circuit object.\n\nIn many applications it is necessary to pass around the structure a circuit will have without\nexplicitly knowing e.g. its number of qubits, or other missing information. This can be solved\nby having a circuit that knows how to construct itself, once all information is available.\n\nThis class provides an interface for such circuits. Before internal data of the circuit is\naccessed, the ``_build`` method is called. There the configuration of the circuit is checked.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit",
+      "ABC"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.boolean_logic.inner_product.InnerProductGate",
+    "summary": "A 2n-qubit Boolean function that computes the inner product of two n-qubit vectors over :math:`F_2`.",
+    "docstring": "A 2n-qubit Boolean function that computes the inner product of\ntwo n-qubit vectors over :math:`F_2`.\n\nThis implementation is a phase oracle which computes the following transform.\n\nwhere the inner product of the top and bottom registers is 1. Otherwise, it keeps\nthe input intact.\n\n.. parsed-literal::\n\n\n    q0_0: \u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n           \u2502\n    q0_1: \u2500\u253c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n           \u2502  \u2502\n    q0_2: \u2500\u253c\u2500\u2500\u253c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\n           \u2502  \u2502  \u2502\n    q0_3: \u2500\u253c\u2500\u2500\u253c\u2500\u2500\u253c\u2500\u2500\u25a0\u2500\n           \u2502  \u2502  \u2502  \u2502\n    q1_0: \u2500\u25a0\u2500\u2500\u253c\u2500\u2500\u253c\u2500\u2500\u253c\u2500\n              \u2502  \u2502  \u2502\n    q1_1: \u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u253c\u2500\u2500\u253c\u2500\n                 \u2502  \u2502\n    q1_2: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u253c\u2500\n                    \u2502\n    q1_3: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\n\n\nReference Circuit:\n    .. plot::\n       :alt: Diagram illustrating the previously described circuit.\n\n       from qiskit.circuit import QuantumCircuit\n       from qiskit.circuit.library import InnerProductGate\n       from qiskit.visualization.library import _generate_circuit_library_visualization\n       circuit = QuantumCircuit(8)\n       circuit.append(InnerProductGate(4), [0, 1, 2, 3, 4, 5, 6, 7])\n       _generate_circuit_library_visualization(circuit)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND",
+    "summary": "A circuit implementing the logical AND operation on a number of qubits.",
+    "docstring": "A circuit implementing the logical AND operation on a number of qubits.\n\nFor the AND operation the state :math:`|1\\rangle` is interpreted as ``True``. The result\nqubit is flipped, if the state of all variable qubits is ``True``. In this format, the AND\noperation equals a multi-controlled X gate, which is controlled on all variable qubits.\nUsing a list of flags however, qubits can be skipped or negated. Practically, the flags\nallow to skip controls or to apply pre- and post-X gates to the negated qubits.\n\nThe AND gate without special flags equals the multi-controlled-X gate:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import AND\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = AND(5)\n   _generate_circuit_library_visualization(circuit)\n\nUsing flags we can negate qubits or skip them. For instance, if we have 5 qubits and want to\nreturn ``True`` if the first qubit is ``False`` and the last two are ``True`` we use the flags\n``[-1, 0, 0, 1, 1]``.\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import AND\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = AND(5, flags=[-1, 0, 0, 1, 1])\n   _generate_circuit_library_visualization(circuit)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AndGate",
+    "summary": "A gate representing the logical AND operation on a number of qubits.",
+    "docstring": "A gate representing the logical AND operation on a number of qubits.\n\nFor the AND operation the state :math:`|1\\rangle` is interpreted as ``True``. The result\nqubit is flipped, if the state of all variable qubits is ``True``. In this format, the AND\noperation equals a multi-controlled X gate, which is controlled on all variable qubits.\nUsing a list of flags however, qubits can be skipped or negated. Practically, the flags\nallow to skip controls or to apply pre- and post-X gates to the negated qubits.\n\nThe AndGate gate without special flags equals the multi-controlled-X gate:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit import QuantumCircuit\n   from qiskit.circuit.library import AndGate\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QuantumCircuit(6)\n   circuit.append(AndGate(5), [0, 1, 2, 3, 4, 5])\n   _generate_circuit_library_visualization(circuit)\n\nUsing flags we can negate qubits or skip them. For instance, if we have 5 qubits and want to\nreturn ``True`` if the first qubit is ``False`` and the last two are ``True`` we use the flags\n``[-1, 0, 0, 1, 1]``.\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit import QuantumCircuit\n   from qiskit.circuit.library import AndGate\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QuantumCircuit(6)\n   circuit.append(AndGate(5, flags=[-1, 0, 0, 1, 1]), [0, 1, 2, 3, 4, 5])\n   _generate_circuit_library_visualization(circuit)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.boolean_logic.quantum_or.OR",
+    "summary": "A circuit implementing the logical OR operation on a number of qubits.",
+    "docstring": "A circuit implementing the logical OR operation on a number of qubits.\n\nFor the OR operation the state :math:`|1\\rangle` is interpreted as ``True``. The result\nqubit is flipped, if the state of any variable qubit is ``True``. The OR is implemented using\na multi-open-controlled X gate (i.e. flips if the state is :math:`|0\\rangle`) and\napplying an X gate on the result qubit.\nUsing a list of flags, qubits can be skipped or negated.\n\nThe OR gate without special flags:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import OR\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = OR(5)\n   _generate_circuit_library_visualization(circuit)\n\nUsing flags we can negate qubits or skip them. For instance, if we have 5 qubits and want to\nreturn ``True`` if the first qubit is ``False`` or one of the last two are ``True`` we use the\nflags ``[-1, 0, 0, 1, 1]``.\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import OR\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = OR(5, flags=[-1, 0, 0, 1, 1])\n   _generate_circuit_library_visualization(circuit)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.boolean_logic.quantum_xor.BitwiseXorGate",
+    "summary": "An n-qubit gate for bitwise xor-ing the input with some integer ``amount``.",
+    "docstring": "An n-qubit gate for bitwise xor-ing the input with some integer ``amount``.\n\nThe ``amount`` is xor-ed in bitstring form with the input.\n\nThis gate can also represent addition by ``amount`` over the finite field GF(2).\n\nReference Circuit:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit import QuantumCircuit\n   from qiskit.circuit.library import BitwiseXorGate\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QuantumCircuit(5)\n   circuit.append(BitwiseXorGate(5, amount=12), [0, 1, 2, 3, 4])\n   _generate_circuit_library_visualization(circuit)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.boolean_logic.quantum_xor.random_bitwise_xor",
+    "summary": "Create a random BitwiseXorGate.",
+    "docstring": "Create a random BitwiseXorGate.\n\nArgs:\n    num_qubits: the width of circuit.\n    seed: random seed in case a random xor is requested.",
+    "type": "Function"
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.z_feature_map",
+    "summary": "The first order Pauli Z-evolution circuit.",
+    "docstring": "The first order Pauli Z-evolution circuit.\n\nOn 3 qubits and with 2 repetitions the circuit is represented by:\n\nstrings are fixed as `['Z']`. As a result the first order expansion will be a circuit without\nentangling gates.\n\nExamples:\n\n    >>> from qiskit.circuit.library import z_feature_map\n    >>> prep = z_feature_map(3, reps=3, insert_barriers=True)\n    >>> print(prep)\n         \u250c\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[0]) \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[0]) \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[0]) \u251c\n         \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[1]) \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[1]) \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[1]) \u251c\n         \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[2]) \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[2]) \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 P(2.0*x[2]) \u251c\n         \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> data_map = lambda x: x[0]*x[0] + 1  # note: input is an array\n    >>> prep = z_feature_map(3, reps=1, data_map_func=data_map)\n    >>> print(prep)\n         \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2524 P(2.0*x[0]**2 + 2.0) \u251c\n         \u251c\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 H \u251c\u2524 P(2.0*x[1]**2 + 2.0) \u251c\n         \u251c\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 H \u251c\u2524 P(2.0*x[2]**2 + 2.0) \u251c\n         \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> from qiskit.circuit.library import n_local\n    >>> circuit = n_local(3, \"ry\", \"cz\", reps=1).decompose()\n    >>> classifier = z_feature_map(3, reps=1)\n    >>> classifier.append(circuit, list(range(classifier.num_qubits)))\n    >>> print(classifier)\n         \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510      \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2524 P(2.0*x[0]) \u251c\u2524 RY(\u03b8[0]) \u251c\u2500\u25a0\u2500\u2500\u25a0\u2500\u2524 RY(\u03b8[3]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2502  \u2502 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_1: \u2524 H \u251c\u2524 P(2.0*x[1]) \u251c\u2524 RY(\u03b8[1]) \u251c\u2500\u25a0\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[4]) \u251c\n         \u251c\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524    \u2502      \u2502      \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 H \u251c\u2524 P(2.0*x[2]) \u251c\u2524 RY(\u03b8[2]) \u251c\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[5]) \u251c\n         \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518                  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518",
+    "type": "Function"
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.zz_feature_map",
+    "summary": "Second-order Pauli-Z evolution circuit.",
+    "docstring": "Second-order Pauli-Z evolution circuit.\n\nFor 3 qubits and 1 repetition and linear entanglement the circuit is represented by:\n\nif and :math:`\\varphi(x,y) = (\\pi - x)(\\pi - y)`.\n\nExamples:\n\n    >>> from qiskit.circuit.library import zz_feature_map\n    >>> prep = zz_feature_map(2, reps=1)\n    >>> print(prep)\n         \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2524 P(2.0*x[0]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510\n    q_1: \u2524 H \u251c\u2524 P(2.0*x[1]) \u251c\u2524 X \u251c\u2524 P(2.0*(pi - x[0])*(pi - x[1])) \u251c\u2524 X \u251c\n         \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n\n    >>> from qiskit.circuit.library import efficient_su2\n    >>> classifier = zz_feature_map(3).compose(efficient_su2(3))\n    >>> classifier.num_parameters\n    27\n    >>> classifier.parameters  # 'x' for the data preparation, '\u03b8' for the SU2 parameters\n    ParameterView([\n        ParameterVectorElement(x[0]), ParameterVectorElement(x[1]),\n        ParameterVectorElement(x[2]), ParameterVectorElement(\u03b8[0]),\n        ParameterVectorElement(\u03b8[1]), ParameterVectorElement(\u03b8[2]),\n        ParameterVectorElement(\u03b8[3]), ParameterVectorElement(\u03b8[4]),\n        ParameterVectorElement(\u03b8[5]), ParameterVectorElement(\u03b8[6]),\n        ParameterVectorElement(\u03b8[7]), ParameterVectorElement(\u03b8[8]),\n        ParameterVectorElement(\u03b8[9]), ParameterVectorElement(\u03b8[10]),\n        ParameterVectorElement(\u03b8[11]), ParameterVectorElement(\u03b8[12]),\n        ParameterVectorElement(\u03b8[13]), ParameterVectorElement(\u03b8[14]),\n        ParameterVectorElement(\u03b8[15]), ParameterVectorElement(\u03b8[16]),\n        ParameterVectorElement(\u03b8[17]), ParameterVectorElement(\u03b8[18]),\n        ParameterVectorElement(\u03b8[19]), ParameterVectorElement(\u03b8[20]),\n        ParameterVectorElement(\u03b8[21]), ParameterVectorElement(\u03b8[22]),\n        ParameterVectorElement(\u03b8[23])\n    ])",
+    "type": "Function"
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.initializer.Initialize",
+    "summary": "Complex amplitude initialization.",
+    "docstring": "Complex amplitude initialization.\n\nClass that initializes some flexible collection of qubit registers, implemented by calling\nthe :class:`~.library.StatePreparation` class.\nNote that ``Initialize`` is an :class:`~.circuit.Instruction` and not a :class:`.Gate` since it\ncontains a reset instruction, which is not unitary.\n\nThe initial state is prepared based on the :class:`~.library.Isometry` synthesis described in [1].\n\nReferences:\n\n[1] Iten et al., Quantum circuits for isometries (2016).\n`Phys. Rev. A 93, 032318\n<https://journals.aps.org/pra/abstract/10.1103/PhysRevA.93.032318>`__.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Instruction"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.PauliFeatureMap",
+    "summary": "The Pauli Expansion circuit.",
+    "docstring": "The Pauli Expansion circuit.\n\nThe Pauli Expansion circuit is a data encoding circuit that transforms input data\n:math:`\\vec{x} \\in \\mathbb{R}^n`, where `n` is the ``feature_dimension``, as\n\n:math:`\\mathcal{I}` is a set containing all these index sets, and\n:math:`P_i \\in \\{I, X, Y, Z\\}`. Per default the data-mapping\n:math:`\\phi_S` is\n\nFor example, for single-qubit :math:`Z` rotations and two-qubit :math:`YY` interactions\nbetween all qubit pairs, we can set::\n\n\n    feature_map = PauliFeatureMap(..., paulis=[\"Z\", \"YY\"], entanglement=\"full\")\n\nwhich will produce blocks of the form\n\nand to :class:`.ZZFeatureMap` for the single- and two-qubit Pauli-:math:`Z` rotations.\n\nExamples:\n\n    >>> prep = PauliFeatureMap(2, reps=1, paulis=['ZZ'])\n    >>> print(prep.decompose())\n         \u250c\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510\n    q_1: \u2524 H \u251c\u2524 X \u251c\u2524 P(2.0*(pi - x[0])*(pi - x[1])) \u251c\u2524 X \u251c\n         \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n\n    >>> prep = PauliFeatureMap(2, reps=1, paulis=['Z', 'XX'])\n    >>> print(prep.decompose())\n         \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510                                            \u250c\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2524 P(2.0*x[0]) \u251c\u2524 H \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 H \u251c\n         \u251c\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510\u251c\u2500\u2500\u2500\u2524\n    q_1: \u2524 H \u251c\u2524 P(2.0*x[1]) \u251c\u2524 H \u251c\u2524 X \u251c\u2524 P(2.0*(pi - x[0])*(pi - x[1])) \u251c\u2524 X \u251c\u2524 H \u251c\n         \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n\n    >>> prep = PauliFeatureMap(2, reps=1, paulis=['ZY'])\n    >>> print(prep.decompose())\n         \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                                            \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 H \u251c\u2524 RX(pi/2) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 RX(-pi/2) \u251c\n         \u251c\u2500\u2500\u2500\u2524\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n    q_1: \u2524 H \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2524 P(2.0*(pi - x[0])*(pi - x[1])) \u251c\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u2514\u2500\u2500\u2500\u2518            \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n\n    >>> from qiskit.circuit.library import EfficientSU2\n    >>> prep = PauliFeatureMap(3, reps=3, paulis=['Z', 'YY', 'ZXZ'])\n    >>> wavefunction = EfficientSU2(3)\n    >>> classifier = prep.compose(wavefunction)\n    >>> classifier.num_parameters\n    27\n    >>> classifier.count_ops()\n    OrderedDict([('cx', 39), ('rx', 36), ('u1', 21), ('h', 15), ('ry', 12), ('rz', 12)])\n\nReferences:\n\n[1] Havlicek et al. Supervised learning with quantum enhanced feature spaces,\n`Nature 567, 209-212 (2019) <https://www.nature.com/articles/s41586-019-0980-2>`__.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "NLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.self_product",
+    "summary": "Define a function map from R^n to R.",
+    "docstring": "Define a function map from R^n to R.\n\nArgs:\n    x: data\n\nReturns:\n    float: the mapped value",
+    "type": "Function"
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.state_preparation.StatePreparation",
+    "summary": "Complex amplitude state preparation.",
+    "docstring": "Complex amplitude state preparation.\n\nClass that implements the (complex amplitude) state preparation of some\nflexible collection of qubit registers.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.data_preparation.state_preparation.UniformSuperpositionGate",
+    "summary": "Implements a uniform superposition state.",
+    "docstring": "Implements a uniform superposition state.\n\nThis gate is used to create the uniform superposition state\n:math:`\\frac{1}{\\sqrt{M}} \\sum_{j=0}^{M-1}  |j\\rangle` when it acts on an input\nstate :math:`|0...0\\rangle`. Note, that `M` is not required to be\na power of 2, in which case the uniform superposition could be\nprepared by a single layer of Hadamard gates.\n\n.. note::\n\n    This class uses the Shukla-Vedula algorithm [1], which only needs\n    :math:`O(\\log_2 (M))` qubits and :math:`O(\\log_2 (M))` gates,\n    to prepare the superposition.\n\nReferences:\n\n[1]: A. Shukla and P. Vedula (2024), An efficient quantum algorithm for preparation\nof uniform quantum superposition states, `Quantum Inf Process 23, 38\n<https://link.springer.com/article/10.1007/s11128-024-04258-4>`_.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.fourier_checking.FourierChecking",
+    "summary": "Fourier checking circuit.",
+    "docstring": "Fourier checking circuit.\n\nThe circuit for the Fourier checking algorithm, introduced in [1],\ninvolves a layer of Hadamards, the function :math:`f`, another layer of\nHadamards, the function :math:`g`, followed by a final layer of Hadamards.\nThe functions :math:`f` and :math:`g` are classical functions realized\nas phase oracles (diagonal operators with {-1, 1} on the diagonal).\n\nThe probability of observing the all-zeros string is :math:`p(f,g)`.\nThe algorithm solves the promise Fourier checking problem,\nwhich decides if f is correlated with the Fourier transform\nof g, by testing if :math:`p(f,g) <= 0.01` or :math:`p(f,g) >= 0.05`,\npromised that one or the other of these is true.\n\nThe functions :math:`f` and :math:`g` are currently implemented\nfrom their truth tables but could be represented concisely and\nimplemented efficiently for special classes of functions.\n\nFourier checking is a special case of :math:`k`-fold forrelation [2].\n\nReferences:\n\n[1] S. Aaronson, BQP and the Polynomial Hierarchy, 2009 (Section 3.2).\n`arXiv:0910.4698 <https://arxiv.org/abs/0910.4698>`_\n\n[2] S. Aaronson, A. Ambainis, Forrelation: a problem that\noptimally separates quantum from classical computing, 2014.\n`arXiv:1411.5729 <https://arxiv.org/abs/1411.5729>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.diagonal.Diagonal",
+    "summary": "Circuit implementing a diagonal transformation.",
+    "docstring": "Circuit implementing a diagonal transformation.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.diagonal.DiagonalGate",
+    "summary": "A generic diagonal quantum gate.",
+    "docstring": "A generic diagonal quantum gate.\n\nMatrix form:\n\n.. math::\n    \\text{DiagonalGate}\\ q_0, q_1, .., q_{n-1} =\n        \\begin{pmatrix}\n            D[0]    & 0         & \\dots     & 0 \\\\\n            0       & D[1]      & \\dots     & 0 \\\\\n            \\vdots  & \\vdots    & \\ddots    & 0 \\\\\n            0       & 0         & \\dots     & D[n-1]\n        \\end{pmatrix}\n\nDiagonal gates are useful as representations of Boolean functions,\nas they can map from :math:`\\{0,1\\}^{2^n}` to :math:`\\{0,1\\}^{2^n}` space. For example a phase\noracle can be seen as a diagonal gate with :math:`\\{1, -1\\}` on the diagonals. Such\nan oracle will induce a :math:`+1` or :math`-1` phase on the amplitude of any corresponding\nbasis state.\n\nDiagonal gates appear in many classically hard oracular problems such as\nForrelation or Hidden Shift circuits.\n\nDiagonal gates are represented and simulated more efficiently than a dense\n:math:`2^n \\times 2^n` unitary matrix.\n\nThe reference implementation is via the method described in\nTheorem 7 of [1]. The code is based on Emanuel Malvetti's semester thesis\nat ETH in 2018, supervised by Raban Iten and Prof. Renato Renner.\n\nReferences:\n\n[1] Shende et al., Synthesis of Quantum Logic Circuits, 2009\n`arXiv:0406176 <https://arxiv.org/pdf/quant-ph/0406176.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.gms.GMS",
+    "summary": "Global M\u00f8lmer\u2013S\u00f8rensen gate.",
+    "docstring": "Global M\u00f8lmer\u2013S\u00f8rensen gate.\n\nCircuit symbol:\n\ncan be applied to multiple ions to entangle multiple qubits simultaneously [1].\n\nIn the two-qubit case, this is equivalent to an XX(theta) interaction,\nand is thus reduced to the RXXGate. The global MS gate is a sum of XX\ninteractions on all pairs [2].\n\nPhysical Review Letters. 82 (9): 1835\u20131838.\n`arXiv:9810040 <https://arxiv.org/abs/quant-ph/9810040>`_\n\n[2] Maslov, D. and Nam, Y., Use of global interactions in efficient quantum circuit\nconstructions. New Journal of Physics, 20(3), p.033018.\n`arXiv:1707.06356 <https://arxiv.org/abs/1707.06356>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.gms.MSGate",
+    "summary": "The M\u00f8lmer\u2013S\u00f8rensen gate.",
+    "docstring": "The M\u00f8lmer\u2013S\u00f8rensen gate.\n\nThe M\u00f8lmer\u2013S\u00f8rensen gate is native to ion-trap systems. The global MS\ncan be applied to multiple ions to entangle multiple qubits simultaneously [1].\n\nIn the two-qubit case, this is equivalent to an XX interaction,\nand is thus reduced to the :class:`.RXXGate`. The global MS gate is a sum of XX\ninteractions on all pairs [2].\n\nPhysical Review Letters. 82 (9): 1835\u20131838.\n`arXiv:9810040 <https://arxiv.org/abs/quant-ph/9810040>`_\n\n[2] Maslov, D. and Nam, Y., Use of global interactions in efficient quantum circuit\nconstructions. New Journal of Physics, 20(3), p.033018.\n`arXiv:1707.06356 <https://arxiv.org/abs/1707.06356>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.gr.GR",
+    "summary": "Global R gate.",
+    "docstring": "Global R gate.\n\nCircuit symbol:\n\ncan be applied to multiple qubits simultaneously.\n\nIn the one-qubit case, this is equivalent to an R(theta, phi) operation,\nand is thus reduced to the RGate. The global R gate is a direct sum of R\noperations on all individual qubits.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.gr.GRX",
+    "summary": "Global RX gate.",
+    "docstring": "Global RX gate.\n\n**Circuit symbol:**\n\ncan be applied to multiple qubits simultaneously.\n\nIn the one-qubit case, this is equivalent to an RX(theta) operations,\nand is thus reduced to the RXGate. The global RX gate is a direct sum of RX\noperations on all individual qubits.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "GR"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.gr.GRY",
+    "summary": "Global RY gate.",
+    "docstring": "Global RY gate.\n\n**Circuit symbol:**\n\ncan be applied to multiple qubits simultaneously.\n\nIn the one-qubit case, this is equivalent to an RY(theta) operation,\nand is thus reduced to the RYGate. The global RY gate is a direct sum of RY\noperations on all individual qubits.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "GR"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.gr.GRZ",
+    "summary": "Global RZ gate.",
+    "docstring": "Global RZ gate.\n\n**Circuit symbol:**\n\ncan be applied to multiple qubits simultaneously.\n\nIn the one-qubit case, this is equivalent to an RZ(phi) operation,\nand is thus reduced to the RZGate. The global RZ gate is a direct sum of RZ\noperations on all individual qubits.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.isometry.Isometry",
+    "summary": "Decomposition of arbitrary isometries from :math:`m` to :math:`n` qubits.",
+    "docstring": "Decomposition of arbitrary isometries from :math:`m` to :math:`n` qubits.\n\nIn particular, this allows to decompose unitaries (m=n) and to do state preparation (:math:`m=0`).\n\nThe decomposition is based on [1].\n\nReferences:\n\n[1] Iten et al., Quantum circuits for isometries (2016).\n`Phys. Rev. A 93, 032318\n<https://journals.aps.org/pra/abstract/10.1103/PhysRevA.93.032318>`__.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "Instruction"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.linear_function.LinearFunction",
+    "summary": "A linear reversible circuit on n qubits.",
+    "docstring": "A linear reversible circuit on n qubits.\n\nInternally, a linear function acting on n qubits is represented\nas a n x n matrix of 0s and 1s in numpy array format.\n\nA linear function can be synthesized into CX and SWAP gates using the Patel\u2013Markov\u2013Hayes\nalgorithm, as implemented in :func:`~qiskit.synthesis.synth_cnot_count_full_pmh`\nbased on reference [1].\n\nFor efficiency, the internal n x n matrix is stored in the format expected\nby cnot_synth, which is the big-endian (and not the little-endian) bit-ordering convention.\n\nExample:\n \nThe circuit\n\nOptimal synthesis of linear reversible circuits,\nQuantum Inf. Comput. 8(3) (2008).\n`Online at umich.edu. <https://web.eecs.umich.edu/~imarkov/pubs/jour/qic08-cnot.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.mcg_up_to_diagonal.MCGupDiag",
+    "summary": "Decomposes a multi-controlled gate :math:`U` up to a diagonal :math:`D` acting on the control and target qubit (but not on the ancilla qubits), i.e., it implements a circuit corresponding to a unitary :math:`U'`, such that :math:`U = D U'`.",
+    "docstring": "Decomposes a multi-controlled gate :math:`U` up to a diagonal :math:`D` acting on the control\nand target qubit (but not on the ancilla qubits), i.e., it implements a circuit corresponding to\na unitary :math:`U'`, such that :math:`U = D U'`.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.mcmt.MCMTGate",
+    "summary": "The multi-controlled multi-target gate, for an arbitrary singly controlled target gate.",
+    "docstring": "The multi-controlled multi-target gate, for an arbitrary singly controlled target gate.\n\nFor example, the H gate controlled on 3 qubits and acting on 2 target qubit is represented as:\n\n.. parsed-literal::\n\n    \u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\n       \u2502\n    \u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\n       \u2502\n    \u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\n    \u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2510\n    \u25240     \u251c\n    \u2502  2-H \u2502\n    \u25241     \u251c\n    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\nDepending on the number of available auxiliary qubits, this operation can be synthesized\nusing different methods. For example, if :math:`n - 1` clean auxiliary qubits are available\n(where :math:`n` is the number of control qubits), a V-chain decomposition can be used whose\ndepth is linear in :math:`n`. See also :func:`.synth_mcmt_chain`.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "ControlledGate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.mcmt.MCMTVChain",
+    "summary": "The MCMT implementation using the CCX V-chain.",
+    "docstring": "The MCMT implementation using the CCX V-chain.\n\nThis implementation requires ancillas but is decomposed into a much shallower circuit\nthan the default implementation in :class:`~qiskit.circuit.library.MCMT`.\n\nExpanded circuit:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import MCMTVChain, ZGate\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = MCMTVChain(ZGate(), 2, 2)\n   _generate_circuit_library_visualization(circuit.decompose())\n\nExamples:\n\n    >>> from qiskit.circuit.library import HGate\n    >>> MCMTVChain(HGate(), 3, 2).draw()\n\n    q_0: \u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\n           \u2502                        \u2502\n    q_1: \u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\n           \u2502                        \u2502\n    q_2: \u2500\u2500\u253c\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u253c\u2500\u2500\n           \u2502    \u2502  \u250c\u2500\u2500\u2500\u2510       \u2502    \u2502\n    q_3: \u2500\u2500\u253c\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2524 H \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u253c\u2500\u2500\n           \u2502    \u2502  \u2514\u2500\u252c\u2500\u2518\u250c\u2500\u2500\u2500\u2510  \u2502    \u2502\n    q_4: \u2500\u2500\u253c\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2524 H \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u253c\u2500\u2500\n         \u250c\u2500\u2534\u2500\u2510  \u2502    \u2502  \u2514\u2500\u252c\u2500\u2518  \u2502  \u250c\u2500\u2534\u2500\u2510\n    q_5: \u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 X \u251c\n         \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510  \u2502    \u2502  \u250c\u2500\u2534\u2500\u2510\u2514\u2500\u2500\u2500\u2518\n    q_6: \u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\n              \u2514\u2500\u2500\u2500\u2518          \u2514\u2500\u2500\u2500\u2518",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "MCMT"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.pauli.PauliGate",
+    "summary": "A multi-qubit Pauli gate.",
+    "docstring": "A multi-qubit Pauli gate.\n\nThis gate exists for optimization purposes for the\nquantum statevector simulation, since applying multiple\npauli gates to different qubits at once can be done via\na single pass on the statevector.\n\nThe functionality is equivalent to applying\nthe pauli gates sequentially using standard Qiskit gates.\n\nCan be applied to a :class:`~qiskit.circuit.QuantumCircuit`\nwith the :meth:`~qiskit.circuit.QuantumCircuit.pauli` method.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation",
+    "summary": "An n_qubit circuit that permutes qubits.",
+    "docstring": "An n_qubit circuit that permutes qubits.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.permutation.PermutationGate",
+    "summary": "A gate that permutes qubits.",
+    "docstring": "A gate that permutes qubits.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.rv.RVGate",
+    "summary": "Rotation around arbitrary rotation axis :math:`\\vec{v}` where :math:`\\|\\vec{v}\\|_2` is angle of rotation in radians.",
+    "docstring": "Rotation around arbitrary rotation axis :math:`\\vec{v}` where :math:`\\|\\vec{v}\\|_2` is\nangle of rotation in radians.\n\nCan be applied to a :class:`~qiskit.circuit.QuantumCircuit`\nwith the :meth:`~qiskit.circuit.QuantumCircuit.rv` method.\n\nCircuit symbol:",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.uc.UCGate",
+    "summary": "Uniformly controlled gate (also called multiplexed gate).",
+    "docstring": "Uniformly controlled gate (also called multiplexed gate).\n\nThese gates can have several control qubits and a single target qubit.\nIf the k control qubits are in the state :math:`|i\\rangle` (in the computational basis),\na single-qubit unitary :math:`U_i` is applied to the target qubit.\n\nThis gate is represented by a block-diagonal matrix, where each block is a\n:math:`2\\times 2` unitary, that is\n\n`Phys. Rev. A 71, 052330 <https://journals.aps.org/pra/abstract/10.1103/PhysRevA.71.052330>`__.\n\n[2] de Carvalho et al., Quantum multiplexer simplification for state preparation (2024).\n`arXiv:2409.05618 <https://arxiv.org/abs/2409.05618>`__.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.uc_pauli_rot.UCPauliRotGate",
+    "summary": "Uniformly controlled Pauli rotations.",
+    "docstring": "Uniformly controlled Pauli rotations.\n\nImplements the :class:`.UCGate` for the special case that all unitaries are Pauli rotations,\n:math:`U_i = R_P(a_i)` where :math:`P \\in \\{X, Y, Z\\}` and :math:`a_i \\in \\mathbb{R}` is\nthe rotation angle.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.ucrz.UCRZGate",
+    "summary": "Uniformly controlled Pauli-Z rotations.",
+    "docstring": "Uniformly controlled Pauli-Z rotations.\n\nImplements the :class:`.UCGate` for the special case that all unitaries are Pauli-Z rotations,\n:math:`U_i = R_Z(a_i)` where :math:`a_i \\in \\mathbb{R}` is the rotation angle.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "UCPauliRotGate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.generalized_gates.unitary.UnitaryGate",
+    "summary": "Class quantum gates specified by a unitary matrix.",
+    "docstring": "Class quantum gates specified by a unitary matrix.\n\nExample:\n\nWe can create a unitary gate from a unitary matrix then add it to a\nquantum circuit. The matrix can also be directly applied to the quantum\ncircuit, see :meth:`.QuantumCircuit.unitary`.\n\n.. plot::\n    :include-source:\n    :nofigs:\n\n    from qiskit import QuantumCircuit\n    from qiskit.circuit.library import UnitaryGate\n\n    matrix = [[0, 0, 0, 1],\n                [0, 0, 1, 0],\n                [1, 0, 0, 0],\n                [0, 1, 0, 0]]\n    gate = UnitaryGate(matrix)\n\n    circuit = QuantumCircuit(2)\n    circuit.append(gate, [0, 1])",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.graph_state.GraphState",
+    "summary": "Circuit to prepare a graph state.",
+    "docstring": "Circuit to prepare a graph state.\n\nGiven a graph G = (V, E), with the set of vertices V and the set of edges E,\nthe corresponding graph state is defined as\n\nstate, then applying a :math:`CZ` gate for each corresponding graph edge.\n\nGraph state preparation circuits are Clifford circuits, and thus\neasy to simulate classically. However, by adding a layer of measurements\nin a product basis at the end, there is evidence that the circuit becomes\nhard to simulate [2].\n\nReference Circuit:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import GraphState\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   import rustworkx as rx\n   G = rx.generators.cycle_graph(5)\n   circuit = GraphState(rx.adjacency_matrix(G))\n   circuit.name = \"Graph state\"\n   _generate_circuit_library_visualization(circuit)\n\nReferences:\n\n[1] M. Hein, J. Eisert, H.J. Briegel, Multi-party Entanglement in Graph States,\n    `arXiv:0307130 <https://arxiv.org/pdf/quant-ph/0307130.pdf>`_\n[2] D. Koh, Further Extensions of Clifford Circuits & their Classical Simulation Complexities.\n    `arXiv:1512.07892 <https://arxiv.org/pdf/1512.07892.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.graph_state.GraphStateGate",
+    "summary": "A gate representing a graph state.",
+    "docstring": "A gate representing a graph state.\n\nGiven a graph G = (V, E), with the set of vertices V and the set of edges E,\nthe corresponding graph state is defined as\n\nstate, then applying a :math:`CZ` gate for each corresponding graph edge.\n\nGraph state preparation circuits are Clifford circuits, and thus\neasy to simulate classically. However, by adding a layer of measurements\nin a product basis at the end, there is evidence that the circuit becomes\nhard to simulate [2].\n\nReference Circuit:\n\n.. plot::\n    :alt: Circuit diagram output by the previous code.\n    :include-source:\n\n    from qiskit.circuit import QuantumCircuit\n    from qiskit.circuit.library import GraphStateGate\n    import rustworkx as rx\n\n    G = rx.generators.cycle_graph(5)\n    circuit = QuantumCircuit(5)\n    circuit.append(GraphStateGate(rx.adjacency_matrix(G)), [0, 1, 2, 3, 4])\n    circuit.decompose().draw('mpl')\n\nReferences:\n\n[1] M. Hein, J. Eisert, H.J. Briegel, Multi-party Entanglement in Graph States,\n`arXiv:0307130 <https://arxiv.org/pdf/quant-ph/0307130.pdf>`_\n\n[2] D. Koh, Further Extensions of Clifford Circuits & their Classical Simulation Complexities.\n`arXiv:1512.07892 <https://arxiv.org/pdf/1512.07892.pdf>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.grover_operator.GroverOperator",
+    "summary": "The Grover operator.",
+    "docstring": "The Grover operator.\n\nGrover's search algorithm [1, 2] consists of repeated applications of the so-called\nGrover operator used to amplify the amplitudes of the desired output states.\nThis operator, :math:`\\mathcal{Q}`, consists of the phase oracle, :math:`\\mathcal{S}_f`,\nzero phase-shift or zero reflection, :math:`\\mathcal{S}_0`, and an\ninput state preparation :math:`\\mathcal{A}`:\n\n.. math::\n    \\mathcal{Q} = \\mathcal{A} \\mathcal{S}_0 \\mathcal{A}^\\dagger \\mathcal{S}_f\n\nIn the standard Grover search we have :math:`\\mathcal{A} = H^{\\otimes n}`:\n\n.. math::\n    \\mathcal{Q} = H^{\\otimes n} \\mathcal{S}_0 H^{\\otimes n} \\mathcal{S}_f\n                = D \\mathcal{S_f}\n\nThe operation :math:`D = H^{\\otimes n} \\mathcal{S}_0 H^{\\otimes n}` is also referred to as\ndiffusion operator. In this formulation we can see that Grover's operator consists of two\nsteps: first, the phase oracle multiplies the good states by -1 (with :math:`\\mathcal{S}_f`)\nand then the whole state is reflected around the mean (with :math:`D`).\n\nThis class allows setting a different state preparation, as in quantum amplitude\namplification (a generalization of Grover's algorithm), :math:`\\mathcal{A}` might not be\na layer of Hardamard gates [3].\n\nThe action of the phase oracle :math:`\\mathcal{S}_f` is defined as\n\n.. math::\n    \\mathcal{S}_f: |x\\rangle \\mapsto (-1)^{f(x)}|x\\rangle\n\nwhere :math:`f(x) = 1` if :math:`x` is a good state and 0 otherwise. To highlight the fact\nthat this oracle flips the phase of the good states and does not flip the state of a result\nqubit, we call :math:`\\mathcal{S}_f` a phase oracle.\n\nNote that you can easily construct a phase oracle from a bitflip oracle by sandwiching the\ncontrolled X gate on the result qubit by a X and H gate. For instance\n\nGrover operator is applied in Grover's algorithm, the qubits are first prepared with one\napplication of the :math:`\\mathcal{A}` operator (or Hadamard gates in the standard formulation).\nThus, we always have operation of the form\n:math:`\\mathcal{A} \\mathcal{S}_f \\mathcal{A}^\\dagger`. Therefore it is possible to move\nbitflip logic into :math:`\\mathcal{A}` and leaving the oracle only to do phaseflips via Z gates\nbased on the bitflips. One possible use-case for this are oracles that do not uncompute the\nstate qubits.\n\nThe zero reflection :math:`\\mathcal{S}_0` is usually defined as\n\n.. math::\n    \\mathcal{S}_0 = 2 |0\\rangle^{\\otimes n} \\langle 0|^{\\otimes n} - \\mathbb{I}_n\n\nwhere :math:`\\mathbb{I}_n` is the identity on :math:`n` qubits.\nBy default, this class implements the negative version\n:math:`2 |0\\rangle^{\\otimes n} \\langle 0|^{\\otimes n} - \\mathbb{I}_n`, since this can simply\nbe implemented with a multi-controlled Z sandwiched by X gates on the target qubit and the\nintroduced global phase does not matter for Grover's algorithm.\n\nExamples:\n    >>> from qiskit.circuit import QuantumCircuit\n    >>> from qiskit.circuit.library import GroverOperator\n    >>> oracle = QuantumCircuit(2)\n    >>> oracle.z(0)  # good state = first qubit is |1>\n    >>> grover_op = GroverOperator(oracle, insert_barriers=True)\n    >>> grover_op.decompose().draw()\n             \u250c\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2510          \u250c\u2500\u2500\u2500\u2510      \u2591 \u250c\u2500\u2500\u2500\u2510\n    state_0: \u2524 Z \u251c\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 H \u251c\n             \u2514\u2500\u2500\u2500\u2518 \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591 \u251c\u2500\u2500\u2500\u2524\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510\u251c\u2500\u2500\u2500\u2524\u250c\u2500\u2500\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2524\n    state_1: \u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 H \u251c\u2500\u2591\u2500\u2524 X \u251c\u2524 H \u251c\u2524 X \u251c\u2524 H \u251c\u2524 X \u251c\u2500\u2591\u2500\u2524 H \u251c\n                   \u2591 \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518\n\n    >>> oracle = QuantumCircuit(1)\n    >>> oracle.z(0)  # the qubit state |1> is the good state\n    >>> state_preparation = QuantumCircuit(1)\n    >>> state_preparation.ry(0.2, 0)  # non-uniform state preparation\n    >>> grover_op = GroverOperator(oracle, state_preparation)\n    >>> grover_op.decompose().draw()\n             \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    state_0: \u2524 Z \u251c\u2524 RY(-0.2) \u251c\u2524 X \u251c\u2524 Z \u251c\u2524 X \u251c\u2524 RY(0.2) \u251c\n             \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> oracle = QuantumCircuit(4)\n    >>> oracle.z(3)\n    >>> reflection_qubits = [0, 3]\n    >>> state_preparation = QuantumCircuit(4)\n    >>> state_preparation.cry(0.1, 0, 3)\n    >>> state_preparation.ry(0.5, 3)\n    >>> grover_op = GroverOperator(oracle, state_preparation,\n    ... reflection_qubits=reflection_qubits)\n    >>> grover_op.decompose().draw()\n                                          \u250c\u2500\u2500\u2500\u2510          \u250c\u2500\u2500\u2500\u2510\n    state_0: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n                                   \u2502      \u2514\u2500\u2500\u2500\u2518       \u2502  \u2514\u2500\u2500\u2500\u2518          \u2502\n    state_1: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n                                   \u2502                  \u2502                 \u2502\n    state_2: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n             \u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    state_3: \u2524 Z \u251c\u2524 RY(-0.5) \u251c\u2524 RY(-0.1) \u251c\u2524 X \u251c\u2524 H \u251c\u2524 X \u251c\u2524 H \u251c\u2524 X \u251c\u2524 RY(0.1) \u251c\u2524 RY(0.5) \u251c\n             \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> mark_state = Statevector.from_label('011')\n    >>> diffuse_operator = 2 * DensityMatrix.from_label('000') - Operator.from_label('III')\n    >>> grover_op = GroverOperator(oracle=mark_state, zero_reflection=diffuse_operator)\n    >>> grover_op.decompose().draw(fold=70)\n             \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510      \u250c\u2500\u2500\u2500\u2510                          \u00bb\n    state_0: \u25240                \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2524 H \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u00bb\n             \u2502                 \u2502\u250c\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510     \u250c\u2500\u2500\u2500\u2510          \u00bb\n    state_1: \u25241 UCRZ(0,pi,0,0) \u251c\u25240              \u251c\u2500\u2500\u2500\u2500\u2500\u2524 H \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u00bb\n             \u2502                 \u2502\u2502  UCRZ(pi/2,0) \u2502\u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u00bb\n    state_2: \u25242                \u251c\u25241              \u251c\u2524 UCRZ(-pi/4) \u251c\u2524 H \u251c\u00bb\n             \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u00bb\n    \u00ab         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510      \u250c\u2500\u2500\u2500\u2510\n    \u00abstate_0: \u25240                \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2524 H \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n    \u00ab         \u2502                 \u2502\u250c\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510    \u250c\u2500\u2500\u2500\u2510\n    \u00abstate_1: \u25241 UCRZ(pi,0,0,0) \u251c\u25240              \u251c\u2500\u2500\u2500\u2500\u2524 H \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n    \u00ab         \u2502                 \u2502\u2502  UCRZ(pi/2,0) \u2502\u250c\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\n    \u00abstate_2: \u25242                \u251c\u25241              \u251c\u2524 UCRZ(pi/4) \u251c\u2524 H \u251c\n    \u00ab         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n\n.. seealso::\n\n    The :func:`.grover_operator` implements the same functionality but keeping the\n    :class:`.MCXGate` abstract, such that the compiler may choose the optimal decomposition.\n    We recommend using :func:`.grover_operator` for performance reasons, which does not\n    wrap the circuit into an opaque gate.\n\nReferences:\n\n[1] L. K. Grover (1996), A fast quantum mechanical algorithm for database search,\n`arXiv:quant-ph/9605043 <https://arxiv.org/abs/quant-ph/9605043>`_.\n\n[2] I. Chuang & M. Nielsen, Quantum Computation and Quantum Information,\nCambridge: Cambridge University Press, 2000. Chapter 6.1.2.\n\n[3] Brassard, G., Hoyer, P., Mosca, M., & Tapp, A. (2000).\nQuantum Amplitude Amplification and Estimation.\n`arXiv:quant-ph/0005055 <http://arxiv.org/abs/quant-ph/0005055>`_.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.hamiltonian_gate.HamiltonianGate",
+    "summary": "Class for representing evolution by a Hamiltonian operator as a gate.",
+    "docstring": "Class for representing evolution by a Hamiltonian operator as a gate.\n\nThis gate resolves to a :class:`~.library.UnitaryGate` as :math:`U(t) = \\exp(-i t H)`,\nwhich can be decomposed into basis gates if it is 2 qubits or less, or\nsimulated directly in Aer for more qubits.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.hidden_linear_function.HiddenLinearFunction",
+    "summary": "Circuit to solve the hidden linear function problem.",
+    "docstring": "Circuit to solve the hidden linear function problem.\n\nThe 2D Hidden Linear Function problem is determined by a 2D adjacency\nmatrix A, where only elements that are nearest-neighbor on a grid have\nnon-zero entries. Each row/column corresponds to one binary variable\n:math:`x_i`.\n\nThe hidden linear function problem is as follows:\n\nConsider the quadratic form\n\nfunction.\n\n:math:`[z_0, ..., z_{n-1}]`). There can be multiple solutions.\n\nIn [1] it is shown that the present circuit solves this problem\non a quantum computer in constant depth, whereas any corresponding\nsolution on a classical computer would require circuits that grow\nlogarithmically with :math:`n`. Thus this circuit is an example\nof quantum advantage with shallow circuits.\n\nReference Circuit:\n\n.. plot::\n    :alt: Diagram illustrating the previously described circuit.\n\n    from qiskit.circuit.library import HiddenLinearFunction\n    from qiskit.visualization.library import _generate_circuit_library_visualization\n    A = [[1, 1, 0], [1, 0, 1], [0, 1, 1]]\n    circuit = HiddenLinearFunction(A)\n    _generate_circuit_library_visualization(circuit)\n\nReferences:\n\n[1] S. Bravyi, D. Gosset, R. Koenig, Quantum Advantage with Shallow Circuits, 2017.\n`arXiv:1704.00690 <https://arxiv.org/abs/1704.00690>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.iqp.IQP",
+    "summary": "Instantaneous quantum polynomial (IQP) circuit.",
+    "docstring": "Instantaneous quantum polynomial (IQP) circuit.\n\nThe circuit consists of a column of Hadamard gates,\na column of powers of T gates,\na sequence of powers of CS gates (up to\n:math:`\\frac{n^2-n}{2}` of them),\nand a final column of Hadamard gates, as introduced in [1].\n\nThe circuit is parameterized by an n x n interactions matrix.\nThe powers of each T gate are given by the diagonal elements\nof the interactions matrix. The powers of the CS gates are\ngiven by the upper triangle of the interactions matrix.\n\nReference Circuit:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import IQP\n   A = [[6, 5, 3], [5, 4, 5], [3, 5, 1]]\n   circuit = IQP(A)\n   circuit.draw('mpl')\n\nExpanded Circuit:\n\n.. plot::\n    :alt: Diagram illustrating the previously described circuit.\n\n    from qiskit.circuit.library import IQP\n    from qiskit.visualization.library import _generate_circuit_library_visualization\n    A = [[6, 5, 3], [5, 4, 5], [3, 5, 1]]\n    circuit = IQP(A)\n    _generate_circuit_library_visualization(circuit.decompose())\n\nReferences:\n\n[1] M. J. Bremner et al. Average-case complexity versus approximate\nsimulation of commuting quantum computations,\nPhys. Rev. Lett. 117, 080501 (2016).\n`arXiv:1504.07999 <https://arxiv.org/abs/1504.07999>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.iqp.random_iqp",
+    "summary": "A random instantaneous quantum polynomial time (IQP) circuit.",
+    "docstring": "A random instantaneous quantum polynomial time (IQP) circuit.\n\nSee :func:`iqp` for more details on the IQP circuit.\n\nExample:\n\n.. plot::\n   :alt: Circuit diagram output by the previous code.\n   :include-source:\n\n   from qiskit.circuit.library import random_iqp\n\n   circuit = random_iqp(3)\n   circuit.draw(\"mpl\")\n\nArgs:\n    num_qubits: The number of qubits in the circuit.\n    seed: A seed for the random number generator, in case the interactions matrix is\n        randomly generated.\n\nReturns:\n    An IQP circuit.",
+    "type": "Function"
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.efficient_su2.EfficientSU2",
+    "summary": "The hardware efficient SU(2) 2-local circuit.",
+    "docstring": "The hardware efficient SU(2) 2-local circuit.\n\nThe ``EfficientSU2`` circuit consists of layers of single qubit operations spanned by SU(2)\nand :math:`CX` entanglements. This is a heuristic pattern that can be used to prepare trial wave\nfunctions for variational quantum algorithms or classification circuit for machine learning.\n\nSU(2) stands for special unitary group of degree 2, its elements are :math:`2 \\times 2`\nunitary matrices with determinant 1, such as the Pauli rotation gates.\n\nOn 3 qubits and using the Pauli :math:`Y` and :math:`Z` su2_gates as single qubit gates, the\nhardware efficient SU(2) circuit is represented by:\n\nand options such as skipping unentanglement qubits, which apply here too.\n\nExamples:\n\n    >>> circuit = EfficientSU2(3, reps=1)\n    >>> print(circuit.decompose())\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510          \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RY(\u03b8[0]) \u251c\u2524 RZ(\u03b8[3]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 RY(\u03b8[6]) \u251c\u2524 RZ(\u03b8[9]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510  \u2502  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_1: \u2524 RY(\u03b8[1]) \u251c\u2524 RZ(\u03b8[4]) \u251c\u2524 X \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[7]) \u251c\u2524 RZ(\u03b8[10]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510   \u250c\u2500\u2534\u2500\u2510    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 RY(\u03b8[2]) \u251c\u2524 RZ(\u03b8[5]) \u251c\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[8]) \u251c\u2524 RZ(\u03b8[11]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518     \u2514\u2500\u2500\u2500\u2518   \u2514\u2500\u2500\u2500\u2518    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = EfficientSU2(4, su2_gates=['rx', 'y'], entanglement='circular', reps=1,\n    ... flatten=True)\n    >>> qc = QuantumCircuit(4)  # create a circuit and append the RY variational form\n    >>> qc.compose(ansatz, inplace=True)\n    >>> qc.draw()\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510     \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510   \u250c\u2500\u2500\u2500\u2510\n    q_0: \u2524 RX(\u03b8[0]) \u251c\u2524 Y \u251c\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2524 RX(\u03b8[4]) \u251c\u2500\u2500\u2500\u2524 Y \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2524\u2514\u2500\u252c\u2500\u2518\u250c\u2500\u2534\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2510   \u250c\u2500\u2500\u2500\u2510\n    q_1: \u2524 RX(\u03b8[1]) \u251c\u2524 Y \u251c\u2500\u2500\u253c\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RX(\u03b8[5]) \u251c\u2500\u2500\u2500\u2524 Y \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2524  \u2502  \u2514\u2500\u2500\u2500\u2518   \u250c\u2500\u2534\u2500\u2510    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\n    q_2: \u2524 RX(\u03b8[2]) \u251c\u2524 Y \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RX(\u03b8[6]) \u251c\u2524 Y \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2524  \u2502          \u2514\u2500\u2500\u2500\u2518       \u250c\u2500\u2534\u2500\u2510    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2524\n    q_3: \u2524 RX(\u03b8[3]) \u251c\u2524 Y \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 RX(\u03b8[7]) \u251c\u2524 Y \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518                         \u2514\u2500\u2500\u2500\u2518    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n\n.. seealso::\n\n    The :func:`.efficient_su2` function constructs a functionally equivalent circuit, but faster.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "TwoLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.evolved_operator_ansatz.hamiltonian_variational_ansatz",
+    "summary": "Construct a Hamiltonian variational ansatz.",
+    "docstring": "Construct a Hamiltonian variational ansatz.\n\nFor a Hamiltonian :math:`H = \\sum_{k=1}^K H_k` where the terms :math:`H_k` consist of only\ncommuting Paulis, but the terms do not commute among each other :math:`[H_k, H_{k'}] \\neq 0`, the\nHamiltonian variational ansatz (HVA) is\n\ndiffers from :func:`.evolved_operator_ansatz`, where no assumptions on the structure of the\noperators are done.\n\nThe Hamiltonian can be passed as :class:`.SparsePauliOp`, in which case we split the Hamiltonian\ninto commuting terms :math:`\\{H_k\\}_k`. Note, that this may not be optimal and if the\nminimal set of commuting terms is known it can be passed as sequence into this function.\n\nExamples:\n\nA single operator will be split into commuting terms automatically:\n\n.. plot::\n    :alt: Circuit diagram output by the previous code.\n    :include-source:\n\n    from qiskit.quantum_info import SparsePauliOp\n    from qiskit.circuit.library import hamiltonian_variational_ansatz\n\n    # this Hamiltonian will be split into the two terms [ZZI, IZZ] and [IXI]\n    hamiltonian = SparsePauliOp([\"ZZI\", \"IZZ\", \"IXI\"])\n    ansatz = hamiltonian_variational_ansatz(hamiltonian, reps=2)\n    ansatz.draw(\"mpl\")\n\nAlternatively, we can directly provide the terms:\n\n.. plot::\n    :alt: Circuit diagram output by the previous code.\n    :include-source:\n\n    from qiskit.quantum_info import SparsePauliOp\n    from qiskit.circuit.library import hamiltonian_variational_ansatz\n\n    zz = SparsePauliOp([\"ZZI\", \"IZZ\"])\n    x = SparsePauliOp([\"IXI\"])\n    ansatz = hamiltonian_variational_ansatz([zz, x], reps=2)\n    ansatz.draw(\"mpl\")\n\n\nArgs:\n    hamiltonian: The Hamiltonian to evolve. If given as single operator, it will be split into\n        commuting terms. If a sequence of :class:`.SparsePauliOp`, then it is assumed that\n        each element consists of commuting terms, but the elements do not commute among each\n        other.\n    reps: The number of times to repeat the evolved operators.\n    insert_barriers: Whether to insert barriers in between each evolution.\n    name: The name of the circuit.\n    parameter_prefix: Set the names of the circuit parameters. If a string, the same prefix\n        will be used for each parameters. Can also be a list to specify a prefix per\n        operator.\n\nReferences:\n\n[1] D. Wecker et al. Progress towards practical quantum variational algorithms (2015)\n`Phys Rev A 92, 042303 <https://journals.aps.org/pra/abstract/10.1103/PhysRevA.92.042303>`__\n\n[2] R. Wiersema et al. Exploring entanglement and optimization within the Hamiltonian\nVariational Ansatz (2020) `arXiv:2008.02941 <https://arxiv.org/abs/2008.02941>`__",
+    "type": "Function"
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.evolved_operator_ansatz.EvolvedOperatorAnsatz",
+    "summary": "The evolved operator ansatz.",
+    "docstring": "The evolved operator ansatz.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "NLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.excitation_preserving.ExcitationPreserving",
+    "summary": "The heuristic excitation-preserving wave function ansatz.",
+    "docstring": "The heuristic excitation-preserving wave function ansatz.\n\nThe ``ExcitationPreserving`` circuit preserves the ratio of :math:`|00\\rangle`,\n:math:`|01\\rangle + |10\\rangle` and :math:`|11\\rangle` states. To this end, this circuit\nuses two-qubit interactions of the form\n\nHowever these can become complex quickly, while this heuristically motivated circuit follows\na simpler pattern.\n\nThis trial wave function consists of layers of :math:`Z` rotations with 2-qubit entanglements.\nThe entangling is creating using :math:`XX+YY` rotations and optionally a controlled-phase\ngate for the mode ``'fsim'``.\n\nSee :class:`~qiskit.circuit.library.RealAmplitudes` for more detail on the possible arguments\nand options such as skipping unentanglement qubits, which apply here too.\n\nThe rotations of the ExcitationPreserving ansatz can be written as\n\nExamples:\n\n    >>> ansatz = ExcitationPreserving(3, reps=1, insert_barriers=True, entanglement='linear')\n    >>> print(ansatz.decompose())  # show the circuit\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                             \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RZ(\u03b8[0]) \u251c\u2500\u2591\u2500\u25240           \u251c\u25240           \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RZ(\u03b8[5]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2502  RXX(\u03b8[3]) \u2502\u2502  RYY(\u03b8[3]) \u2502\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 RZ(\u03b8[1]) \u251c\u2500\u2591\u2500\u25241           \u251c\u25241           \u251c\u25240           \u251c\u25240           \u251c\u2500\u2591\u2500\u2524 RZ(\u03b8[6]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2502  RXX(\u03b8[4]) \u2502\u2502  RYY(\u03b8[4]) \u2502 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 RZ(\u03b8[2]) \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25241           \u251c\u25241           \u251c\u2500\u2591\u2500\u2524 RZ(\u03b8[7]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591                             \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = ExcitationPreserving(2, reps=1, flatten=True)\n    >>> qc = QuantumCircuit(2)  # create a circuit and append the RY variational form\n    >>> qc.cry(0.2, 0, 1)  # do some previous operation\n    >>> qc.compose(ansatz, inplace=True)  # add the excitation-preserving\n    >>> qc.draw()\n                    \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2524 RZ(\u03b8[0]) \u251c\u25240           \u251c\u25240           \u251c\u2524 RZ(\u03b8[3]) \u251c\n         \u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2510\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u2502  RXX(\u03b8[2]) \u2502\u2502  RYY(\u03b8[2]) \u2502\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 RY(0.2) \u251c\u2524 RZ(\u03b8[1]) \u251c\u25241           \u251c\u25241           \u251c\u2524 RZ(\u03b8[4]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = ExcitationPreserving(3, reps=1, mode='fsim', entanglement=[[0,2]],\n    ... insert_barriers=True, flatten=True)\n    >>> print(ansatz.decompose())\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510        \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RZ(\u03b8[0]) \u251c\u2500\u2591\u2500\u25240           \u251c\u25240           \u251c\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RZ(\u03b8[5]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2502            \u2502\u2502            \u2502 \u2502      \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 RZ(\u03b8[1]) \u251c\u2500\u2591\u2500\u2524  RXX(\u03b8[3]) \u251c\u2524  RYY(\u03b8[3]) \u251c\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RZ(\u03b8[6]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2502            \u2502\u2502            \u2502 \u2502\u03b8[4]  \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 RZ(\u03b8[2]) \u251c\u2500\u2591\u2500\u25241           \u251c\u25241           \u251c\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RZ(\u03b8[7]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518        \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n.. seealso::\n\n    The :func:`.excitation_preserving` function constructs a functionally equivalent circuit,\n    but faster.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "TwoLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.n_local.NLocal",
+    "summary": "The n-local circuit class.",
+    "docstring": "The n-local circuit class.\n\nThe structure of the n-local circuit are alternating rotation and entanglement layers.\nIn both layers, parameterized circuit-blocks act on the circuit in a defined way.\nIn the rotation layer, the blocks are applied stacked on top of each other, while in the\nentanglement layer according to the ``entanglement`` strategy.\nThe circuit blocks can have arbitrary sizes (smaller equal to the number of qubits in the\ncircuit). Each layer is repeated ``reps`` times, and by default a final rotation layer is\nappended.\n\nFor instance, a rotation block on 2 qubits and an entanglement block on 4 qubits using\n``'linear'`` entanglement yields the following circuit.\n\nIf an initial state object is provided, it is added in front of the NLocal.\n\n.. seealso::\n\n    The :func:`.n_local` function constructs a functionally equivalent circuit, but faster.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "BlueprintCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.pauli_two_design.PauliTwoDesign",
+    "summary": "The Pauli Two-Design ansatz.",
+    "docstring": "The Pauli Two-Design ansatz.\n\nThis class implements a particular form of a 2-design circuit [1], which is frequently studied\nin quantum machine learning literature, such as e.g. the investigating of Barren plateaus in\nvariational algorithms [2].\n\nThe circuit consists of alternating rotation and entanglement layers with\nan initial layer of :math:`\\sqrt{H} = RY(\\pi/4)` gates.\nThe rotation layers contain single qubit Pauli rotations, where the axis is chosen uniformly\nat random to be X, Y or Z. The entanglement layers is compromised of pairwise CZ gates\nwith a total depth of 2.\n\nFor instance, the circuit could look like this (but note that choosing a different seed\nyields different Pauli rotations).",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "TwoLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.qaoa_ansatz.QAOAAnsatz",
+    "summary": "A generalized QAOA quantum circuit with a support of custom initial states and mixers.",
+    "docstring": "A generalized QAOA quantum circuit with a support of custom initial states and mixers.\n\nReferences:\n\n[1] Farhi et al., A Quantum Approximate Optimization Algorithm.\n`arXiv:1411.4028 <https://arxiv.org/pdf/1411.4028>`_",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "EvolvedOperatorAnsatz"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.real_amplitudes.RealAmplitudes",
+    "summary": "The real-amplitudes 2-local circuit.",
+    "docstring": "The real-amplitudes 2-local circuit.\n\nThe ``RealAmplitudes`` circuit is a heuristic trial wave function used as Ansatz in chemistry\napplications or classification circuits in machine learning. The circuit consists of\nalternating layers of :math:`Y` rotations and :math:`CX` entanglements. The entanglement\npattern can be user-defined or selected from a predefined set.\nIt is called ``RealAmplitudes`` since the prepared quantum states will only have\nreal amplitudes, the complex part is always 0.\n\nFor example a ``RealAmplitudes`` circuit with 2 repetitions on 3 qubits with ``'reverse_linear'``\nentanglement is\n\nindex-pairs. See the documentation of :class:`~qiskit.circuit.library.TwoLocal` and\n:class:`~qiskit.circuit.NLocal` for more detail. Additional options that can be set include the\nnumber of repetitions, skipping rotation gates on qubits that are not entangled, leaving out\nthe final rotation layer and inserting barriers in between the rotation and entanglement\nlayers.\n\nIf some qubits are not entangled with other qubits it makes sense to not apply rotation gates\non these qubits, since a sequence of :math:`Y` rotations can be reduced to a single :math:`Y`\nrotation with summed rotation angles.\n\nExamples:\n\n    >>> ansatz = RealAmplitudes(3, reps=2)  # create the circuit on 3 qubits\n    >>> print(ansatz.decompose())\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 Ry(\u03b8[0]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[3]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[6]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524        \u250c\u2500\u2534\u2500\u2510    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524        \u250c\u2500\u2534\u2500\u2510    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 Ry(\u03b8[1]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[4]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[7]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n    q_2: \u2524 Ry(\u03b8[2]) \u251c\u2524 X \u251c\u2524 Ry(\u03b8[5]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2524 Ry(\u03b8[8]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518            \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = RealAmplitudes(3, entanglement='full', reps=2, flatten=True)\n    >>> print(ansatz)\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510          \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                      \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RY(\u03b8[0]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 RY(\u03b8[3]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2524 RY(\u03b8[6]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510  \u2502  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2534\u2500\u2510  \u2502  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_1: \u2524 RY(\u03b8[1]) \u251c\u2524 X \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[4]) \u251c\u2524 X \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[7]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510   \u250c\u2500\u2534\u2500\u2510    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510   \u250c\u2500\u2534\u2500\u2510    \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 RY(\u03b8[2]) \u251c\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[5]) \u251c\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[8]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518     \u2514\u2500\u2500\u2500\u2518   \u2514\u2500\u2500\u2500\u2518    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518     \u2514\u2500\u2500\u2500\u2518   \u2514\u2500\u2500\u2500\u2518    \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = RealAmplitudes(3, entanglement='linear', reps=2, insert_barriers=True,\n    ... flatten=True)\n    >>> qc = QuantumCircuit(3)  # create a circuit and append the RY variational form\n    >>> qc.compose(ansatz, inplace=True)\n    >>> qc.draw()\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591            \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591            \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RY(\u03b8[0]) \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[3]) \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[6]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u250c\u2500\u2534\u2500\u2510      \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u250c\u2500\u2534\u2500\u2510      \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 RY(\u03b8[1]) \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[4]) \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[7]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 RY(\u03b8[2]) \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 RY(\u03b8[5]) \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 RY(\u03b8[8]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591      \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591      \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = RealAmplitudes(4, reps=1, entanglement='circular', insert_barriers=True,\n    ... flatten=True)\n    >>> print(ansatz)\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591 \u250c\u2500\u2500\u2500\u2510                \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RY(\u03b8[0]) \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[4]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u252c\u2500\u2518\u250c\u2500\u2534\u2500\u2510           \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 RY(\u03b8[1]) \u251c\u2500\u2591\u2500\u2500\u2500\u253c\u2500\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[5]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591   \u2502  \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510      \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 RY(\u03b8[2]) \u251c\u2500\u2591\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 RY(\u03b8[6]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591   \u2502       \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_3: \u2524 RY(\u03b8[3]) \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 RY(\u03b8[7]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591                \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> ansatz = RealAmplitudes(4, reps=2, entanglement=[[0,3], [0,2]],\n    ... skip_unentangled_qubits=True, flatten=True)\n    >>> print(ansatz)\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510                 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 RY(\u03b8[0]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[3]) \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[6]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2502       \u2502      \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2502       \u2502      \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n    q_1: \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u2502     \u250c\u2500\u2534\u2500\u2510    \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u2502     \u250c\u2500\u2534\u2500\u2510    \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_2: \u2524 RY(\u03b8[1]) \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[4]) \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2524 RY(\u03b8[7]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510\u250c\u2500\u2500\u2534\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n    q_3: \u2524 RY(\u03b8[2]) \u251c\u2524 X \u251c\u2524 RY(\u03b8[5]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2524 RY(\u03b8[8]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518            \u2514\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n.. seealso::\n\n    The :func:`.real_amplitudes` function constructs a functionally equivalent circuit, but faster.",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "TwoLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.n_local.two_local.TwoLocal",
+    "summary": "The two-local circuit.",
+    "docstring": "The two-local circuit.\n\nThe two-local circuit is a parameterized circuit consisting of alternating rotation layers and\nentanglement layers. The rotation layers are single qubit gates applied on all qubits.\nThe entanglement layer uses two-qubit gates to entangle the qubits according to a strategy set\nusing ``entanglement``. Both the rotation and entanglement gates can be specified as\nstring (e.g. ``'ry'`` or ``'cx'``), as gate-type (e.g. ``RYGate`` or ``CXGate``) or\nas QuantumCircuit (e.g. a 1-qubit circuit or 2-qubit circuit).\n\nA set of default entanglement strategies is provided:\n\n* ``'full'`` entanglement is each qubit is entangled with all the others.\n* ``'linear'`` entanglement is qubit :math:`i` entangled with qubit :math:`i + 1`,\n  for all :math:`i \\in \\{0, 1, ... , n - 2\\}`, where :math:`n` is the total number of qubits.\n* ``'reverse_linear'`` entanglement is qubit :math:`i` entangled with qubit :math:`i + 1`,\n  for all :math:`i \\in \\{n-2, n-3, ... , 1, 0\\}`, where :math:`n` is the total number of qubits.\n  Note that if ``entanglement_blocks = 'cx'`` then this option provides the same unitary as\n  ``'full'`` with fewer entangling gates.\n* ``'pairwise'`` entanglement is one layer where qubit :math:`i` is entangled with qubit\n  :math:`i + 1`, for all even values of :math:`i`, and then a second layer where qubit :math:`i`\n  is entangled with qubit :math:`i + 1`, for all odd values of :math:`i`.\n* ``'circular'`` entanglement is linear entanglement but with an additional entanglement of the\n  first and last qubit before the linear part.\n* ``'sca'`` (shifted-circular-alternating) entanglement is a generalized and modified version\n  of the proposed circuit 14 in `Sim et al. <https://arxiv.org/abs/1905.10876>`__.\n  It consists of circular entanglement where the 'long' entanglement connecting the first with\n  the last qubit is shifted by one each block.  Furthermore the role of control and target\n  qubits are swapped every block (therefore alternating).\n\nThe entanglement can further be specified using an entangler map, which is a list of index\npairs, such as\n\n>>> entangler_map = [(0, 1), (1, 2), (2, 0)]\n\nIf different entanglements per block should be used, provide a list of entangler maps.\nSee the examples below on how this can be used.\n\n>>> entanglement = [entangler_map_layer_1, entangler_map_layer_2, ... ]\n\nBarriers can be inserted in between the different layers for better visualization using the\n``insert_barriers`` attribute.\n\nFor each parameterized gate a new parameter is generated using a\n:class:`~qiskit.circuit.library.ParameterVector`. The name of these parameters can be chosen\nusing the ``parameter_prefix``.\n\nExamples:\n\n    >>> two = TwoLocal(3, 'ry', 'cx', 'linear', reps=2, insert_barriers=True)\n    >>> print(two.decompose())  # decompose the layers into standard gates\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591            \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591            \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 Ry(\u03b8[0]) \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[3]) \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[6]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u250c\u2500\u2534\u2500\u2510      \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u250c\u2500\u2534\u2500\u2510      \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 Ry(\u03b8[1]) \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[4]) \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[7]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 Ry(\u03b8[2]) \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 Ry(\u03b8[5]) \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 Ry(\u03b8[8]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591      \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591      \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> two = TwoLocal(3, ['ry','rz'], 'cz', 'full', reps=1, insert_barriers=True, flatten=True)\n    >>> qc = QuantumCircuit(3)\n    >>> qc &= two\n    >>> print(qc.draw())\n         \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u2591           \u2591 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n    q_0: \u2524 Ry(\u03b8[0]) \u251c\u2524 Rz(\u03b8[3]) \u251c\u2500\u2591\u2500\u2500\u25a0\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[6]) \u251c\u2500\u2524 Rz(\u03b8[9]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591  \u2502  \u2502     \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u250c\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_1: \u2524 Ry(\u03b8[1]) \u251c\u2524 Rz(\u03b8[4]) \u251c\u2500\u2591\u2500\u2500\u25a0\u2500\u2500\u253c\u2500\u2500\u25a0\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[7]) \u251c\u2524 Rz(\u03b8[10]) \u251c\n         \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 \u2591     \u2502  \u2502  \u2591 \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524\n    q_2: \u2524 Ry(\u03b8[2]) \u251c\u2524 Rz(\u03b8[5]) \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u25a0\u2500\u2500\u2591\u2500\u2524 Ry(\u03b8[8]) \u251c\u2524 Rz(\u03b8[11]) \u251c\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518 \u2591           \u2591 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> entangler_map = [[0, 1], [1, 2], [2, 0]]  # circular entanglement for 3 qubits\n    >>> two = TwoLocal(3, 'x', 'crx', entangler_map, reps=1, flatten=True)\n    >>> print(two)  # note: no barriers inserted this time!\n            \u250c\u2500\u2500\u2500\u2510                             \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\u250c\u2500\u2500\u2500\u2510\n    q_0: |0>\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Rx(\u03b8[2]) \u251c\u2524 X \u251c\n            \u251c\u2500\u2500\u2500\u2524\u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510            \u250c\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2518\u2514\u2500\u2500\u2500\u2518\n    q_1: |0>\u2524 X \u251c\u2524 Rx(\u03b8[0]) \u251c\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n            \u251c\u2500\u2500\u2500\u2524\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2518      \u2502     \u250c\u2500\u2500\u2500\u2510\n    q_2: |0>\u2524 X \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Rx(\u03b8[1]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\n            \u2514\u2500\u2500\u2500\u2518            \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518                 \u2514\u2500\u2500\u2500\u2518\n\n    >>> entangler_map = [[0, 3], [0, 2]]  # entangle the first and last two-way\n    >>> two = TwoLocal(4, [], 'cry', entangler_map, reps=1, flatten=True)\n    >>> circuit = two.compose(two)\n    >>> print(circuit.draw())  # note, that the parameters are the same!\n    q_0: \u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u2500\u2500\n              \u2502           \u2502           \u2502           \u2502\n    q_1: \u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\n              \u2502      \u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510     \u2502      \u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510\n    q_2: \u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[1]) \u251c\u2500\u2500\u2500\u2500\u2500\u253c\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[1]) \u251c\n         \u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\u250c\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2510\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n    q_3: \u2524 Ry(\u03b8[0]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2524 Ry(\u03b8[0]) \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n         \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518            \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\n    >>> layer_1 = [(0, 1), (0, 2)]\n    >>> layer_2 = [(1, 2)]\n    >>> two = TwoLocal(3, 'x', 'cx', [layer_1, layer_2], reps=2, insert_barriers=True,\n    ... flatten=True)\n    >>> print(two)\n         \u250c\u2500\u2500\u2500\u2510 \u2591            \u2591 \u250c\u2500\u2500\u2500\u2510 \u2591       \u2591 \u250c\u2500\u2500\u2500\u2510\n    q_0: \u2524 X \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 X \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2591\u2500\u2524 X \u251c\n         \u251c\u2500\u2500\u2500\u2524 \u2591 \u250c\u2500\u2534\u2500\u2510  \u2502   \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591       \u2591 \u251c\u2500\u2500\u2500\u2524\n    q_1: \u2524 X \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2500\u253c\u2500\u2500\u2500\u2591\u2500\u2524 X \u251c\u2500\u2591\u2500\u2500\u2500\u25a0\u2500\u2500\u2500\u2591\u2500\u2524 X \u251c\n         \u251c\u2500\u2500\u2500\u2524 \u2591 \u2514\u2500\u2500\u2500\u2518\u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2524 \u2591 \u250c\u2500\u2534\u2500\u2510 \u2591 \u251c\u2500\u2500\u2500\u2524\n    q_2: \u2524 X \u251c\u2500\u2591\u2500\u2500\u2500\u2500\u2500\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 X \u251c\u2500\u2591\u2500\u2524 X \u251c\n         \u2514\u2500\u2500\u2500\u2518 \u2591      \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518 \u2591 \u2514\u2500\u2500\u2500\u2518",
+    "type": "Class",
+    "is_target_subclass": false,
+    "base_classes": [
+      "NLocal"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.overlap.UnitaryOverlap",
+    "summary": "Circuit that returns the overlap between two unitaries :math:`U_2^{\\dag} U_1`.",
+    "docstring": "Circuit that returns the overlap between two unitaries :math:`U_2^{\\dag} U_1`.\n\nThe input quantum circuits must represent unitary operations, since they must be invertible.\nIf the inputs will have parameters, they are replaced by :class:`.ParameterVector`\\s with\nnames `\"p1\"` (for circuit ``unitary1``) and `\"p2\"` (for circuit ``unitary_2``) in the output\ncircuit.\n\nThis circuit is usually employed in computing the fidelity:\n\nthe expectation value of projector :math:`|0\\rangle\\langle 0|`.\n\nExample::\n\n    import numpy as np\n    from qiskit.circuit.library import EfficientSU2, UnitaryOverlap\n    from qiskit.primitives import Sampler\n\n    # get two circuit to prepare states of which we compute the overlap\n    circuit = EfficientSU2(2, reps=1)\n    unitary1 = circuit.assign_parameters(np.random.random(circuit.num_parameters))\n    unitary2 = circuit.assign_parameters(np.random.random(circuit.num_parameters))\n\n    # create the overlap circuit\n    overlap = UnitaryOverlap(unitary1, unitary2)\n\n    # sample from the overlap\n    sampler = Sampler(options={\"shots\": 100})\n    result = sampler.run(overlap).result()\n\n    # the fidelity is the probability to measure 0\n    fidelity = result.quasi_dists[0].get(0, 0)",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.pauli_evolution.PauliEvolutionGate",
+    "summary": "Time-evolution of an operator consisting of Paulis.",
+    "docstring": "Time-evolution of an operator consisting of Paulis.\n\nFor an Hermitian operator :math:`H` consisting of Pauli terms and (real) evolution time :math:`t`\nthis gate represents the unitary\n\nthe time evolution of the Pauli :math:`X` operator is connected to the Pauli :math:`X` rotation\n:math:`R_X` by\n\nhowever, generally requires an exponential number of gates. The compiler therefore typically\nimplements an *approximation* of the unitary :math:`U(t)`, e.g. using a product formula such\nas defined by :class:`.LieTrotter`. By passing the ``synthesis`` argument, you can specify\nwhich method the compiler should use, see :mod:`qiskit.synthesis` for the available options.\n\nNote that the order in which the approximation and methods like :meth:`control` and\n:meth:`power` are called matters. Changing the order can lead to different unitaries.\n\nExamples:\n\n.. plot::\n   :include-source:\n   :nofigs:\n\n    from qiskit.circuit import QuantumCircuit\n    from qiskit.circuit.library import PauliEvolutionGate\n    from qiskit.quantum_info import SparsePauliOp\n\n    X = SparsePauliOp(\"X\")\n    Z = SparsePauliOp(\"Z\")\n    I = SparsePauliOp(\"I\")\n\n    # build the evolution gate\n    operator = (Z ^ Z) - 0.1 * (X ^ I)\n    evo = PauliEvolutionGate(operator, time=0.2)\n\n    # plug it into a circuit\n    circuit = QuantumCircuit(2)\n    circuit.append(evo, range(2))\n    print(circuit.draw())\n\nThe above will print (note that the ``-0.1`` coefficient is not printed!):\n\nFramework For Quantum Simulation Kernels (2021).\n`arXiv:2109.03371 <https://arxiv.org/abs/2109.03371>`__",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.phase_estimation.PhaseEstimation",
+    "summary": "Phase Estimation circuit.",
+    "docstring": "Phase Estimation circuit.\n\nIn the Quantum Phase Estimation (QPE) algorithm [1, 2, 3], the Phase Estimation circuit is used\nto estimate the phase :math:`\\phi` of an eigenvalue :math:`e^{2\\pi i\\phi}` of a unitary operator\n:math:`U`, provided with the corresponding eigenstate :math:`|\\psi\\rangle`.\nThat is\n\nalgorithms, such as Shor's algorithm or Quantum Amplitude Estimation.\n\nReferences:\n\n[1] Kitaev, A. Y. (1995). Quantum measurements and the Abelian Stabilizer Problem. 1\u201322.\n`quant-ph/9511026 <http://arxiv.org/abs/quant-ph/9511026>`_\n\n[2] Michael A. Nielsen and Isaac L. Chuang. 2011.\nQuantum Computation and Quantum Information: 10th Anniversary Edition (10th ed.).\nCambridge University Press, New York, NY, USA.\n\n[3] Qiskit\n`textbook <https://github.com/Qiskit/textbook/blob/main/notebooks/ch-algorithms/\nquantum-phase-estimation.ipynb>`_",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.phase_oracle.PhaseOracle",
+    "summary": "Phase Oracle.",
+    "docstring": "Phase Oracle.\n\nThe Phase Oracle object constructs circuits for any arbitrary\ninput logical expressions. A logical expression is composed of logical operators\n`&` (logical `AND`), `|` (logical  `OR`),\n`~` (logical  `NOT`), and `^` (logical  `XOR`).\nas well as symbols for literals (variables).\nFor example, `'a & b'`, and `(v0 | ~v1) & (~v2 & v3)`\nare both valid string representation of boolean logical expressions.\n\nA phase oracle for a boolean function `f(x)` performs the following\nquantum operation:\n\nalso supports input strings in the `DIMACS CNF format\n<https://web.archive.org/web/20190325181937/https://www.satcompetition.org/2009/format-benchmarks2009.html>`__,\nwhich is the standard format for specifying SATisfiability (SAT) problem instances in\n`Conjunctive Normal Form (CNF) <https://en.wikipedia.org/wiki/Conjunctive_normal_form>`__,\nwhich is a conjunction of one or more clauses, where a clause is a disjunction of one\nor more literals. See :meth:`qiskit.circuit.library.phase_oracle.PhaseOracle.from_dimacs_file`.\n\nFrom 16 variables on, possible performance issues should be expected when using the\ndefault synthesizer.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.phase_oracle.PhaseOracleGate",
+    "summary": "Implements a phase oracle.",
+    "docstring": "Implements a phase oracle.\n\nThe Phase Oracle Gate object constructs circuits for any arbitrary\ninput logical expressions. A logical expression is composed of logical operators\n`&` (logical `AND`), `|` (logical  `OR`),\n`~` (logical  `NOT`), and `^` (logical  `XOR`).\nas well as symbols for literals (variables).\nFor example, `'a & b'`, and `(v0 | ~v1) & (~v2 & v3)`\nare both valid string representation of boolean logical expressions.\n\nA phase oracle for a boolean function `f(x)` performs the following\nquantum operation:\n\nalso supports input strings in the `DIMACS CNF format\n<https://web.archive.org/web/20190325181937/https://www.satcompetition.org/2009/format-benchmarks2009.html>`__,\nwhich is the standard format for specifying SATisfiability (SAT) problem instances in\n`Conjunctive Normal Form (CNF) <https://en.wikipedia.org/wiki/Conjunctive_normal_form>`__,\nwhich is a conjunction of one or more clauses, where a clause is a disjunction of one\nor more literals. See :meth:`qiskit.circuit.library.phase_oracle.PhaseOracleGate.from_dimacs_file`.\n\nFrom 16 variables on, possible performance issues should be expected when using the\ndefault synthesizer.",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "Gate"
+    ]
+  },
+  {
+    "name": "/qiskit/qiskit.circuit.library.quantum_volume.QuantumVolume",
+    "summary": "A quantum volume model circuit.",
+    "docstring": "A quantum volume model circuit.\n\nThe model circuits are random instances of circuits used to measure\nthe Quantum Volume metric, as introduced in [1].\n\nThe model circuits consist of layers of Haar random\nelements of SU(4) applied between corresponding pairs\nof qubits in a random bipartition.\n\nReference Circuit:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import QuantumVolume\n   circuit = QuantumVolume(5, 6, seed=10)\n   circuit.draw('mpl')\n\nExpanded Circuit:\n\n.. plot::\n   :alt: Diagram illustrating the previously described circuit.\n\n   from qiskit.circuit.library import QuantumVolume\n   from qiskit.visualization.library import _generate_circuit_library_visualization\n   circuit = QuantumVolume(5, 6, seed=10, classical_permutation=False)\n   _generate_circuit_library_visualization(circuit.decompose())\n\nReferences:\n\n[1] A. Cross et al. Validating quantum computers using\nrandomized model circuits, Phys. Rev. A 100, 032328 (2019).\n`arXiv:1811.12926 <https://arxiv.org/abs/1811.12926>`__",
+    "type": "Class",
+    "is_target_subclass": true,
+    "base_classes": [
+      "QuantumCircuit"
+    ]
+  }
+]
