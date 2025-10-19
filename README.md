@@ -1,8 +1,8 @@
 # Quantum Software Analysis Project
 
-This project provides an automated framework and toolchain for analyzing the source code of popular quantum computing libraries. It uses `just` as a command runner to orchestrate the entire pipeline, from data collection to final analysis.
+This project provides an automated framework and toolchain for analyzing the source code of popular quantum computing libraries to identify recurring software patterns. It uses `just` as a command runner to orchestrate the entire pipeline, from data collection to final analysis and reporting.
 
-The project features a **dynamic discovery workflow**: it queries the GitHub API to find the most relevant and active quantum software projects, clones them, preprocesses their code (including Jupyter Notebooks), and then runs a series of analysis scripts to extract core programming concepts.
+The project features a **dynamic discovery workflow**: it queries the GitHub API to find relevant quantum software projects, clones them, preprocesses their code (including Jupyter Notebooks), and then runs a series of analysis scripts to extract and classify core programming concepts.
 
 ## Prerequisites
 
@@ -18,66 +18,83 @@ Before you begin, ensure you have the following installed:
     GITHUB_TOKEN="ghp_YourTokenHere"
     ```
 
-## Project Structure
+## Replication Workflow: Step-by-Step Guide
 
-The project follows a standard Python `src` layout and separates generated data from source code.
+This guide walks you through the exact sequence of commands to set up the project and replicate the study's results.
 
-```text
-quantum_patterns/
-├── .venv/                   # The single, unified virtual environment for the entire project
-├── data/                    # All generated output, including repo lists and analysis results
-│   ├── classiq_source_snippets/
-│   ├── pennylane_source_snippets/
-│   ├── qiskit_source_snippets/
-│   ├── classiq_quantum_concepts.json
-│   └── ... (and other JSON/CSV results)
-├── notebooks/               # An archive of all original Jupyter Notebooks found in the target projects
-├── converted_notebooks/     # A directory for Python scripts converted from the archived notebooks
-├── src/                     # Main source code for the analysis project
-│   ├── conf/                # Project configuration files
-│   ├── core_concepts/       # Scripts for identifying concepts in quantum libraries
-│   └── preprocessing/       # Scripts for data collection and preparation
-├── target_github_projects/  # Cloned source code of the quantum libraries to be analyzed
-├── .env                     # Local environment variables (contains GITHUB_TOKEN)
-├── justfile                 # The command runner script for all project tasks
-├── pyproject.toml           # Project dependencies and metadata
-└── README.md                # This file
-```
+### Step 0: Initial Project Setup
 
-## The Two-Command Workflow
-
-The entire project workflow, from setup to final analysis, has been automated into two simple commands.
-
-### Step 1: Install Project Tooling
-
-This command installs `uv`, the fast package manager used by the project. **You only need to run this once.**
+This single command prepares the entire project. It will:
+1.  Discover and clone the target quantum software repositories from GitHub.
+2.  Create a unified virtual environment (`.venv`).
+3.  Install all required Python dependencies from `pyproject.toml`.
+4.  Install the cloned `qiskit` and `pennylane` repositories in editable mode.
 
 ```bash
-just setup
+just install
+```
+*Note: This command is designed to be fully reproducible and will re-run the setup each time to ensure a clean state. The initial run will take significant time and disk space.*
+
+### Step 1: Download Quantum Pattern Definitions
+
+This step fetches the list of known quantum software patterns from the PlanQK Pattern Atlas, which will be used as a baseline for classification.
+
+```bash
+just download_pattern_list
 ```
 
-### Step 2: Run the Full Analysis
+### Step 2: Extract Core Concepts from Frameworks
 
-This single command will automatically perform the entire data acquisition and analysis pipeline:
-
-1.  **Discover & Clone**: It will find the top quantum repos on GitHub and clone their source code.
-2.  **Preprocess Notebooks**: It will find all Jupyter Notebooks (`.ipynb`) in the cloned projects, convert them to Python scripts (`.ipynb.py`) in-place, and create an archive.
-3.  **Setup Environment**: It will create a fresh, unified virtual environment (`.venv`) and install all project dependencies, including the cloned libraries in editable mode.
-4.  **Identify Concepts**: It will run the final analysis scripts against Qiskit, PennyLane, and Classiq.
+Next, run the scripts that parse the source code of Qiskit, PennyLane, and Classiq to identify their core concepts (e.g., functions and classes).
 
 ```bash
 just identify-concepts
 ```
 
-**Note:** This command is designed to be fully reproducible. It re-runs the setup process each time to ensure a clean and consistent environment. The initial run will take a significant amount of time, while subsequent runs will be faster as cloned repositories are updated instead of re-cloned.
+This command generates the following raw data files in the `data/` directory, which you will use in the next step:
+*   `data/classiq_quantum_concepts.csv`
+*   `data/pennylane_quantum_concepts.csv`
+*   `data/qiskit_quantum_concepts.csv`
 
-### Expected Output
+### Step 3: Manual Concept Classification (Optional)
 
-After `just identify-concepts` completes, the `data/` directory will be populated with:
-*   `_quantum_concepts.json`: Structured data about each identified concept.
-*   `_quantum_concepts.csv`: A simplified summary for easy review.
-*   `_source_snippets/`: A directory containing the raw source code of each concept for inspection.
-*   `filtered_repo_list.txt`: The list of repositories that were cloned.
+This is the only manual step in the workflow. The goal is to classify the concepts extracted in the previous step. You have two options:
+
+*   **To replicate our exact results:** You don't need to do anything. The pre-classified files are already provided in the `data/` directory:
+    *   `data/enriched_classiq_quantum_patterns.csv`
+    *   `data/enriched_pennylane_quantum_patterns.csv`
+    *   `data/enriched_qiskit_quantum_patterns.csv`
+
+*   **To perform your own classification:**
+    1.  Open the `_quantum_concepts.csv` files generated in Step 2.
+    2.  Add your classification data to the rows.
+    3.  Save the modified files with the `enriched_` prefix (e.g., `data/enriched_qiskit_quantum_patterns.csv`).
+
+### Step 4: Preprocess Jupyter Notebooks
+
+This step finds all Jupyter Notebooks (`.ipynb`) within the cloned projects, converts them to Python scripts (`.ipynb.py`) in-place for analysis, and creates an organized archive of the original notebooks.
+
+```bash
+just preprocess-notebooks
+```
+
+### Step 5: Run the Main Semantic Analysis
+
+With all data prepared, this command runs the main workflow. It uses the `enriched_*.csv` files and the preprocessed source code to search for quantum computing concepts across all target projects.
+
+```bash
+just run_main
+```
+
+### Step 6: Generate the Final Report
+
+Finally, generate the final report summarizing the findings of the analysis.
+
+```bash
+just report
+```
+
+This will create the final output file at `data/final_pattern_report.txt`.
 
 ## Command Reference
 
@@ -85,32 +102,20 @@ You can always run `just` to see an interactive list of available commands.
 
 ### Main Workflow Commands
 
-*   `identify-concepts`
-    *   **The main entry point.** It automatically runs the full setup and analysis pipeline.
+*   `install`: Sets up the entire project, including cloning, environment creation, and dependency installation.
+*   `identify-concepts`: Runs the core concept extraction for Qiskit, PennyLane, and Classiq.
+*   `run_main`: Executes the primary semantic analysis workflow.
+*   `report`: Generates the final summary report.
 
-*   `install`
-    *   The core setup recipe that handles environment creation, dependency installation, and repo cloning/preprocessing. It is called automatically by `identify-concepts`.
+### Individual Data & Preprocessing Steps
 
-### Individual Analysis Tasks
-
-These are useful for debugging a single script without running the others. They will also trigger the full setup if it hasn't been run yet.
-
-*   `identify-qiskit`
-*   `identify-pennylane`
-*   `identify-classiq`
-
-### Preprocessing Tasks
-
-*   `preprocess-notebooks`
-    *   Finds all notebooks in `target_github_projects/`, converts them to `.py` files in-place, and copies the originals to the `notebooks/` archive.
-
-*   `convert-archived-notebooks`
-    *   A separate utility that converts notebooks from the `notebooks/` archive into the `converted_notebooks/` directory.
+*   `download_pattern_list`: Fetches pattern definitions from the PlanQK Pattern Atlas.
+*   `discover-and-clone`: Runs only the GitHub search and cloning steps.
+*   `preprocess-notebooks`: Converts `.ipynb` files to `.py` and creates an archive.
+*   `convert-archived-notebooks`: A separate utility to convert notebooks from the archive folder.
 
 ### Utility Commands
 
-*   `clean`
-    *   Removes **ALL** generated artifacts: the virtual environment, all cloned code, and the `data`, `notebooks`, and `converted_notebooks` directories. Use this for a complete reset.
-
-*   `upgrade`
-    *   Updates the `uv.lock` file based on `pyproject.toml`. Run this after changing dependencies.
+*   `clean`: Removes **ALL** generated artifacts: the virtual environment, all cloned code, and the `data`, `notebooks`, and `converted_notebooks` directories. Use this for a complete reset.
+*   `upgrade`: Updates the `uv.lock` file based on `pyproject.toml`. Run this after changing dependencies.
+*   `setup`: A one-time command to install the `uv` package manager.
