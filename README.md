@@ -1,8 +1,8 @@
 # Quantum Software Analysis Project
 
-This project provides a framework and toolchain for analyzing the source code of popular quantum computing libraries. It uses `just` as a command runner to automate setup, data collection, and analysis tasks.
+This project provides an automated framework and toolchain for analyzing the source code of popular quantum computing libraries. It uses `just` as a command runner to orchestrate the entire pipeline, from data collection to final analysis.
 
-The project features a **dynamic discovery workflow**: it automatically queries the GitHub API to find the most relevant and active quantum software projects, filters them based on quality metrics, and then sets up isolated environments to run analysis scripts against their source code.
+The project features a **dynamic discovery workflow**: it queries the GitHub API to find the most relevant and active quantum software projects, clones them, preprocesses their code (including Jupyter Notebooks), and then runs a series of analysis scripts to extract core programming concepts.
 
 ## Prerequisites
 
@@ -24,17 +24,19 @@ The project follows a standard Python `src` layout and separates generated data 
 
 ```text
 quantum_patterns/
-├── .venv/                   # Main virtual environment for project tooling (e.g., search scripts)
+├── .venv/                   # The single, unified virtual environment for the entire project
 ├── data/                    # All generated output, including repo lists and analysis results
 │   ├── classiq_source_snippets/
 │   ├── pennylane_source_snippets/
 │   ├── qiskit_source_snippets/
-│   ├── classiq_quantum_concepts.csv
+│   ├── classiq_quantum_concepts.json
 │   └── ... (and other JSON/CSV results)
+├── notebooks/               # An archive of all original Jupyter Notebooks found in the target projects
+├── converted_notebooks/     # A directory for Python scripts converted from the archived notebooks
 ├── src/                     # Main source code for the analysis project
 │   ├── conf/                # Project configuration files
 │   ├── core_concepts/       # Scripts for identifying concepts in quantum libraries
-│   └── preprocessing/       # Scripts for data collection (github_search.py, clone_repos.py)
+│   └── preprocessing/       # Scripts for data collection and preparation
 ├── target_github_projects/  # Cloned source code of the quantum libraries to be analyzed
 ├── .env                     # Local environment variables (contains GITHUB_TOKEN)
 ├── justfile                 # The command runner script for all project tasks
@@ -44,14 +46,14 @@ quantum_patterns/
 
 ## The Two-Command Workflow
 
-The entire project workflow, from setup to final analysis, has been automated. The `justfile` handles all dependencies automatically.
+The entire project workflow, from setup to final analysis, has been automated into two simple commands.
 
 ### Step 1: Install Project Tooling
 
-This command sets up the main virtual environment (`.venv`) and installs the Python packages needed to run the project's own scripts (like the GitHub search tool). **You only need to run this once.**
+This command installs `uv`, the fast package manager used by the project. **You only need to run this once.**
 
 ```bash
-just install
+just setup
 ```
 
 ### Step 2: Run the Full Analysis
@@ -59,14 +61,15 @@ just install
 This single command will automatically perform the entire data acquisition and analysis pipeline:
 
 1.  **Discover & Clone**: It will find the top quantum repos on GitHub and clone their source code.
-2.  **Setup Analysis Env**: It will create the dedicated `.venv-analysis` and install all required packages (like `classiq` and `sentence-transformers`) and the cloned libraries into it.
-3.  **Identify Concepts**: It will run the analysis scripts against Qiskit, PennyLane, and Classiq.
+2.  **Preprocess Notebooks**: It will find all Jupyter Notebooks (`.ipynb`) in the cloned projects, convert them to Python scripts (`.ipynb.py`) in-place, and create an archive.
+3.  **Setup Environment**: It will create a fresh, unified virtual environment (`.venv`) and install all project dependencies, including the cloned libraries in editable mode.
+4.  **Identify Concepts**: It will run the final analysis scripts against Qiskit, PennyLane, and Classiq.
 
 ```bash
 just identify-concepts
 ```
 
-**Note:** The first time you run this command, it will perform the full setup and can take a significant amount of time, network bandwidth, and disk space. Subsequent runs will be much faster as `just` re-uses the existing setup.
+**Note:** This command is designed to be fully reproducible. It re-runs the setup process each time to ensure a clean and consistent environment. The initial run will take a significant amount of time, while subsequent runs will be faster as cloned repositories are updated instead of re-cloned.
 
 ### Expected Output
 
@@ -83,13 +86,10 @@ You can always run `just` to see an interactive list of available commands.
 ### Main Workflow Commands
 
 *   `identify-concepts`
-    *   **The main analysis command.** It ensures the environment is fully set up and then runs all individual concept identification scripts.
+    *   **The main entry point.** It automatically runs the full setup and analysis pipeline.
 
 *   `install`
-    *   Sets up the `.venv` with tools for data acquisition.
-
-*   `setup-analysis-env`
-    *   Sets up the `.venv-analysis` with all dependencies needed for the analysis scripts.
+    *   The core setup recipe that handles environment creation, dependency installation, and repo cloning/preprocessing. It is called automatically by `identify-concepts`.
 
 ### Individual Analysis Tasks
 
@@ -99,11 +99,18 @@ These are useful for debugging a single script without running the others. They 
 *   `identify-pennylane`
 *   `identify-classiq`
 
+### Preprocessing Tasks
+
+*   `preprocess-notebooks`
+    *   Finds all notebooks in `target_github_projects/`, converts them to `.py` files in-place, and copies the originals to the `notebooks/` archive.
+
+*   `convert-archived-notebooks`
+    *   A separate utility that converts notebooks from the `notebooks/` archive into the `converted_notebooks/` directory.
+
 ### Utility Commands
 
 *   `clean`
-    *   Removes **ALL** generated artifacts: both virtual environments, all cloned code (`target_github_projects`), and the `data` directory. Use this for a complete reset.
+    *   Removes **ALL** generated artifacts: the virtual environment, all cloned code, and the `data`, `notebooks`, and `converted_notebooks` directories. Use this for a complete reset.
 
 *   `upgrade`
     *   Updates the `uv.lock` file based on `pyproject.toml`. Run this after changing dependencies.
-

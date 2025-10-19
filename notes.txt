@@ -1,8 +1,12 @@
- - Download patterns from https://patternatlas.planqk.de/pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d website.
- - Extract concepts classiq, pennylance and qiskit
+ - Download list of patterns from https://patternatlas.planqk.de/pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d website.
  - Run the github script that will search for projects and clone the respositories
+ - Extract concepts classiq, pennylance and qiskit
  - Run the code that searches for notebooks in the repositories and saves them in a separate folder
  - Run the tool that converts the notebooks into plain python files
  - Classify concepts manually and save the results of the csv in the data folder.
+ - Add the files with the file classification in the data folder. Expected names are:
+    - data/enriched_classiq_quantum_patterns.csv
+    - data/enriched_pennylane_quantum_patterns.csv
+    - data/enriched_qiskit_quantum_patterns.csv
  - Run the semantic tool to search for quantum computing concepts in the target github projects
  - Run the tool that generates the final report

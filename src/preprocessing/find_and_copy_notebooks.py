@@ -21,21 +21,22 @@ main things for each one, running them in parallel to be fast:
       folders by project name, making it easy to find and inspect them manually.
 """
 
+import concurrent.futures
 import os
 import shutil
-import concurrent.futures
 from pathlib import Path
-from conf import config
-
 
 import nbformat
 from nbconvert import PythonExporter
+
+from src.conf import config
 
 # Define project-relative paths to be completely ignored during notebook processing.
 # Any notebook found within these directories will be skipped.
 IGNORED_NOTEBOOK_PATHS = {
 }
 
+NOTEBOOKS_DEST_ROOT = config.PROJECT_ROOT / 'notebooks'
 
 def convert_single_notebook(ipynb_path: str):
     """
@@ -99,7 +100,6 @@ def run_preprocessor():
     archive directory in parallel.
     """
     print("\n Starting Notebook Pre-processing Step ")
-    NOTEBOOKS_DEST_ROOT = Path(__file__).parent.parent.parent / 'notebooks'
     print(f"Notebooks will be archived in: {NOTEBOOKS_DEST_ROOT}")
 
     # Step 1: Find all notebooks by walking through target project directories

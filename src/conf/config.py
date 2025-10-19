@@ -44,6 +44,4 @@ SKIP_DIRS_FOR_NOTEBOOKS_ONLY = [
 
 SKIP_FILES_COMMON = ['setup.py', 'conftest.py', '__init__.py']
 
-FUNCTION_NAME_SIMILARITY_THRESHOLD = 0.80
-
 RESULTS_DIR = PROJECT_ROOT / 'data'

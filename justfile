@@ -29,6 +29,27 @@ identify-concepts: install
     @echo "\n All core concept identification tasks are complete."
     @echo "Results are saved in the 'data/' directory."
 
+preprocess-notebooks:
+    @echo "\n>>> Preprocessing notebooks (converting to .py and archiving)..."
+    @{{VENV}}/bin/python -m src.preprocessing.find_and_copy_notebooks
+
+# Utility to convert notebooks from the archive folder to a separate output folder.
+convert-archived-notebooks:
+    @echo "\n>>> Converting archived notebooks..."
+    @{{VENV}}/bin/python -m src.preprocessing.convert_notebooks
+
+# Downloads the pattern list from the patternatlas.planqk.de website
+download_pattern_list:
+    @echo "\n>>> Downloading pattern list from patternatlas website..."
+    @{{VENV}}/bin/python -m src.preprocessing.download_resources_quantum_patterns
+
+run_main:
+    @echo "\n>>> Running main analysis..."
+    @{{VENV}}/bin/python -m src.workflows.run_main_analysis
+
+report:
+    @echo "\n>>> Generating final report..."
+    @{{VENV}}/bin/python -m src.workflows.generate_final_report
 
 # Runs the GitHub search script to find and filter top quantum projects.
 search-repos:
