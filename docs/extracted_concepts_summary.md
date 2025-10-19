@@ -3,13 +3,7 @@
 This document summarizes the raw quantum concepts automatically extracted from the source code of the Qiskit, PennyLane, and Classiq frameworks. 
 These concepts were identified by the `src/core_concepts/identify_*.py` scripts and serve as the input for the manual pattern classification step.
 
-``
-src/core_concepts/identify_classiq_core_concepts.py
 
-src/core_concepts/identify_pennylane_core_concepts.py
-
-src/core_concepts/identify_qiskit_core_concepts.py
-``
 ## Qiskit Concepts
 
 | Concept Name | Summary |
