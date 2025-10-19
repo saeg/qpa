@@ -1,135 +1,214 @@
+"""
+Loads the final analysis results, performs summarization, and generates reports
+in multiple formats (TXT, Markdown, and LaTeX).
+"""
 import csv
 import sys
 from pathlib import Path
-
 import pandas as pd
-
 from src.conf import config
 
 INPUT_CSV_FILE = config.RESULTS_DIR / 'quantum_concept_matches_with_patterns.csv'
-REPORT_PATH = config.RESULTS_DIR / 'final_pattern_report.txt'
+REPORT_TXT_PATH = config.RESULTS_DIR / 'final_pattern_report.txt'
+REPORT_MD_PATH = config.DOCS_DIR / 'final_pattern_report.md'
+LATEX_OUTPUT_DIR = config.RESULTS_DIR / 'latex_report_tables'
 
 PATTERN_FILES = [
     config.RESULTS_DIR / 'enriched_classiq_quantum_patterns.csv',
     config.RESULTS_DIR / 'enriched_pennylane_quantum_patterns.csv',
     config.RESULTS_DIR / 'enriched_qiskit_quantum_patterns.csv'
 ]
-LATEX_OUTPUT_DIR = config.RESULTS_DIR / 'latex_report_tables'
-
-
 TOP_N_CONCEPTS = 20
 
-
+# --- Helper Functions ---
 def extract_framework(concept_name: str) -> str:
-    """Extracts the source framework name (e.g., 'qiskit') from a concept path."""
     try:
         return concept_name.strip('/').split('/')[0]
     except (AttributeError, IndexError):
         return "unknown"
 
-
 def shorten_concept_name(full_name: str) -> str:
-    """Shortens a full concept path to the format '...concept_name' for readability."""
     try:
         last_part = full_name.replace('/', '.').split('.')[-1]
         return f"...{last_part}"
     except Exception:
         return full_name
 
-
 def extract_project(file_path: str) -> str:
-    """Extracts the target project's root directory from a file path."""
     try:
         return Path(file_path).parts[0]
     except IndexError:
         return file_path
 
-
 def load_all_patterns_from_files(file_paths: list[Path]) -> set[str]:
-    """Reads all pattern CSVs to get a master set of all possible patterns."""
     all_patterns = set()
     for path in file_paths:
         if path.exists():
             with open(path, 'r', encoding='utf-8') as f:
                 reader = csv.reader(f)
-                next(reader)  # Skip header
+                next(reader)
                 for row in reader:
                     if len(row) >= 3 and row[2].strip():
                         all_patterns.add(row[2].strip())
     return all_patterns
 
+# --- ReportGenerator Class ---
+class ReportGenerator:
+    def __init__(self, df: pd.DataFrame, all_patterns: set):
+        self.df = df
+        self.all_patterns = all_patterns
+        self._prepare_data()
 
-def generate_latex_table(data: pd.DataFrame | pd.Series, output_filepath: Path, caption: str, label: str,
-                         headers: list[str], column_format: str, add_total: bool = False):
-    """Generates a standard LaTeX table from a pandas object and saves it to a file."""
-    output_filepath.parent.mkdir(parents=True, exist_ok=True)
-    df = data.reset_index() if isinstance(data, pd.Series) else data.reset_index()
+    def _prepare_data(self):
+        """Pre-calculates all the metrics and dataframes needed for the reports."""
+        self.total_matches = len(self.df)
+        self.unique_files_matched = self.df['file_path'].nunique()
+        self.unique_concepts_matched = self.df['concept_name'].nunique()
+        self.avg_score = self.df['similarity_score'].mean()
 
-    latex_parts = [
-        "\\begin{table}[h!]",
-        "\\centering",
-        f"\\caption{{{caption}}}",
-        f"\\label{{{label}}}",
-        f"\\begin{{tabularx}}{{\\columnwidth}}{{{column_format}}}",
-        "\\toprule",
-        " & ".join(headers) + " \\\\",
-        "\\midrule",
-    ]
+        self.matches_by_type = self.df['match_type'].value_counts()
+        self.avg_score_by_type = self.df.groupby('match_type')['similarity_score'].mean()
+        self.matches_by_framework = self.df['framework'].value_counts()
+        self.matches_by_project = self.df['project'].value_counts()
 
-    for _, row in df.iterrows():
-        sanitized_items = [str(item).replace("&", "\\&").replace("_", "\\_") for item in row]
-        latex_parts.append(" & ".join(sanitized_items) + " \\\\")
+        top_concepts_overall = self.df['concept_name'].value_counts().nlargest(TOP_N_CONCEPTS).reset_index()
+        top_concepts_overall.columns = ['concept_name', 'Matches']
+        framework_map = self.df[['concept_name', 'framework']].drop_duplicates()
+        top_concepts_df = pd.merge(top_concepts_overall, framework_map, on='concept_name')
+        top_concepts_df['Concept'] = top_concepts_df['concept_name'].apply(shorten_concept_name)
+        top_concepts_df['Framework'] = top_concepts_df['framework'].str.capitalize()
+        self.top_20_table_data = top_concepts_df[['Framework', 'Concept', 'Matches']]
 
-    if add_total:
-        total = df.iloc[:, -1].sum()
-        latex_parts.extend([
-            "\\midrule",
-            f"\\textbf{{Total}} & \\textbf{{{total}}} \\\\",
-        ])
+        self.df_with_patterns = self.df[self.df['pattern'].notna() & (self.df['pattern'] != 'N/A')].copy()
+        self.found_patterns = set(self.df_with_patterns['pattern'].unique())
+        self.unmatched_patterns = sorted(list(self.all_patterns - self.found_patterns))
 
-    latex_parts.extend(["\\bottomrule", "\\end{tabularx}", "\\end{table}"])
+        if not self.df_with_patterns.empty:
+            self.matches_by_pattern = self.df_with_patterns['pattern'].value_counts()
+            self.avg_score_by_pattern = self.df_with_patterns.groupby('pattern')['similarity_score'].mean()
+            self.patterns_in_frameworks = self.df_with_patterns.groupby('framework')['pattern'].value_counts()
 
-    with open(output_filepath, 'w', encoding='utf-8') as f:
-        f.write("\n".join(latex_parts))
-    print(f"  -> Generated LaTeX table: {output_filepath.name}")
+            cross_framework_analysis = self.df_with_patterns.groupby('pattern').agg(
+                total_matches=('pattern', 'size'),
+                source_framework_names=('framework', lambda n: ', '.join(sorted(n.unique()))),
+                target_project_coverage=('project', 'nunique'),
+                target_project_names=('project', lambda p: ', '.join(sorted(p.unique())))
+            )
+            self.source_table = cross_framework_analysis[['total_matches', 'source_framework_names']].sort_values(by='total_matches', ascending=False)
+            self.adoption_table = cross_framework_analysis[['target_project_coverage', 'target_project_names']].sort_values(by='target_project_coverage', ascending=False)
 
+    def generate_txt_report(self, path: Path):
+        """Generates the plain text report."""
+        original_stdout = sys.stdout
+        with open(path, 'w', encoding='utf-8') as f:
+            sys.stdout = f
+            self._write_report_content(is_md=False)
+        sys.stdout = original_stdout
+        print(f"Text report successfully generated at '{path}'")
 
-def generate_top_concepts_latex_table(data: pd.DataFrame, output_filepath: Path):
-    """Generates the specialized Top Concepts LaTeX table with its unique formatting."""
-    output_filepath.parent.mkdir(parents=True, exist_ok=True)
-    latex_parts = [
-        "\\begin{table}[ht]",
-        "\\centering",
-        f"\\caption{{Top {TOP_N_CONCEPTS} Most Frequently Matched Quantum Concepts}}",
-        "\\label{tab:top-quantum-concepts}",
-        "\\begin{tabular*}{\\columnwidth}{@{} l @{\\extracolsep{\\fill}} l r @{}}",
-        "\\toprule",
-        "\\textbf{Source Framework} & \\textbf{Concept Name} & \\textbf{Matches} \\\\",
-        "\\midrule",
-    ]
+    def generate_md_report(self, path: Path):
+        """Generates the Markdown report."""
+        with open(path, 'w', encoding='utf-8') as f:
+            # Redirect print to the file
+            def md_print(*args, **kwargs):
+                print(*args, file=f, **kwargs)
+            self._write_report_content(is_md=True, md_print=md_print)
+        print(f"Markdown report successfully generated at '{path}'")
 
-    for _, row in data.iterrows():
-        framework = str(row['Framework']).replace("_", "\\_")
-        concept = str(row['Concept']).replace("_", "\\_")
-        matches = row['Matches']
-        latex_parts.append(f"{framework} & \\texttt{{{concept}}} & {matches} \\\\")
+    def _write_report_content(self, is_md: bool, md_print=print):
+        """Writes the report content, adapting format for TXT or MD."""
+        # Helper to format tables
+        def to_format(df, index=False, headers="keys"):
+            if is_md:
+                return df.to_markdown(index=index, headers=headers)
+            else:
+                return df.to_string(index=index, header=True if headers=="keys" else bool(headers))
 
-    latex_parts.extend(["\\bottomrule", "\\end{tabular*}", "\\end{table}"])
+        # Title
+        if is_md:
+            md_print("# QUANTUM CONCEPT ANALYSIS REPORT\n")
+        else:
+            print("="*80 + "\n" + "                      QUANTUM CONCEPT ANALYSIS REPORT" + "\n" + "="*80)
 
-    with open(output_filepath, 'w', encoding='utf-8') as f:
-        f.write("\n".join(latex_parts))
-    print(f"  -> Generated LaTeX table: {output_filepath.name}")
+        # I. Overall Summary
+        md_print("## I. Overall Summary" if is_md else "\n--- I. Overall Summary ---")
+        md_print(f"- **Total Matches Found:** {self.total_matches}" if is_md else f"Total Matches Found:          {self.total_matches}")
+        md_print(f"- **Unique Files with Matches:** {self.unique_files_matched}" if is_md else f"Unique Files with Matches:    {self.unique_files_matched}")
+        md_print(f"- **Unique Concepts Matched:** {self.unique_concepts_matched}" if is_md else f"Unique Concepts Matched:      {self.unique_concepts_matched}")
+        md_print(f"- **Total Patterns Defined:** {len(self.all_patterns)}" if is_md else f"Total Patterns Defined:       {len(self.all_patterns)}")
+        md_print(f"- **Total Patterns Found:** {len(self.found_patterns)}" if is_md else f"Total Patterns Found:         {len(self.found_patterns)}")
+        md_print(f"- **Average Similarity Score:** {self.avg_score:.4f}" if is_md else f"Average Similarity Score:     {self.avg_score:.4f}")
 
+        # II. Match Type Breakdown
+        md_print("\n## II. Match Type Breakdown" if is_md else "\n--- II. Match Type Breakdown ---")
+        md_print("\n### Match Type Counts\n" if is_md else "")
+        md_print(to_format(self.matches_by_type.reset_index()))
+        md_print("\n### Average Score by Match Type\n" if is_md else "\nAverage Score by Match Type:")
+        md_print(to_format(self.avg_score_by_type.round(4).reset_index()))
 
-def analyze_results():
-    """
-    Main function to load data, perform analysis, and generate both text and LaTeX reports.
-    """
-    # --- 1. Load and Prepare Data ---
+        md_print("\n---\n" if is_md else "\n" + "-"*80)
+
+        # III. Source Framework & Target Project Breakdown
+        md_print("## III. Source Framework & Target Project Breakdown" if is_md else "\n--- III. Source Framework & Target Project Breakdown ---")
+        md_print("\n### Matches by Source Framework\n" if is_md else "\nMatches by Source Framework:")
+        md_print(to_format(self.matches_by_framework.reset_index()))
+        md_print("\n### Matches by Target Project\n" if is_md else "\nMatches by Target Project:")
+        md_print(to_format(self.matches_by_project.reset_index()))
+
+        md_print("\n---\n" if is_md else "\n" + "-"*80)
+
+        # IV & V. Pattern Analysis
+        if not self.df_with_patterns.empty:
+            md_print("## IV. Cross-Framework Pattern Analysis" if is_md else "\n--- IV. Cross-Framework Pattern Analysis ---")
+            source_headers = {'total_matches': 'Total Matches', 'source_framework_names': 'Source Frameworks'}
+            md_print("\n### Table 4.1: Source Pattern Analysis (Where patterns originate)\n" if is_md else "\nTable 4.1: Source Pattern Analysis (Where patterns originate)")
+            md_print(to_format(self.source_table.reset_index().rename(columns=source_headers)))
+
+            adoption_headers = {'target_project_coverage': 'Project Coverage', 'target_project_names': 'Found In Projects'}
+            md_print("\n### Table 4.2: Adoption Pattern Analysis (Where patterns are used)\n" if is_md else "\n\nTable 4.2: Adoption Pattern Analysis (Where patterns are used)")
+            md_print(to_format(self.adoption_table.reset_index().rename(columns=adoption_headers)))
+
+            md_print("\n---\n" if is_md else "\n" + "-"*80)
+
+            md_print("## V. Quantum Pattern Analysis" if is_md else "\n--- V. Quantum Pattern Analysis ---")
+            md_print("\n### Patterns by Match Count (Overall)\n" if is_md else "\nPatterns by Match Count (Overall):")
+            md_print(to_format(self.matches_by_pattern.reset_index()))
+
+            md_print("\n### Average Score by Pattern\n" if is_md else "\nAverage Score by Pattern:")
+            md_print(to_format(self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index()))
+
+            md_print("\n### All Patterns within each Source Framework (Sorted by Frequency)\n" if is_md else "\nAll Patterns within each Source Framework (Sorted by Frequency):")
+            for framework, data in self.patterns_in_frameworks.groupby(level=0):
+                md_print(f"\n#### {framework.capitalize()}\n" if is_md else f"\n  -- {framework} --")
+                md_print(to_format(data.droplevel(0).reset_index()))
+
+        md_print("\n---\n" if is_md else "\n" + "-"*80)
+
+        # VI. Top Matched Concepts
+        md_print("## VI. Top Matched Concepts" if is_md else "\n--- VI. Top Matched Concepts ---")
+        md_print(f"\n### Top {TOP_N_CONCEPTS} Most Frequently Matched Concepts\n" if is_md else f"\nTop {TOP_N_CONCEPTS} Most Frequently Matched Concepts:")
+        md_print(to_format(self.top_20_table_data, headers=['Framework', 'Concept', 'Matches']))
+
+        md_print("\n---\n" if is_md else "\n" + "-"*80)
+
+        # VII. Unmatched Pattern Analysis
+        md_print("## VII. Unmatched Pattern Analysis" if is_md else "\n--- VII. Unmatched Pattern Analysis ---")
+        if self.unmatched_patterns:
+            md_print(f"\nThe following **{len(self.unmatched_patterns)}** patterns from the source files were **NOT found** in any project:\n" if is_md else f"\nThe following {len(self.unmatched_patterns)} patterns from the source files were NOT found in any project:")
+            for pattern in self.unmatched_patterns:
+                md_print(f"- {pattern}")
+        else:
+            md_print("\nAll patterns defined in the source files were found in the analysis.")
+
+        # End of Report
+        if not is_md:
+            print("\n" + "="*80 + "\n" + "                              END OF REPORT" + "\n" + "="*80)
+
+# --- Main Execution ---
+def main():
     if not INPUT_CSV_FILE.exists():
         print(f"Error: Input file '{INPUT_CSV_FILE}' not found.")
         return
-
     try:
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
@@ -140,163 +219,16 @@ def analyze_results():
         return
 
     print(f"Analyzing data from '{INPUT_CSV_FILE}'...")
-
-    # Enrich the DataFrame with new columns for easier analysis
     df['framework'] = df['concept_name'].apply(extract_framework)
     df['project'] = df['file_path'].apply(extract_project)
 
-    # --- 2. Calculate Key Performance Indicators (KPIs) ---
+    all_patterns = load_all_patterns_from_files(PATTERN_FILES)
 
-    # Overall summary metrics
-    total_matches = len(df)
-    unique_files_matched = df['file_path'].nunique()
-    unique_concepts_matched = df['concept_name'].nunique()
-    avg_score = df['similarity_score'].mean()
+    reporter = ReportGenerator(df, all_patterns)
 
-    # Breakdown metrics
-    matches_by_type = df['match_type'].value_counts()
-    avg_score_by_type = df.groupby('match_type')['similarity_score'].mean()
-    matches_by_framework = df['framework'].value_counts()
-    matches_by_project = df['project'].value_counts()
-
-    # Prepare data for the Top Concepts table
-    top_concepts_overall = df['concept_name'].value_counts().nlargest(TOP_N_CONCEPTS).reset_index()
-    top_concepts_overall.columns = ['concept_name', 'Matches']
-    framework_map = df[['concept_name', 'framework']].drop_duplicates()
-    top_concepts_df = pd.merge(top_concepts_overall, framework_map, on='concept_name')
-    top_concepts_df['Concept'] = top_concepts_df['concept_name'].apply(shorten_concept_name)
-    top_concepts_df['Framework'] = top_concepts_df['framework'].str.capitalize()
-    top_20_table_data = top_concepts_df[['Framework', 'Concept', 'Matches']]
-
-    # Pattern-related metrics
-    df_with_patterns = df[df['pattern'].notna() & (df['pattern'] != 'N/A')].copy()
-    all_possible_patterns = load_all_patterns_from_files(PATTERN_FILES)
-    found_patterns = set(df_with_patterns['pattern'].unique())
-    unmatched_patterns = sorted(list(all_possible_patterns - found_patterns))
-
-    if not df_with_patterns.empty:
-        matches_by_pattern = df_with_patterns['pattern'].value_counts()
-        avg_score_by_pattern = df_with_patterns.groupby('pattern')['similarity_score'].mean()
-        patterns_in_frameworks = df_with_patterns.groupby('framework')['pattern'].value_counts()
-        cross_framework_analysis = df_with_patterns.groupby('pattern').agg(
-            total_matches=('pattern', 'size'),
-            source_framework_names=('framework', lambda n: ', '.join(sorted(n.unique()))),
-            target_project_coverage=('project', 'nunique'),
-            target_project_names=('project', lambda p: ', '.join(sorted(p.unique())))
-        )
-        source_table = cross_framework_analysis[['total_matches', 'source_framework_names']].sort_values(
-            by='total_matches', ascending=False)
-        adoption_table = cross_framework_analysis[['target_project_coverage', 'target_project_names']].sort_values(
-            by='target_project_coverage', ascending=False)
-
-    # --- 3. Generate All LaTeX Table Files ---
-    print(f"\nGenerating LaTeX tables in '{LATEX_OUTPUT_DIR}'...")
-
-    generate_top_concepts_latex_table(top_20_table_data, LATEX_OUTPUT_DIR / 'top_20_matched_concepts.tex')
-    generate_latex_table(matches_by_framework, LATEX_OUTPUT_DIR / 'matches_by_source_framework.tex',
-                         caption="Matches by Source Framework", label="tab:matches_by_framework",
-                         headers=["\\textbf{Source Framework}", "\\textbf{Number of Matches}"], column_format="X c",
-                         add_total=True)
-    generate_latex_table(matches_by_project, LATEX_OUTPUT_DIR / 'matches_by_target_project.tex',
-                         caption="Matches by Target Project", label="tab:matches_by_project",
-                         headers=["\\textbf{Target Project}", "\\textbf{Number of Matches}"], column_format="X c",
-                         add_total=True)
-
-    if not df_with_patterns.empty:
-        generate_latex_table(source_table, LATEX_OUTPUT_DIR / 'source_pattern_analysis.tex',
-                             caption="Source Pattern Analysis (Where Patterns Originate)",
-                             label="tab:source_pattern_analysis",
-                             headers=["\\textbf{Quantum Pattern}", "\\textbf{Total Matches}",
-                                      "\\textbf{Source Frameworks}"], column_format="X r l")
-        generate_latex_table(adoption_table, LATEX_OUTPUT_DIR / 'adoption_pattern_analysis.tex',
-                             caption="Adoption Pattern Analysis (Where Patterns are Used)",
-                             label="tab:adoption_pattern_analysis",
-                             headers=["\\textbf{Quantum Pattern}", "\\textbf{Project Coverage}",
-                                      "\\textbf{Found In Projects}"], column_format="X r l")
-        multiline_header = "\\textbf{\\begin{tabular}{@{}c@{}}Number of\\\\Concepts\\end{tabular}}"
-        for framework, data in patterns_in_frameworks.groupby(level=0):
-            generate_latex_table(data.droplevel(0), LATEX_OUTPUT_DIR / f'{framework}_patterns_summary.tex',
-                                 caption=f"Summary of {framework.capitalize()} Quantum Patterns and Concept Counts",
-                                 label=f"tab:{framework}_quantum_patterns",
-                                 headers=["\\textbf{Quantum Pattern}", multiline_header], column_format="X c",
-                                 add_total=True)
-
-    original_stdout = sys.stdout
-    with open(REPORT_PATH, 'w', encoding='utf-8') as f:
-        sys.stdout = f
-
-        print("=" * 80)
-        print("                      QUANTUM CONCEPT ANALYSIS REPORT")
-        print("=" * 80)
-
-        print("\n--- I. Overall Summary ---")
-        print(f"Total Matches Found:          {total_matches}")
-        print(f"Unique Files with Matches:    {unique_files_matched}")
-        print(f"Unique Concepts Matched:      {unique_concepts_matched}")
-        print(f"Total Patterns Defined:       {len(all_possible_patterns)}")
-        print(f"Total Patterns Found:         {len(found_patterns)}")
-        print(f"Average Similarity Score:     {avg_score:.4f}")
-
-        print("\n--- II. Match Type Breakdown ---")
-        print(matches_by_type.to_string())
-        print("\nAverage Score by Match Type:")
-        print(avg_score_by_type.round(4).to_string())
-
-        print("\n" + "-" * 80)
-
-        print("\n--- III. Source Framework & Target Project Breakdown ---")
-        print(f"\nMatches by Source Framework:")
-        print(matches_by_framework.to_string())
-        print(f"\nMatches by Target Project:")
-        print(matches_by_project.to_string())
-
-        print("\n" + "-" * 80)
-
-        if not df_with_patterns.empty:
-            print("\n--- IV. Cross-Framework Pattern Analysis ---")
-            print("\nTable 4.1: Source Pattern Analysis (Where patterns originate)")
-            print(source_table.rename(
-                columns={'total_matches': 'Total Matches', 'source_framework_names': 'Source Frameworks'}).to_string())
-            print("\n\nTable 4.2: Adoption Pattern Analysis (Where patterns are used)")
-            print(adoption_table.rename(columns={'target_project_coverage': 'Project Coverage',
-                                                 'target_project_names': 'Found In Projects'}).to_string())
-
-            print("\n" + "-" * 80)
-
-            print("\n--- V. Quantum Pattern Analysis ---")
-            print(f"\nPatterns by Match Count (Overall):")
-            print(matches_by_pattern.to_string())
-            print("\nAverage Score by Pattern:")
-            print(avg_score_by_pattern.round(4).sort_values(ascending=False).to_string())
-            print("\nAll Patterns within each Source Framework (Sorted by Frequency):")
-            for framework, data in patterns_in_frameworks.groupby(level=0):
-                print(f"\n  -- {framework} --")
-                print(data.droplevel(0).to_string())
-
-        print("\n" + "-" * 80)
-
-        print("\n--- VI. Top Matched Concepts ---")
-        print(f"\nTop {TOP_N_CONCEPTS} Most Frequently Matched Concepts:")
-        print(top_20_table_data.to_string(index=False))
-
-        print("\n" + "-" * 80)
-
-        print("\n--- VII. Unmatched Pattern Analysis ---")
-        if unmatched_patterns:
-            print(
-                f"\nThe following {len(unmatched_patterns)} patterns from the source files were NOT found in any project:")
-            for pattern in unmatched_patterns:
-                print(f"  - {pattern}")
-        else:
-            print("\nAll patterns defined in the source files were found in the analysis.")
-
-        print("\n" + "=" * 80)
-        print("                              END OF REPORT")
-        print("=" * 80)
-
-    sys.stdout = original_stdout
-    print(f"\nText report successfully generated and saved to '{REPORT_PATH}'")
-
+    # Generate both reports
+    reporter.generate_txt_report(REPORT_TXT_PATH)
+    reporter.generate_md_report(REPORT_MD_PATH)
 
 if __name__ == '__main__':
-    analyze_results()
+    main()
