@@ -45,3 +45,4 @@ SKIP_DIRS_FOR_NOTEBOOKS_ONLY = [
 SKIP_FILES_COMMON = ['setup.py', 'conftest.py', '__init__.py']
 
 RESULTS_DIR = PROJECT_ROOT / 'data'
+DOCS_DIR = PROJECT_ROOT / 'docs'
