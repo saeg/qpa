@@ -6,7 +6,7 @@ import shutil
 import tempfile
 from pathlib import Path
 from typing import Any
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, mock_open, patch
 
 import pytest
 
@@ -234,3 +234,4 @@ def create_temp_directory_structure(base_path: Path, structure: dict[str, Any]) 
 
 # Test markers for different test categories
 pytestmark = [pytest.mark.unit, pytest.mark.core_concepts]
+
