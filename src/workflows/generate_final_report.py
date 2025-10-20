@@ -15,6 +15,7 @@ INPUT_CSV_FILE = config.RESULTS_DIR / "quantum_concept_matches_with_patterns.csv
 REPORT_TXT_PATH = config.RESULTS_DIR / "final_pattern_report.txt"
 REPORT_MD_PATH = config.DOCS_DIR / "final_pattern_report.md"
 LATEX_OUTPUT_DIR = config.RESULTS_DIR / "latex_report_tables"
+CSV_OUTPUT_DIR = config.RESULTS_DIR / "report"
 
 PATTERN_FILES = [
     config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
@@ -150,6 +151,76 @@ class ReportGenerator:
 
             self._write_report_content(is_md=True, md_print=md_print)
         print(f"Markdown report successfully generated at '{path}'")
+
+    def export_tables_to_csv(self, output_dir: Path):
+        """Export all generated tables as individual CSV files."""
+        # Create output directory if it doesn't exist
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        print(f"Exporting tables to CSV files in '{output_dir}'...")
+        
+        # Export basic statistics tables
+        self.matches_by_type.reset_index().to_csv(
+            output_dir / "match_type_counts.csv", index=False
+        )
+        self.avg_score_by_type.round(4).reset_index().to_csv(
+            output_dir / "avg_score_by_type.csv", index=False
+        )
+        self.matches_by_framework.reset_index().to_csv(
+            output_dir / "matches_by_framework.csv", index=False
+        )
+        self.matches_by_project.reset_index().to_csv(
+            output_dir / "matches_by_project.csv", index=False
+        )
+        
+        # Export pattern analysis tables if they exist
+        if not self.df_with_patterns.empty:
+            # Source pattern analysis
+            source_headers = {
+                "total_matches": "Total Matches",
+                "source_framework_names": "Source Frameworks",
+            }
+            self.source_table.reset_index().rename(columns=source_headers).to_csv(
+                output_dir / "source_pattern_analysis.csv", index=False
+            )
+            
+            # Adoption pattern analysis
+            adoption_headers = {
+                "target_project_coverage": "Project Coverage",
+                "target_project_names": "Found In Projects",
+            }
+            self.adoption_table.reset_index().rename(columns=adoption_headers).to_csv(
+                output_dir / "adoption_pattern_analysis.csv", index=False
+            )
+            
+            # Pattern analysis tables
+            self.matches_by_pattern.reset_index().to_csv(
+                output_dir / "patterns_by_match_count.csv", index=False
+            )
+            self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index().to_csv(
+                output_dir / "avg_score_by_pattern.csv", index=False
+            )
+            
+            # Patterns by framework
+            for framework, data in self.patterns_in_frameworks.groupby(level=0):
+                framework_name = framework.capitalize()
+                data.droplevel(0).reset_index().to_csv(
+                    output_dir / f"patterns_in_{framework.lower()}.csv", index=False
+                )
+        
+        # Export top concepts table
+        self.top_20_table_data.to_csv(
+            output_dir / "top_matched_concepts.csv", index=False
+        )
+        
+        # Export unmatched patterns as a simple list
+        if self.unmatched_patterns:
+            unmatched_df = pd.DataFrame({"unmatched_patterns": list(self.unmatched_patterns)})
+            unmatched_df.to_csv(
+                output_dir / "unmatched_patterns.csv", index=False
+            )
+        
+        print(f"Successfully exported {len(list(output_dir.glob('*.csv')))} CSV files to '{output_dir}'")
 
     def _write_report_content(self, is_md: bool, md_print=print):
         """Writes the report content, adapting format for TXT or MD."""
@@ -400,6 +471,9 @@ def main():
     # Generate both reports
     reporter.generate_txt_report(REPORT_TXT_PATH)
     reporter.generate_md_report(REPORT_MD_PATH)
+    
+    # Export all tables as CSV files
+    reporter.export_tables_to_csv(CSV_OUTPUT_DIR)
 
 
 if __name__ == "__main__":

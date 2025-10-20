@@ -51,6 +51,11 @@ report:
     @echo "\n>>> Generating final report..."
     @{{VENV}}/bin/python -m src.workflows.generate_final_report
 
+# Generate experimental data report with complete datasets
+experimental-data:
+    @echo "\n>>> Generating experimental data report..."
+    @{{VENV}}/bin/python -m src.utils.generate_experimental_data_report
+
 # Runs the GitHub search script to find and filter top quantum projects.
 search-repos:
     @echo ">>> Running GitHub search to find and filter top quantum projects..."

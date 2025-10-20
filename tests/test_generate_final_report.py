@@ -212,6 +212,36 @@ class TestReportGenerator:
         # Should have captured various sections
         assert len(output_lines) > 0
 
+    def test_export_tables_to_csv(self):
+        """Test export_tables_to_csv method."""
+        df = pd.DataFrame({
+            "concept_name": ["qiskit/circuit"],
+            "file_path": ["project1/file1.py"],
+            "match_type": ["name"],
+            "similarity_score": [0.95],
+            "pattern": ["Pattern1"],
+            "framework": ["qiskit"],
+            "project": ["project1"]
+        })
+        all_patterns = {"Pattern1"}
+        
+        generator = ReportGenerator(df, all_patterns)
+        
+        with patch("pathlib.Path.mkdir") as mock_mkdir:
+            with patch("pandas.DataFrame.to_csv") as mock_to_csv:
+                with patch("pathlib.Path.glob", return_value=["file1.csv", "file2.csv"]):
+                    with patch("builtins.print") as mock_print:
+                        generator.export_tables_to_csv(Path("/test/output"))
+                        
+                        # Should create directory
+                        mock_mkdir.assert_called_with(parents=True, exist_ok=True)
+                        
+                        # Should call to_csv multiple times
+                        assert mock_to_csv.call_count >= 5
+                        
+                        # Should print success message
+                        assert any("Successfully exported" in str(call) for call in mock_print.call_args_list)
+
 
 class TestMainFunction:
     """Test the main function."""
