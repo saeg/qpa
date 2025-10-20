@@ -13,13 +13,15 @@ The key features are:
 
 import concurrent.futures
 from pathlib import Path
-from src.conf import config
+
 import nbformat
 from nbconvert import PythonExporter
 
+from src.conf import config
+
 # notebooks is in ../notebooks
-DEFAULT_SOURCE_DIR = config.PROJECT_ROOT / 'notebooks'
-DEFAULT_DEST_DIR = config.PROJECT_ROOT / 'converted_notebooks'
+DEFAULT_SOURCE_DIR = config.PROJECT_ROOT / "notebooks"
+DEFAULT_DEST_DIR = config.PROJECT_ROOT / "converted_notebooks"
 
 
 def convert_single_notebook(ipynb_path: Path, py_path: Path) -> str:
@@ -45,12 +47,12 @@ def convert_single_notebook(ipynb_path: Path, py_path: Path) -> str:
 
         # Perform the conversion
         exporter = PythonExporter()
-        with open(ipynb_path, 'r', encoding='utf-8', errors='ignore') as f:
+        with open(ipynb_path, encoding="utf-8", errors="ignore") as f:
             notebook_node = nbformat.read(f, as_version=4)
 
         source_code, _ = exporter.from_notebook_node(notebook_node)
 
-        with open(py_path, 'w', encoding='utf-8') as f:
+        with open(py_path, "w", encoding="utf-8") as f:
             f.write(source_code)
 
         return "SUCCESS"
@@ -118,7 +120,9 @@ def process_all_notebooks(source_dir: Path, dest_dir: Path):
 
             except Exception as exc:
                 results["ERROR"] += 1
-                print(f"[CRITICAL ERROR] Processing {path.relative_to(source_dir)} generated an exception: {exc}")
+                print(
+                    f"[CRITICAL ERROR] Processing {path.relative_to(source_dir)} generated an exception: {exc}"
+                )
 
     print("\n--- Conversion Summary ---")
     print(f"Successfully converted: {results['SUCCESS']}")

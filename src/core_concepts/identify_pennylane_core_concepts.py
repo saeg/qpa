@@ -1,18 +1,18 @@
 import ast
-import json
 import csv
+import json
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import Any
+
 from src.conf import config
 
-
 # Define input paths relative to the project root
-PENNYLANE_PROJECT_ROOT = config.PROJECT_ROOT / 'target_github_projects' / 'pennylane'
+PENNYLANE_PROJECT_ROOT = config.PROJECT_ROOT / "target_github_projects" / "pennylane"
 
 # Define output directories and names
 
-SOURCE_SNIPPETS_DIR = config.RESULTS_DIR / 'pennylane_source_snippets'
-OUTPUT_JSON_PATH = config.RESULTS_DIR / 'pennylane_quantum_concepts.json'
+SOURCE_SNIPPETS_DIR = config.RESULTS_DIR / "pennylane_source_snippets"
+OUTPUT_JSON_PATH = config.RESULTS_DIR / "pennylane_quantum_concepts.json"
 
 # Define the specific subdirectories to scan within the PennyLane repo
 SEARCH_SUBDIRS = ["pennylane/templates/"]
@@ -20,8 +20,9 @@ SEARCH_SUBDIRS = ["pennylane/templates/"]
 
 class _PennylaneConceptVisitor(ast.NodeVisitor):
     """AST visitor to find classes with docstrings and extract their details."""
+
     def __init__(self, source_text: str, file_path: Path, sdk_root: Path):
-        self.found_concepts: Dict[str, Dict[str, Any]] = {}
+        self.found_concepts: dict[str, dict[str, Any]] = {}
         self.source_text = source_text
         self.file_path = file_path
         self.sdk_root = sdk_root
@@ -40,7 +41,7 @@ class _PennylaneConceptVisitor(ast.NodeVisitor):
 
             if full_concept_name not in self.found_concepts:
                 cleaned_docstring = docstring.strip()
-                summary = cleaned_docstring.split('\n\n')[0].strip().replace('\n', ' ')
+                summary = cleaned_docstring.split("\n\n")[0].strip().replace("\n", " ")
                 class_source_code = ast.get_source_segment(self.source_text, node)
 
                 self.found_concepts[full_concept_name] = {
@@ -55,7 +56,7 @@ class _PennylaneConceptVisitor(ast.NodeVisitor):
 def _find_concepts_in_file(py_path: Path, sdk_root: Path) -> list:
     """Parses a single Python file and returns a list of found concepts."""
     try:
-        with open(py_path, 'r', encoding='utf-8') as f:
+        with open(py_path, encoding="utf-8") as f:
             source_text = f.read()
             if len(source_text.strip()) < 50:
                 return []
@@ -69,13 +70,15 @@ def _find_concepts_in_file(py_path: Path, sdk_root: Path) -> list:
         return []
 
 
-def extract_pennylane_concepts() -> List[Dict[str, Any]]:
+def extract_pennylane_concepts() -> list[dict[str, Any]]:
     """
     Scans the local PennyLane repository, extracts quantum concepts from classes,
     and returns them as a list.
     """
     if not PENNYLANE_PROJECT_ROOT.is_dir():
-        print(f"Error: PennyLane project root not found at '{PENNYLANE_PROJECT_ROOT.resolve()}'")
+        print(
+            f"Error: PennyLane project root not found at '{PENNYLANE_PROJECT_ROOT.resolve()}'"
+        )
         print("Please ensure the repository is cloned at that location.")
         return []
 
@@ -101,58 +104,64 @@ def extract_pennylane_concepts() -> List[Dict[str, Any]]:
 
         found_concepts = _find_concepts_in_file(py_file, PENNYLANE_PROJECT_ROOT)
         for concept in found_concepts:
-            if concept['name'] not in all_concepts_data:
-                all_concepts_data[concept['name']] = concept
+            if concept["name"] not in all_concepts_data:
+                all_concepts_data[concept["name"]] = concept
 
     return list(all_concepts_data.values())
 
 
-def _save_source_code_snippets(concepts_data: List[Dict[str, Any]]):
+def _save_source_code_snippets(concepts_data: list[dict[str, Any]]):
     """
     Saves the source code of each concept's class to a separate .py file.
     """
     if not concepts_data:
         return
 
-    print(f"\n--- Saving source code snippets for debugging ---")
+    print("\n--- Saving source code snippets for debugging ---")
     SOURCE_SNIPPETS_DIR.mkdir(parents=True, exist_ok=True)
-    print(f"Saving {len(concepts_data)} source files to: {SOURCE_SNIPPETS_DIR.resolve()}")
+    print(
+        f"Saving {len(concepts_data)} source files to: {SOURCE_SNIPPETS_DIR.resolve()}"
+    )
 
     count = 0
     for concept in concepts_data:
         source_code = concept.get("source_code")
         if source_code:
-            sanitized_name = concept['name'].replace('/', '_').replace('.', '_')
-            if sanitized_name.startswith('_'):
+            sanitized_name = concept["name"].replace("/", "_").replace(".", "_")
+            if sanitized_name.startswith("_"):
                 sanitized_name = sanitized_name[1:]
             file_name = f"{sanitized_name}.py"
 
             output_path = SOURCE_SNIPPETS_DIR / file_name
             try:
-                with open(output_path, 'w', encoding='utf-8') as f:
+                with open(output_path, "w", encoding="utf-8") as f:
                     f.write(source_code)
                 count += 1
             except Exception as e:
-                print(f"  - Warning: Could not write source file for '{concept['name']}': {e}")
+                print(
+                    f"  - Warning: Could not write source file for '{concept['name']}': {e}"
+                )
 
     print(f"Successfully saved {count} source code files.")
 
 
-def _save_concepts_to_csv(concepts_data: List[Dict[str, Any]]):
+def _save_concepts_to_csv(concepts_data: list[dict[str, Any]]):
     """Saves the name and summary of each concept to a CSV file."""
     if not concepts_data:
         return
 
-    output_csv_path = OUTPUT_JSON_PATH.with_suffix('.csv')
+    output_csv_path = OUTPUT_JSON_PATH.with_suffix(".csv")
     print(f"\nSaving summary data to CSV: {output_csv_path.resolve()}")
 
     try:
-        with open(output_csv_path, 'w', newline='', encoding='utf-8') as f:
+        with open(output_csv_path, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(['name', 'summary'])
+            writer.writerow(["name", "summary"])
             for concept in concepts_data:
-                writer.writerow([concept.get('name', ''), concept.get('summary', '')])
-        print(f"Successfully saved {len(concepts_data)} concepts to '{output_csv_path.name}'.")
+                writer.writerow([concept.get("name", ""), concept.get("summary", "")])
+        print(
+            f"Successfully saved {len(concepts_data)} concepts to '{output_csv_path.name}'."
+        )
     except Exception as e:
         print(f"Error: Could not save the dataset to CSV. {e}")
 
@@ -174,9 +183,11 @@ def main():
     _save_concepts_to_csv(final_data)
 
     try:
-        json_data = [{k: v for k, v in item.items() if k != 'source_code'} for item in final_data]
+        json_data = [
+            {k: v for k, v in item.items() if k != "source_code"} for item in final_data
+        ]
         OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(OUTPUT_JSON_PATH, 'w', encoding='utf-8') as f:
+        with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
             json.dump(json_data, f, indent=2)
         print(f"Dataset saved successfully to: '{OUTPUT_JSON_PATH}'")
     except Exception as e:

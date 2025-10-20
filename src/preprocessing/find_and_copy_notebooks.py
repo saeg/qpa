@@ -33,10 +33,10 @@ from src.conf import config
 
 # Define project-relative paths to be completely ignored during notebook processing.
 # Any notebook found within these directories will be skipped.
-IGNORED_NOTEBOOK_PATHS = {
-}
+IGNORED_NOTEBOOK_PATHS = {}
 
-NOTEBOOKS_DEST_ROOT = config.PROJECT_ROOT / 'notebooks'
+NOTEBOOKS_DEST_ROOT = config.PROJECT_ROOT / "notebooks"
+
 
 def convert_single_notebook(ipynb_path: str):
     """
@@ -52,12 +52,12 @@ def convert_single_notebook(ipynb_path: str):
 
     try:
         exporter = PythonExporter()
-        with open(ipynb_path, 'r', encoding='utf-8', errors='ignore') as f:
+        with open(ipynb_path, encoding="utf-8", errors="ignore") as f:
             notebook_node = nbformat.read(f, as_version=4)
 
         source_code, _ = exporter.from_notebook_node(notebook_node)
 
-        with open(output_py_path, 'w', encoding='utf-8') as f:
+        with open(output_py_path, "w", encoding="utf-8") as f:
             f.write(source_code)
 
         return "SUCCESS"
@@ -65,7 +65,9 @@ def convert_single_notebook(ipynb_path: str):
         return f"CONVERT_ERROR: {str(e)}"
 
 
-def copy_single_notebook(ipynb_path: str, destination_folder_name: str, destination_root: Path):
+def copy_single_notebook(
+    ipynb_path: str, destination_folder_name: str, destination_root: Path
+):
     """
     Copies a notebook to a structured destination folder.
     Returns a status string.
@@ -79,7 +81,9 @@ def copy_single_notebook(ipynb_path: str, destination_folder_name: str, destinat
         return f"COPY_ERROR: {str(e)}"
 
 
-def process_single_notebook(ipynb_path: str, project_name: str, copy_destination_root: Path):
+def process_single_notebook(
+    ipynb_path: str, project_name: str, copy_destination_root: Path
+):
     """
     A single worker function that performs both conversion and copying for one notebook.
     """
@@ -109,27 +113,35 @@ def run_preprocessor():
 
     for project_subpath in config.TARGET_PROJECTS:
         current_project_path = config.TARGET_PROJECTS_BASE_PATH / project_subpath
-        project_name_for_dir = project_subpath.strip('/').replace('/', '_')
+        project_name_for_dir = project_subpath.strip("/").replace("/", "_")
         if not current_project_path.is_dir():
             continue
 
         for root, dirs, files in os.walk(current_project_path):
-            dirs[:] = [d for d in dirs if not d.startswith('.')]
+            dirs[:] = [d for d in dirs if not d.startswith(".")]
             for filename in files:
                 if filename.endswith(".ipynb"):
                     full_path = os.path.join(root, filename)
                     if full_path not in found_paths:
-                        initial_notebooks_found.append({'path': full_path, 'project': project_name_for_dir})
+                        initial_notebooks_found.append(
+                            {"path": full_path, "project": project_name_for_dir}
+                        )
                         found_paths.add(full_path)
 
     # Step 2: Filter the found notebooks based on the exclusion list
-    print(f"\nFound {len(initial_notebooks_found)} total notebooks. Applying exclusion filters...")
-    full_ignored_paths = {config.TARGET_PROJECTS_BASE_PATH / p for p in IGNORED_NOTEBOOK_PATHS}
+    print(
+        f"\nFound {len(initial_notebooks_found)} total notebooks. Applying exclusion filters..."
+    )
+    full_ignored_paths = {
+        config.TARGET_PROJECTS_BASE_PATH / p for p in IGNORED_NOTEBOOK_PATHS
+    }
 
     notebooks_to_process = []
     for nb_info in initial_notebooks_found:
-        notebook_path = Path(nb_info['path'])
-        is_ignored = any(ignored_dir in notebook_path.parents for ignored_dir in full_ignored_paths)
+        notebook_path = Path(nb_info["path"])
+        is_ignored = any(
+            ignored_dir in notebook_path.parents for ignored_dir in full_ignored_paths
+        )
         if not is_ignored:
             notebooks_to_process.append(nb_info)
 
@@ -138,15 +150,28 @@ def run_preprocessor():
         print("--- Pre-processing Complete ---\n")
         return
 
-    print(f"Found {len(notebooks_to_process)} unique notebooks to process after filtering. Running in parallel...")
+    print(
+        f"Found {len(notebooks_to_process)} unique notebooks to process after filtering. Running in parallel..."
+    )
 
     # Step 3: Process the filtered list in parallel
-    results_counter = {"SUCCESS": 0, "SKIPPED_UP_TO_DATE": 0, "CONVERT_ERROR": 0, "COPIED_SUCCESS": 0, "COPY_ERROR": 0}
+    results_counter = {
+        "SUCCESS": 0,
+        "SKIPPED_UP_TO_DATE": 0,
+        "CONVERT_ERROR": 0,
+        "COPIED_SUCCESS": 0,
+        "COPY_ERROR": 0,
+    }
     error_messages = []
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future_to_info = {
-            executor.submit(process_single_notebook, nb_info['path'], nb_info['project'], NOTEBOOKS_DEST_ROOT): nb_info
+            executor.submit(
+                process_single_notebook,
+                nb_info["path"],
+                nb_info["project"],
+                NOTEBOOKS_DEST_ROOT,
+            ): nb_info
             for nb_info in notebooks_to_process
         }
 
@@ -156,20 +181,26 @@ def run_preprocessor():
                 result = future.result()
                 if "CONVERT_ERROR" in result["conversion_status"]:
                     results_counter["CONVERT_ERROR"] += 1
-                    error_messages.append(f"  - Conversion failed for {os.path.basename(nb_info['path'])}: {result['conversion_status']}")
+                    error_messages.append(
+                        f"  - Conversion failed for {os.path.basename(nb_info['path'])}: {result['conversion_status']}"
+                    )
                 else:
                     results_counter[result["conversion_status"]] += 1
 
                 if "COPY_ERROR" in result["copy_status"]:
                     results_counter["COPY_ERROR"] += 1
-                    error_messages.append(f"  - Copy failed for {os.path.basename(nb_info['path'])}: {result['copy_status']}")
+                    error_messages.append(
+                        f"  - Copy failed for {os.path.basename(nb_info['path'])}: {result['copy_status']}"
+                    )
                 else:
                     results_counter[result["copy_status"]] += 1
 
             except Exception as exc:
                 results_counter["CONVERT_ERROR"] += 1
                 results_counter["COPY_ERROR"] += 1
-                error_messages.append(f"  - Exception during processing of {os.path.basename(nb_info['path'])}: {exc}")
+                error_messages.append(
+                    f"  - Exception during processing of {os.path.basename(nb_info['path'])}: {exc}"
+                )
 
     # Step 4: Print a clean summary
     print("\n--- Pre-processing Summary ---")

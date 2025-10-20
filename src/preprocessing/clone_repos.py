@@ -1,9 +1,9 @@
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
-
 TARGET_DIR = Path("target_github_projects")
+
 
 def run_command(command: list[str], cwd: Path | None = None):
     """Runs a command and returns True on success, False on failure."""
@@ -13,7 +13,7 @@ def run_command(command: list[str], cwd: Path | None = None):
             cwd=cwd,
             check=True,  # This will raise an exception on non-zero exit codes
             stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
+            stderr=subprocess.DEVNULL,
         )
         return True
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
@@ -21,16 +21,23 @@ def run_command(command: list[str], cwd: Path | None = None):
         print(f"    - Command failed: {' '.join(command)}. Error: {e}", file=sys.stderr)
         return False
 
+
 def main():
     """Main function to process the repository list."""
     # --- 1. Validate Input ---
     if len(sys.argv) < 2:
-        print("Error: Please provide the path to the repository list file.", file=sys.stderr)
+        print(
+            "Error: Please provide the path to the repository list file.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     repo_list_file = Path(sys.argv[1])
     if not repo_list_file.is_file():
-        print(f"Error: Repository list file not found at '{repo_list_file}'", file=sys.stderr)
+        print(
+            f"Error: Repository list file not found at '{repo_list_file}'",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     print(f">>> Cloning/updating repositories from '{repo_list_file}'...")
@@ -39,7 +46,7 @@ def main():
     TARGET_DIR.mkdir(parents=True, exist_ok=True)
 
     # --- 3. Read and Process Repositories ---
-    with open(repo_list_file, 'r', encoding='utf-8') as f:
+    with open(repo_list_file, encoding="utf-8") as f:
         repos_to_process = [line.strip() for line in f if line.strip()]
 
     for org_repo in repos_to_process:
@@ -63,6 +70,7 @@ def main():
             run_command(["git", "clone", "--depth", "1", repo_url, str(repo_path)])
 
     print("\nAll filtered source repositories are up to date.")
+
 
 if __name__ == "__main__":
     main()

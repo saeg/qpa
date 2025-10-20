@@ -5,23 +5,25 @@ This script reads the output CSV files from the 'identify-concepts' step and
 compiles them into a single, human-readable Markdown document. Each framework's
 concepts are presented in a separate table.
 """
+
 import csv
 from pathlib import Path
+
 from src.conf import config
 
 # Define the input CSV files and their specific delimiters
 INPUT_FILES = {
     "Qiskit": {
         "path": config.RESULTS_DIR / "qiskit_quantum_concepts.csv",
-        "delimiter": ';',
+        "delimiter": ";",
     },
     "PennyLane": {
         "path": config.RESULTS_DIR / "pennylane_quantum_concepts.csv",
-        "delimiter": ',',
+        "delimiter": ",",
     },
     "Classiq": {
         "path": config.RESULTS_DIR / "classiq_quantum_concepts.csv",
-        "delimiter": ',',
+        "delimiter": ",",
     },
 }
 
@@ -36,7 +38,7 @@ def read_concepts_from_csv(file_path: Path, delimiter: str) -> list[dict]:
 
     concepts = []
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, encoding="utf-8") as f:
             # DictReader automatically uses the first row as headers
             reader = csv.DictReader(f, delimiter=delimiter)
             for row in reader:
@@ -62,14 +64,14 @@ def generate_markdown_table(concepts: list[dict]) -> str:
     # --- Table Rows ---
     for concept in concepts:
         # Get data, providing default empty strings if keys are missing
-        name = concept.get('name', 'N/A').strip()
-        summary = concept.get('summary', '').strip()
+        name = concept.get("name", "N/A").strip()
+        summary = concept.get("summary", "").strip()
 
         # Clean up content for Markdown table cells
         # Replace pipe characters to prevent breaking table formatting
-        name = name.replace('|', '\\|')
+        name = name.replace("|", "\\|")
         # Remove newlines and extra whitespace from summary
-        summary = ' '.join(summary.split()).replace('|', '\\|')
+        summary = " ".join(summary.split()).replace("|", "\\|")
 
         table_parts.append(f"| `{name}` | {summary} |")
 
@@ -108,10 +110,10 @@ def main():
     # --- Write the final report to disk ---
     print(f"\nWriting Markdown report to: {OUTPUT_MD_PATH}")
     try:
-        with open(OUTPUT_MD_PATH, 'w', encoding='utf-8') as f:
+        with open(OUTPUT_MD_PATH, "w", encoding="utf-8") as f:
             f.write(final_md)
         print("--- Report generation complete. ---")
-    except IOError as e:
+    except OSError as e:
         print(f"Error: Could not write to file '{OUTPUT_MD_PATH}'. {e}")
 
 

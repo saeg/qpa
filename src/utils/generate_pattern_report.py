@@ -5,6 +5,7 @@ This script reads the structured JSON data downloaded from the PlanQK Pattern At
 and converts it into a human-readable Markdown document, with clear sections
 for each pattern's intent, context, solution, and more.
 """
+
 import json
 
 # Assuming you have a config file that defines the data directory.
@@ -25,8 +26,8 @@ def generate_markdown_for_pattern(pattern: dict) -> str:
     md_parts.append(f"## {pattern.get('name', 'Unnamed Pattern')}\n")
 
     # --- Alias (if it exists and is not a placeholder) ---
-    alias = pattern.get('alias')
-    if alias and alias.strip() != '—':
+    alias = pattern.get("alias")
+    if alias and alias.strip() != "—":
         md_parts.append(f"***Also known as:** {alias}*\n")
 
     # --- Sections (H3 + content) ---
@@ -57,7 +58,7 @@ def main():
         return
 
     try:
-        with open(INPUT_JSON_PATH, 'r', encoding='utf-8') as f:
+        with open(INPUT_JSON_PATH, encoding="utf-8") as f:
             patterns_data = json.load(f)
     except json.JSONDecodeError as e:
         print(f"Error: Could not parse JSON file. {e}")
@@ -85,10 +86,10 @@ def main():
     # --- Write the final report to disk ---
     print(f"\nWriting Markdown report to: {OUTPUT_MD_PATH}")
     try:
-        with open(OUTPUT_MD_PATH, 'w', encoding='utf-8') as f:
+        with open(OUTPUT_MD_PATH, "w", encoding="utf-8") as f:
             f.write(final_md)
         print("Report generation complete.")
-    except IOError as e:
+    except OSError as e:
         print(f"Error: Could not write to file '{OUTPUT_MD_PATH}'. {e}")
 
 

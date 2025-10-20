@@ -11,25 +11,25 @@ This script now performs three main actions:
 3.  Saves the name and summary of each concept to a CSV file for
     easy review.
 """
+
 import ast
+import csv
+import importlib
 import json
 import logging
-import importlib
-import csv
 import re
 from pathlib import Path
-from typing import List, Dict, Any, Set
+from typing import Any
+
 import classiq
 
 from src.conf import config
 
-
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-SOURCE_SNIPPETS_DIR = config.RESULTS_DIR / 'classiq_source_snippets'
+SOURCE_SNIPPETS_DIR = config.RESULTS_DIR / "classiq_source_snippets"
 
 
 TARGET_MODULES = [
@@ -43,14 +43,15 @@ SOURCE_CODE_SEARCH_PATHS = [
 
 COLLECTION_NAME = "core_quantum_concepts"
 
-OUTPUT_JSON_PATH = config.RESULTS_DIR / 'classiq_quantum_concepts.json'
-OUTPUT_CSV_PATH = config.RESULTS_DIR / 'classiq_quantum_concepts.csv'
+OUTPUT_JSON_PATH = config.RESULTS_DIR / "classiq_quantum_concepts.json"
+OUTPUT_CSV_PATH = config.RESULTS_DIR / "classiq_quantum_concepts.csv"
 VEND_LIB_PATH = config.PROJECT_ROOT / ".venv" / "lib"
 
 BOILERPLATE_STRINGS = [
     "[Qmod Classiq-library function]",
     "[Qmod core-library function]",
 ]
+
 
 def _create_summary_from_docstring(docstring: str) -> str:
     """
@@ -59,10 +60,10 @@ def _create_summary_from_docstring(docstring: str) -> str:
     if not docstring:
         return ""
 
-    first_paragraph = docstring.strip().split('\n\n')[0]
-    text_block = ' '.join(first_paragraph.split())
+    first_paragraph = docstring.strip().split("\n\n")[0]
+    text_block = " ".join(first_paragraph.split())
 
-    parts = text_block.split('.')
+    parts = text_block.split(".")
 
     sentences = [s.strip() for s in parts if s.strip()]
 
@@ -74,11 +75,17 @@ def _create_summary_from_docstring(docstring: str) -> str:
         return first_paragraph
 
 
-
 class _PublicApiVisitor(ast.NodeVisitor):
     """AST visitor to find functions listed in a public API set and extract their details."""
-    def __init__(self, source_text: str, file_path: Path, sdk_root: Path, public_api_names: Set[str]):
-        self.found_concepts: Dict[str, Dict[str, Any]] = {}
+
+    def __init__(
+        self,
+        source_text: str,
+        file_path: Path,
+        sdk_root: Path,
+        public_api_names: set[str],
+    ):
+        self.found_concepts: dict[str, dict[str, Any]] = {}
         self.public_api_names = public_api_names
         self.source_text = source_text
         self.file_path = file_path
@@ -95,7 +102,7 @@ class _PublicApiVisitor(ast.NodeVisitor):
                 for bp_string in BOILERPLATE_STRINGS:
                     pattern = re.compile(r"\s*" + re.escape(bp_string) + r"\.?\s*")
                     # Replace with a single space to avoid merging words, then strip later.
-                    cleaned_docstring = pattern.sub(' ', cleaned_docstring)
+                    cleaned_docstring = pattern.sub(" ", cleaned_docstring)
 
                 # 3. Perform a final strip to remove leading/trailing whitespace or characters.
                 #    This is key for handling docstrings that *only* contained boilerplate.
@@ -103,7 +110,9 @@ class _PublicApiVisitor(ast.NodeVisitor):
 
                 # 4. CRITICAL CHECK: If the docstring is now empty, skip this function.
                 if not cleaned_docstring:
-                    logging.warning(f"  -> Skipping public API function '{node.name}' in {self.file_path.name} because its docstring only contained boilerplate.")
+                    logging.warning(
+                        f"  -> Skipping public API function '{node.name}' in {self.file_path.name} because its docstring only contained boilerplate."
+                    )
                     self.generic_visit(node)
                     return
                 # End of changed section >>>
@@ -114,10 +123,14 @@ class _PublicApiVisitor(ast.NodeVisitor):
                 relative_path = self.file_path.relative_to(self.sdk_root)
                 module_path_parts = list(relative_path.parts)
                 module_path_parts[-1] = relative_path.stem
-                full_concept_name = f"/classiq/{'.'.join(module_path_parts)}.{node.name}"
+                full_concept_name = (
+                    f"/classiq/{'.'.join(module_path_parts)}.{node.name}"
+                )
 
                 if full_concept_name not in self.found_concepts:
-                    function_source_code = ast.get_source_segment(self.source_text, node)
+                    function_source_code = ast.get_source_segment(
+                        self.source_text, node
+                    )
 
                     self.found_concepts[full_concept_name] = {
                         "name": full_concept_name,
@@ -127,13 +140,17 @@ class _PublicApiVisitor(ast.NodeVisitor):
                     }
                     logging.debug(f"  -> Found public API concept: {node.name}")
             else:
-                logging.warning(f"  -> Skipping public API function '{node.name}' in {self.file_path.name} because it has NO docstring.")
+                logging.warning(
+                    f"  -> Skipping public API function '{node.name}' in {self.file_path.name} because it has NO docstring."
+                )
         self.generic_visit(node)
 
 
-def _find_concepts_in_file(py_path: Path, sdk_root: Path, public_api_names: Set[str]) -> list:
+def _find_concepts_in_file(
+    py_path: Path, sdk_root: Path, public_api_names: set[str]
+) -> list:
     try:
-        with open(py_path, 'r', encoding='utf-8') as f:
+        with open(py_path, encoding="utf-8") as f:
             source_text = f.read()
             tree = ast.parse(source_text, filename=str(py_path))
         visitor = _PublicApiVisitor(source_text, py_path, sdk_root, public_api_names)
@@ -142,6 +159,7 @@ def _find_concepts_in_file(py_path: Path, sdk_root: Path, public_api_names: Set[
     except Exception as e:
         logging.warning(f"Could not parse file {py_path.name}: {e}")
         return []
+
 
 def _get_sdk_root_path() -> Path | None:
     """Finds the installed Classiq SDK path directly from the imported package."""
@@ -155,13 +173,15 @@ def _get_sdk_root_path() -> Path | None:
             logging.error(f"Classiq SDK path does not exist: '{sdk_path}'")
             return None
     except (ImportError, AttributeError, IndexError):
-        logging.error("Could not find the installed 'classiq' package. Is it installed in the venv?")
+        logging.error(
+            "Could not find the installed 'classiq' package. Is it installed in the venv?"
+        )
         return None
 
 
 def extract_core_concepts(
-        package_root_path: Path, public_api_names: Set[str]
-) -> List[Dict[str, Any]]:
+    package_root_path: Path, public_api_names: set[str]
+) -> list[dict[str, Any]]:
     """
     Scans a predefined set of directories for the source code of public API functions.
     """
@@ -185,24 +205,30 @@ def extract_core_concepts(
             if py_file.name == "__init__.py":
                 continue
 
-            found_concepts = _find_concepts_in_file(py_file, package_root_path, public_api_names)
+            found_concepts = _find_concepts_in_file(
+                py_file, package_root_path, public_api_names
+            )
             for concept in found_concepts:
-                simple_name = concept['name'].split('.')[-1]
-                if concept['name'] not in all_concepts_data:
-                    all_concepts_data[concept['name']] = concept
+                simple_name = concept["name"].split(".")[-1]
+                if concept["name"] not in all_concepts_data:
+                    all_concepts_data[concept["name"]] = concept
                     documented_function_names.add(simple_name)
 
     return list(all_concepts_data.values())
 
 
 def run_final_analysis(
-        found_concepts_data: List[Dict[str, Any]], expected_public_functions: Set[str]
+    found_concepts_data: list[dict[str, Any]], expected_public_functions: set[str]
 ):
     """Compares found concepts against the expected list and prints a report."""
     logging.info("\n--- Final Analysis Report ---")
-    found_function_names = {item['name'].split('.')[-1] for item in found_concepts_data}
-    logging.info(f"Total concepts found and documented by script: {len(found_function_names)}")
-    logging.info(f"Total functions in public API (`__all__`): {len(expected_public_functions)}")
+    found_function_names = {item["name"].split(".")[-1] for item in found_concepts_data}
+    logging.info(
+        f"Total concepts found and documented by script: {len(found_function_names)}"
+    )
+    logging.info(
+        f"Total functions in public API (`__all__`): {len(expected_public_functions)}"
+    )
     missing_functions = expected_public_functions - found_function_names
     print("\n Found and Documented Public API Functions:")
     if found_function_names:
@@ -232,7 +258,9 @@ def main():
         try:
             module = importlib.import_module(module_name)
             public_api_names = set(module.__all__)
-            logging.info(f"Targeting public API for '{module_name}' with {len(public_api_names)} functions.")
+            logging.info(
+                f"Targeting public API for '{module_name}' with {len(public_api_names)} functions."
+            )
             all_public_apis.update(public_api_names)
         except (ImportError, AttributeError) as e:
             logging.error(f"Could not load public API for module '{module_name}': {e}")
@@ -246,16 +274,20 @@ def main():
         logging.info("--- Generation Complete ---")
         return
 
-    logging.info(f"\nSuccessfully extracted {len(final_data)} unique, documented public API concepts.")
+    logging.info(
+        f"\nSuccessfully extracted {len(final_data)} unique, documented public API concepts."
+    )
 
     run_final_analysis(final_data, all_public_apis)
 
     _save_source_code_snippets(final_data)
 
     try:
-        json_data = [{k: v for k, v in item.items() if k != 'source_code'} for item in final_data]
+        json_data = [
+            {k: v for k, v in item.items() if k != "source_code"} for item in final_data
+        ]
         OUTPUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(OUTPUT_JSON_PATH, 'w', encoding='utf-8') as f:
+        with open(OUTPUT_JSON_PATH, "w", encoding="utf-8") as f:
             json.dump(json_data, f, indent=2)
         logging.info(f"Debug dataset saved successfully to: '{OUTPUT_JSON_PATH}'")
     except Exception as e:
@@ -266,52 +298,57 @@ def main():
     logging.info("\n--- Generation Complete ---")
 
 
-def _save_source_code_snippets(concepts_data: List[Dict[str, Any]]):
+def _save_source_code_snippets(concepts_data: list[dict[str, Any]]):
     if not concepts_data:
         return
-    logging.info(f"\n--- Saving source code snippets for debugging ---")
+    logging.info("\n--- Saving source code snippets for debugging ---")
     SOURCE_SNIPPETS_DIR.mkdir(parents=True, exist_ok=True)
-    logging.info(f"Saving {len(concepts_data)} source files to: {SOURCE_SNIPPETS_DIR.resolve()}")
+    logging.info(
+        f"Saving {len(concepts_data)} source files to: {SOURCE_SNIPPETS_DIR.resolve()}"
+    )
     count = 0
     for concept in concepts_data:
         source_code = concept.get("source_code")
         if source_code:
-            sanitized_name = concept['name'].replace('/', '_').replace('.', '_')
-            if sanitized_name.startswith('_'):
+            sanitized_name = concept["name"].replace("/", "_").replace(".", "_")
+            if sanitized_name.startswith("_"):
                 sanitized_name = sanitized_name[1:]
             file_name = f"{sanitized_name}.py"
             output_path = SOURCE_SNIPPETS_DIR / file_name
             try:
-                with open(output_path, 'w', encoding='utf-8') as f:
+                with open(output_path, "w", encoding="utf-8") as f:
                     f.write(source_code)
                 count += 1
             except Exception as e:
-                logging.warning(f"Could not write source file for '{concept['name']}': {e}")
+                logging.warning(
+                    f"Could not write source file for '{concept['name']}': {e}"
+                )
     logging.info(f"Successfully saved {count} source code files.")
 
 
-
-def _save_concepts_to_csv(concepts_data: List[Dict[str, Any]]):
+def _save_concepts_to_csv(concepts_data: list[dict[str, Any]]):
     """Saves the concept name and summary to a CSV file."""
     if not concepts_data:
         logging.warning("No concepts data to save to CSV.")
         return
 
-    logging.info(f"\n--- Saving concept summaries to CSV ---")
+    logging.info("\n--- Saving concept summaries to CSV ---")
     headers = ["name", "summary"]
 
     try:
         OUTPUT_CSV_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(OUTPUT_CSV_PATH, 'w', newline='', encoding='utf-8') as f:
+        with open(OUTPUT_CSV_PATH, "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=headers)
             writer.writeheader()
             for concept in concepts_data:
                 row = {
                     "name": concept.get("name", ""),
-                    "summary": concept.get("summary", "")
+                    "summary": concept.get("summary", ""),
                 }
                 writer.writerow(row)
-        logging.info(f"Successfully saved {len(concepts_data)} concepts to: '{OUTPUT_CSV_PATH}'")
+        logging.info(
+            f"Successfully saved {len(concepts_data)} concepts to: '{OUTPUT_CSV_PATH}'"
+        )
     except Exception as e:
         logging.error(f"Error: Could not save the dataset to CSV. {e}")
 

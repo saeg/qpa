@@ -102,6 +102,130 @@ clean:
 upgrade:
   uv lock --upgrade
 
+# == Testing =================================================================
+
+# Run all tests
+test:
+    @echo ">>> Running all tests..."
+    @{{VENV}}/bin/python -m pytest tests/ -v
+
+# Run unit tests only
+test-unit:
+    @echo ">>> Running unit tests..."
+    @{{VENV}}/bin/python -m pytest tests/ -m unit -v
+
+# Run integration tests only
+test-integration:
+    @echo ">>> Running integration tests..."
+    @{{VENV}}/bin/python -m pytest tests/ -m integration -v
+
+# Run core concepts tests only
+test-core-concepts:
+    @echo ">>> Running core concepts tests..."
+    @{{VENV}}/bin/python -m pytest tests/test_identify_classiq_core_concepts.py -v
+
+# Run tests with coverage
+test-coverage:
+    @echo ">>> Running tests with coverage..."
+    @{{VENV}}/bin/python -m pytest tests/ --cov=src --cov-report=html --cov-report=term -v
+
+# Run tests with coverage and generate detailed report
+test-coverage-report:
+    @echo ">>> Running tests with detailed coverage report..."
+    @{{VENV}}/bin/python -m pytest tests/ --cov=src --cov-report=html --cov-report=xml --cov-report=term --cov-report=json -v
+    @echo ">>> Coverage reports generated:"
+    @echo "  - HTML: htmlcov/index.html"
+    @echo "  - XML: coverage.xml"
+    @echo "  - JSON: coverage.json"
+
+# Run coverage analysis on specific module
+test-coverage-module module:
+    @echo ">>> Running coverage analysis on {{module}}..."
+    @{{VENV}}/bin/python -m pytest tests/ --cov={{module}} --cov-report=html --cov-report=term -v
+
+# Generate coverage report without running tests
+coverage-report:
+    @echo ">>> Generating coverage report from existing data..."
+    @{{VENV}}/bin/coverage html
+    @{{VENV}}/bin/coverage report
+    @echo ">>> HTML report available at: htmlcov/index.html"
+
+# Show coverage summary
+coverage-summary:
+    @echo ">>> Coverage summary..."
+    @{{VENV}}/bin/coverage report --show-missing
+
+# == Code Formatting =========================================================
+
+# Format all Python files with Black
+format:
+    @echo ">>> Formatting all Python files with Black..."
+    @{{VENV}}/bin/black .
+
+# Format specific file or directory
+format-file file:
+    @echo ">>> Formatting {{file}} with Black..."
+    @{{VENV}}/bin/black {{file}}
+
+# Check formatting without making changes
+format-check:
+    @echo ">>> Checking code formatting with Black..."
+    @{{VENV}}/bin/black --check .
+
+# Format and show diff
+format-diff:
+    @echo ">>> Showing formatting diff with Black..."
+    @{{VENV}}/bin/black --diff .
+
+# Lint all Python files with Ruff
+lint:
+    @echo ">>> Linting all Python files with Ruff..."
+    @{{VENV}}/bin/ruff check .
+
+# Lint specific file or directory
+lint-file file:
+    @echo ">>> Linting {{file}} with Ruff..."
+    @{{VENV}}/bin/ruff check {{file}}
+
+# Lint and fix automatically
+lint-fix:
+    @echo ">>> Linting and fixing all Python files with Ruff..."
+    @{{VENV}}/bin/ruff check --fix .
+
+# Lint and fix specific file
+lint-fix-file file:
+    @echo ">>> Linting and fixing {{file}} with Ruff..."
+    @{{VENV}}/bin/ruff check --fix {{file}}
+
+# Run both formatting and linting
+format-lint:
+    @echo ">>> Running Black formatting and Ruff linting..."
+    @just format
+    @just lint
+
+# Check formatting and linting without making changes
+check-all:
+    @echo ">>> Checking formatting and linting..."
+    @just format-check
+    @just lint
+
+# Format, lint, and run tests
+format-lint-test:
+    @echo ">>> Running full code quality pipeline..."
+    @just format
+    @just lint-fix
+    @just test
+
+# Run specific test file
+test-file file:
+    @echo ">>> Running tests in {{file}}..."
+    @{{VENV}}/bin/python -m pytest {{file}} -v
+
+# Run tests in parallel
+test-parallel:
+    @echo ">>> Running tests in parallel..."
+    @{{VENV}}/bin/python -m pytest tests/ -n auto -v
+
 # == One-Time Setup ============================================================
 
 default:
