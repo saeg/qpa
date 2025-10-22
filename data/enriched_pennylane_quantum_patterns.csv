@@ -18,7 +18,7 @@ name,summary,pattern
 /pennylane/pennylane.templates.state_preparations.basis_qutrit.QutritBasisStatePreparation,Prepares a basis state on the given wires using a sequence of TShift gates.,Initialization
 /pennylane/pennylane.templates.state_preparations.cosine_window.CosineWindow,CosineWindow(wires) Prepares an initial state with a cosine wave function.,Initialization
 /pennylane/pennylane.templates.state_preparations.mottonen.MottonenStatePreparation,Prepares an arbitrary state on the given wires using a decomposition into gates developed by `Möttönen et al. (2004) <https://arxiv.org/abs/quant-ph/0407010>`_.,Schmidt Decomposition
-/pennylane/pennylane.templates.state_preparations.qrom_state_prep.QROMStatePreparation,Prepares a quantum state using Quantum Read-Only Memory (QROM).,Data Encoding
+/pennylane/pennylane.templates.state_preparations.qrom_state_prep.QROMStatePreparation,Prepares a quantum state using Quantum Read-Only Memory (QROM).,Initialization
 /pennylane/pennylane.templates.state_preparations.state_prep_mps.MPSPrep,Prepares an initial state from a matrix product state (MPS) representation.,Initialization
 /pennylane/pennylane.templates.state_preparations.superposition.Superposition,Prepare a superposition of computational basis states.,Basis Change
 /pennylane/pennylane.templates.subroutines.adder.Adder,Performs the in-place modular addition operation.,Quantum Arithmetic
@@ -27,19 +27,19 @@ name,summary,pattern
 /pennylane/pennylane.templates.subroutines.approx_time_evolution.ApproxTimeEvolution,"Applies the Trotterized time-evolution operator for an arbitrary Hamiltonian, expressed in terms of Pauli gates.",Hamiltonian Simulation
 /pennylane/pennylane.templates.subroutines.aqft.AQFT,"AQFT(order, wires) Apply an approximate quantum Fourier transform (AQFT).",Basis Change
 /pennylane/pennylane.templates.subroutines.arbitrary_unitary.ArbitraryUnitary,Implements an arbitrary unitary on the specified wires.,Schmidt Decomposition
-/pennylane/pennylane.templates.subroutines.basis_rotation.BasisRotation,Implements a circuit that performs an exact single-body basis rotation using Givens rotations and phase shifts.,Circuit Construction Utility
+/pennylane/pennylane.templates.subroutines.basis_rotation.BasisRotation,Implements a circuit that performs an exact single-body basis rotation using Givens rotations and phase shifts.,Basis Change
 /pennylane/pennylane.templates.subroutines.commuting_evolution.CommutingEvolution,Applies the time-evolution operator for a Hamiltonian expressed as a linear combination of mutually commuting Pauli words.,Hamiltonian Simulation
 /pennylane/pennylane.templates.subroutines.controlled_sequence.ControlledSequence,Creates a sequence of controlled gates raised to decreasing powers of 2. Can be used as a sub-block in building a `quantum phase estimation <https://en.wikipedia.org/wiki/Quantum_phase_estimation_algorithm>`__ circuit.,Quantum Phase Estimation (QPE)
-/pennylane/pennylane.templates.subroutines.fable.FABLE,Construct a unitary with the fast approximate block encoding method.,Linear Combination of Unitaries (LCU)
+/pennylane/pennylane.templates.subroutines.fable.FABLE,Construct a unitary with the fast approximate block encoding method.,Data Encoding
 /pennylane/pennylane.templates.subroutines.fermionic_double_excitation.FermionicDoubleExcitation,Circuit to exponentiate the tensor product of Pauli matrices representing the double-excitation operator entering the Unitary Coupled-Cluster Singles and Doubles (UCCSD) ansatz. UCCSD is a VQE ansatz commonly used to run quantum chemistry simulations.,Variational Quantum Eigensolver (VQE)
 /pennylane/pennylane.templates.subroutines.fermionic_single_excitation.FermionicSingleExcitation,Circuit to exponentiate the tensor product of Pauli matrices representing the single-excitation operator entering the Unitary Coupled-Cluster Singles and Doubles (UCCSD) ansatz. UCCSD is a VQE ansatz commonly used to run quantum chemistry simulations.,Variational Quantum Eigensolver (VQE)
 /pennylane/pennylane.templates.subroutines.flip_sign.FlipSign,Flips the sign of a given basis state.,Phase Shift
-/pennylane/pennylane.templates.subroutines.gqsp.GQSP,Implements the generalized quantum signal processing (GQSP) circuit.,Oracle
+/pennylane/pennylane.templates.subroutines.gqsp.GQSP,Implements the generalized quantum signal processing (GQSP) circuit.,Basis Change
 /pennylane/pennylane.templates.subroutines.grover.GroverOperator,Performs the Grover Diffusion Operator.,Grover
-/pennylane/pennylane.templates.subroutines.hilbert_schmidt.HilbertSchmidt,Create a Hilbert-Schmidt template that can be used to compute the Hilbert-Schmidt Test (HST).,SWAP Test
-/pennylane/pennylane.templates.subroutines.hilbert_schmidt.LocalHilbertSchmidt,Create a Local Hilbert-Schmidt template that can be used to compute the Local Hilbert-Schmidt Test (LHST).,SWAP Test
-/pennylane/pennylane.templates.subroutines.interferometer.Interferometer,"General linear interferometer, an array of beamsplitters and phase shifters.",Quantum Neural Network (QNN)
-/pennylane/pennylane.templates.subroutines.kupccgsd.kUpCCGSD,Implements the k-Unitary Pair Coupled-Cluster Generalized Singles and Doubles (k-UpCCGSD) ansatz.,Variational Quantum Eigensolver (VQE)
+/pennylane/pennylane.templates.subroutines.hilbert_schmidt.HilbertSchmidt,Create a Hilbert-Schmidt template that can be used to compute the Hilbert-Schmidt Test (HST).,Schmidt Decomposition
+/pennylane/pennylane.templates.subroutines.hilbert_schmidt.LocalHilbertSchmidt,Create a Local Hilbert-Schmidt template that can be used to compute the Local Hilbert-Schmidt Test (LHST).,Schmidt Decomposition
+/pennylane/pennylane.templates.subroutines.interferometer.Interferometer,"General linear interferometer, an array of beamsplitters and phase shifters.",Domain Specific Application
+/pennylane/pennylane.templates.subroutines.kupccgsd.kUpCCGSD,Implements the k-Unitary Pair Coupled-Cluster Generalized Singles and Doubles (k-UpCCGSD) ansatz.,Variational Quantum Algorithm (VQA)
 /pennylane/pennylane.templates.subroutines.mod_exp.ModExp,Performs the out-place modular exponentiation operation.,Quantum Arithmetic
 /pennylane/pennylane.templates.subroutines.multiplier.Multiplier,Performs the in-place modular multiplication operation.,Quantum Arithmetic
 /pennylane/pennylane.templates.subroutines.out_adder.OutAdder,Performs the out-place modular addition operation.,Quantum Arithmetic
@@ -50,16 +50,16 @@ name,summary,pattern
 /pennylane/pennylane.templates.subroutines.prepselprep.PrepSelPrep,Implements a block-encoding of a linear combination of unitaries.,Data Encoding
 /pennylane/pennylane.templates.subroutines.qdrift.QDrift,An operation representing the QDrift approximation for the complex matrix exponential of a given Hamiltonian.,Hamiltonian Simulation
 /pennylane/pennylane.templates.subroutines.qft.QFT,QFT(wires) Apply a quantum Fourier transform (QFT).,Basis Change
-/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo,Performs the `quantum Monte Carlo estimation <https://arxiv.org/abs/1805.00109>`__ algorithm.,Quantum Amplitude Estimation (QAE)
+/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo,Performs the `quantum Monte Carlo estimation <https://arxiv.org/abs/1805.00109>`__ algorithm.,Domain Specific Application
 /pennylane/pennylane.templates.subroutines.qpe.QuantumPhaseEstimation,Performs the `quantum phase estimation <https://en.wikipedia.org/wiki/Quantum_phase_estimation_algorithm>`__ circuit.,Quantum Phase Estimation (QPE)
 /pennylane/pennylane.templates.subroutines.qrom.QROM,Applies the QROM operator.,Data Encoding
-/pennylane/pennylane.templates.subroutines.qsvt.QSVT,"QSVT(UA,projectors) Implements the `quantum singular value transformation <https://arxiv.org/abs/1806.01838>`__ (QSVT) circuit.",Quantum Singular Value Transformation (QSVT)
-/pennylane/pennylane.templates.subroutines.qubitization.Qubitization,Applies the `Qubitization <https://arxiv.org/abs/2204.11890>`__ operator.,Oracle
+/pennylane/pennylane.templates.subroutines.qsvt.QSVT,"QSVT(UA,projectors) Implements the `quantum singular value transformation <https://arxiv.org/abs/1806.01838>`__ (QSVT) circuit.",Domain Specific Application
+/pennylane/pennylane.templates.subroutines.qubitization.Qubitization,Applies the `Qubitization <https://arxiv.org/abs/2204.11890>`__ operator.,Data Encoding
 /pennylane/pennylane.templates.subroutines.reflection.Reflection,Apply a reflection about a state :math:`|\Psi\rangle`.,Grover
-/pennylane/pennylane.templates.subroutines.select.Select,"The ``Select`` operator, also known as multiplexer or multiplexed operation, applies different operations depending on the state of designated control wires.",Oracle
-/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot,Applies individual single-qubit Pauli rotations depending on the state of designated control qubits.,Oracle
+/pennylane/pennylane.templates.subroutines.select.Select,"The ``Select`` operator, also known as multiplexer or multiplexed operation, applies different operations depending on the state of designated control wires.",Dynamic Circuit
+/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot,Applies individual single-qubit Pauli rotations depending on the state of designated control qubits.,Circuit Construction Utility
 /pennylane/pennylane.templates.subroutines.semi_adder.SemiAdder,This operator performs the plain addition of two integers :math:`x` and :math:`y` in the computational basis:,Quantum Arithmetic
-/pennylane/pennylane.templates.subroutines.temporary_and.TemporaryAND,"TemporaryAND(wires, control_values)",Quantum Arithmetic
+/pennylane/pennylane.templates.subroutines.temporary_and.TemporaryAND,"TemporaryAND(wires, control_values)",Quantum Logical Operators
 /pennylane/pennylane.templates.subroutines.trotter.TrotterProduct,An operation representing the Suzuki-Trotter product approximation for the complex matrix exponential of a given Hamiltonian.,Hamiltonian Simulation
 /pennylane/pennylane.templates.subroutines.trotter.TrotterizedQfunc,An operation representing the Suzuki-Trotter product approximation applied to a set of operations defined in a function.,Hamiltonian Simulation
 /pennylane/pennylane.templates.subroutines.uccsd.UCCSD,Implements the Unitary Coupled-Cluster Singles and Doubles (UCCSD) ansatz.,Variational Quantum Eigensolver (VQE)

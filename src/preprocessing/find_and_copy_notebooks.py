@@ -18,7 +18,8 @@ main things for each one, running them in parallel to be fast:
 2.  **Archives the original notebooks:**
     - It copies the original `.ipynb` file to a central `notebooks/` directory.
     - This creates an organized backup of every notebook found, sorted into
-      folders by project name, making it easy to find and inspect them manually.
+      folders by project name and preserving their original subdirectory
+      structure to prevent filename collisions.
 """
 
 import concurrent.futures
@@ -28,14 +29,17 @@ from pathlib import Path
 
 import nbformat
 from nbconvert import PythonExporter
-
 from src.conf import config
 
-# Define project-relative paths to be completely ignored during notebook processing.
-# Any notebook found within these directories will be skipped.
-IGNORED_NOTEBOOK_PATHS = {}
+
+TARGET_PROJECTS_BASE_PATH = config.TARGET_PROJECTS_BASE_PATH
+
+TARGET_PROJECTS = config.TARGET_PROJECTS
 
 NOTEBOOKS_DEST_ROOT = config.PROJECT_ROOT / "notebooks"
+
+
+IGNORED_NOTEBOOK_PATHS = {}
 
 
 def convert_single_notebook(ipynb_path: str):
@@ -66,32 +70,37 @@ def convert_single_notebook(ipynb_path: str):
 
 
 def copy_single_notebook(
-    ipynb_path: str, destination_folder_name: str, destination_root: Path
+        ipynb_path: str,
+        project_name: str,
+        relative_path: Path,
+        destination_root: Path,
 ):
     """
-    Copies a notebook to a structured destination folder.
+    Copies a notebook to a structured destination, preserving its relative path.
     Returns a status string.
     """
     try:
-        project_dest_dir = destination_root / destination_folder_name
-        project_dest_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(ipynb_path, project_dest_dir)
+        full_dest_path = destination_root / project_name / relative_path
+        full_dest_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ipynb_path, full_dest_path)
         return "COPIED_SUCCESS"
     except Exception as e:
         return f"COPY_ERROR: {str(e)}"
 
 
 def process_single_notebook(
-    ipynb_path: str, project_name: str, copy_destination_root: Path
+        ipynb_path: str,
+        project_name: str,
+        relative_path: Path,
+        copy_destination_root: Path,
 ):
     """
-    A single worker function that performs both conversion and copying for one notebook.
+    A single worker function that performs conversion and copying for one notebook.
     """
     conversion_status = convert_single_notebook(ipynb_path)
-
-    # The archive destination is now ALWAYS the project's name. No special handling.
-    copy_status = copy_single_notebook(ipynb_path, project_name, copy_destination_root)
-
+    copy_status = copy_single_notebook(
+        ipynb_path, project_name, relative_path, copy_destination_root
+    )
     return {
         "conversion_status": conversion_status,
         "copy_status": copy_status,
@@ -104,6 +113,7 @@ def run_preprocessor():
     archive directory in parallel.
     """
     print("\n Starting Notebook Pre-processing Step ")
+    print(f"Projects will be scanned in: {TARGET_PROJECTS_BASE_PATH}")
     print(f"Notebooks will be archived in: {NOTEBOOKS_DEST_ROOT}")
 
     # Step 1: Find all notebooks by walking through target project directories
@@ -111,30 +121,35 @@ def run_preprocessor():
     found_paths = set()
     print("Searching for all notebooks...")
 
-    for project_subpath in config.TARGET_PROJECTS:
-        current_project_path = config.TARGET_PROJECTS_BASE_PATH / project_subpath
+    for project_subpath in TARGET_PROJECTS:
+        current_project_path = TARGET_PROJECTS_BASE_PATH / project_subpath
         project_name_for_dir = project_subpath.strip("/").replace("/", "_")
+
         if not current_project_path.is_dir():
+            print(f"  - Warning: Project path not found, skipping: {current_project_path}")
             continue
 
         for root, dirs, files in os.walk(current_project_path):
             dirs[:] = [d for d in dirs if not d.startswith(".")]
             for filename in files:
                 if filename.endswith(".ipynb"):
-                    full_path = os.path.join(root, filename)
-                    if full_path not in found_paths:
+                    full_path_str = os.path.join(root, filename)
+                    if full_path_str not in found_paths:
+                        full_path = Path(full_path_str)
+                        relative_path = full_path.relative_to(current_project_path)
+
                         initial_notebooks_found.append(
-                            {"path": full_path, "project": project_name_for_dir}
+                            {
+                                "path": str(full_path),
+                                "project": project_name_for_dir,
+                                "relative_path": relative_path,
+                            }
                         )
-                        found_paths.add(full_path)
+                        found_paths.add(full_path_str)
 
     # Step 2: Filter the found notebooks based on the exclusion list
-    print(
-        f"\nFound {len(initial_notebooks_found)} total notebooks. Applying exclusion filters..."
-    )
-    full_ignored_paths = {
-        config.TARGET_PROJECTS_BASE_PATH / p for p in IGNORED_NOTEBOOK_PATHS
-    }
+    print(f"\nFound {len(initial_notebooks_found)} total notebooks. Applying exclusion filters...")
+    full_ignored_paths = {TARGET_PROJECTS_BASE_PATH / p for p in IGNORED_NOTEBOOK_PATHS}
 
     notebooks_to_process = []
     for nb_info in initial_notebooks_found:
@@ -150,17 +165,12 @@ def run_preprocessor():
         print("--- Pre-processing Complete ---\n")
         return
 
-    print(
-        f"Found {len(notebooks_to_process)} unique notebooks to process after filtering. Running in parallel..."
-    )
+    print(f"Found {len(notebooks_to_process)} unique notebooks to process after filtering. Running in parallel...")
 
     # Step 3: Process the filtered list in parallel
     results_counter = {
-        "SUCCESS": 0,
-        "SKIPPED_UP_TO_DATE": 0,
-        "CONVERT_ERROR": 0,
-        "COPIED_SUCCESS": 0,
-        "COPY_ERROR": 0,
+        "SUCCESS": 0, "SKIPPED_UP_TO_DATE": 0, "CONVERT_ERROR": 0,
+        "COPIED_SUCCESS": 0, "COPY_ERROR": 0,
     }
     error_messages = []
 
@@ -170,6 +180,7 @@ def run_preprocessor():
                 process_single_notebook,
                 nb_info["path"],
                 nb_info["project"],
+                nb_info["relative_path"],
                 NOTEBOOKS_DEST_ROOT,
             ): nb_info
             for nb_info in notebooks_to_process
@@ -181,26 +192,20 @@ def run_preprocessor():
                 result = future.result()
                 if "CONVERT_ERROR" in result["conversion_status"]:
                     results_counter["CONVERT_ERROR"] += 1
-                    error_messages.append(
-                        f"  - Conversion failed for {os.path.basename(nb_info['path'])}: {result['conversion_status']}"
-                    )
+                    error_messages.append(f"  - Conversion failed for {Path(nb_info['path']).name}: {result['conversion_status']}")
                 else:
                     results_counter[result["conversion_status"]] += 1
 
                 if "COPY_ERROR" in result["copy_status"]:
                     results_counter["COPY_ERROR"] += 1
-                    error_messages.append(
-                        f"  - Copy failed for {os.path.basename(nb_info['path'])}: {result['copy_status']}"
-                    )
+                    error_messages.append(f"  - Copy failed for {Path(nb_info['path']).name}: {result['copy_status']}")
                 else:
                     results_counter[result["copy_status"]] += 1
 
             except Exception as exc:
                 results_counter["CONVERT_ERROR"] += 1
                 results_counter["COPY_ERROR"] += 1
-                error_messages.append(
-                    f"  - Exception during processing of {os.path.basename(nb_info['path'])}: {exc}"
-                )
+                error_messages.append(f"  - Exception during processing of {Path(nb_info['path']).name}: {exc}")
 
     # Step 4: Print a clean summary
     print("\n--- Pre-processing Summary ---")

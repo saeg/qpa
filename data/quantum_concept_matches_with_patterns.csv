@@ -5,35 +5,35 @@ torchquantum/sec1_basic.py;/pennylane/pennylane.templates.layers.random.RandomLa
 torchquantum/quanvolution.py;/pennylane/pennylane.templates.layers.random.RandomLayers;Variational Quantum Algorithm (VQA);name;RandomLayer;0.9207
 qiskit-addon-cutting/how_to_provide_multiple_observables.py;/qiskit/qiskit.circuit.library.n_local.efficient_su2.EfficientSU2;Variational Quantum Algorithm (VQA);name;EfficientSU2;1.0000
 quimb/ex_circuit_to_mpo.py;/pennylane/pennylane.templates.tensornetworks.mps.MPS;Quantum Neural Network (QNN);summary;!/usr/bin/env python coding: utf-8 Converting a Circuit to an MPO This example shows how to convert a quantum circuit (that is sufficiently shallow) i...;0.6518
-quimb/tensor-basics.py;/pennylane/pennylane.templates.subroutines.select.Select;Oracle;name;select;1.0000
-quimb/ex_MERA.py;/pennylane/pennylane.templates.subroutines.select.Select;Oracle;name;select;1.0000
+quimb/tensor-basics.py;/pennylane/pennylane.templates.subroutines.select.Select;Dynamic Circuit;name;select;1.0000
+quimb/ex_MERA.py;/pennylane/pennylane.templates.subroutines.select.Select;Dynamic Circuit;name;select;1.0000
 quimb/ex_tn_train_circuit.py;/pennylane/pennylane.templates.embeddings.qaoaembedding.QAOAEmbedding;Quantum Approximate Optimization Algorithm (QAOA);summary;!/usr/bin/env python coding: utf-8 (example-tn-training-circuits)= Tensor Network Training of Quantum Circuits Here we'll run through constructing a t...;0.6815
-quimb/tensor-circuit.py;/pennylane/pennylane.templates.subroutines.select.Select;Oracle;name;select;1.0000
-quimb/tensor-1d.py;/pennylane/pennylane.templates.subroutines.select.Select;Oracle;name;select;1.0000
+quimb/tensor-circuit.py;/pennylane/pennylane.templates.subroutines.select.Select;Dynamic Circuit;name;select;1.0000
+quimb/tensor-1d.py;/pennylane/pennylane.templates.subroutines.select.Select;Dynamic Circuit;name;select;1.0000
 quimb/tensor-1d.py;/pennylane/pennylane.templates.tensornetworks.mps.MPS;Quantum Neural Network (QNN);summary;!/usr/bin/env python coding: utf-8 (tensor-network-1d)= 1D Algorithms Although `quimb.tensor` aims to be an interactive and general base for arbitrary...;0.6572
 catalyst/tutorial_qft_arithmetics.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;QFT;1.0000
 catalyst/tutorial_qft_arithmetics.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;QFT;1.0000
 catalyst/tutorial_qft_arithmetics.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;QFT;1.0000
-catalyst/tutorial_qft_arithmetics.py;/pennylane/pennylane.templates.embeddings.basis.BasisEmbedding;Data Encoding;name;BasisEmbedding;1.0000
+catalyst/tutorial_qft_arithmetics.py;/pennylane/pennylane.templates.subroutines.flip_sign.FlipSign;Phase Shift;name;FlipSign;1.0000
 catalyst/tutorial_qft_arithmetics.py;/pennylane/pennylane.templates.subroutines.grover.GroverOperator;Grover;name;GroverOperator;1.0000
 catalyst/tutorial_qft_arithmetics.py;/qiskit/qiskit.circuit.library.grover_operator.GroverOperator;Grover;name;GroverOperator;1.0000
-catalyst/tutorial_qft_arithmetics.py;/pennylane/pennylane.templates.subroutines.flip_sign.FlipSign;Phase Shift;name;FlipSign;1.0000
+catalyst/tutorial_qft_arithmetics.py;/pennylane/pennylane.templates.embeddings.basis.BasisEmbedding;Data Encoding;name;BasisEmbedding;1.0000
 catalyst/tutorial_qft_arithmetics.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;summary;!/usr/bin/env python coding: utf-8 Basic arithmetic with the QFT ============================= This demo requires matplotlib: In[ ]: <div class='admon...;0.6536
 catalyst/tutorial_qft_arithmetics.py;/qiskit/qiskit.circuit.library.arithmetic.adders.draper_qft_adder.DraperQFTAdder;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Basic arithmetic with the QFT ============================= This demo requires matplotlib: In[ ]: <div class='admon...;0.6580
 catalyst/tutorial_learningshallow.py;/pennylane/pennylane.templates.embeddings.qaoaembedding.QAOAEmbedding;Quantum Approximate Optimization Algorithm (QAOA);summary;!/usr/bin/env python coding: utf-8 Learning shallow quantum circuits with local inversions and circuit sewing ========================================...;0.6903
 qiskit-finance/00_amplitude_estimation.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Amplitude Estimation Given an operator $\mathcal{A}$ that acts as $$ \mathcal{A}|0\rangle = \sqrt{1 - a}|\P...;0.7399
 qiskit-finance/00_amplitude_estimation.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Amplitude Estimation Given an operator $\mathcal{A}$ that acts as $$ \mathcal{A}|0\rangle = \sqrt{1 - a}|\P...;0.7157
-qiskit-finance/00_amplitude_estimation.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Quantum Amplitude Estimation Given an operator $\mathcal{A}$ that acts as $$ \mathcal{A}|0\rangle = \sqrt{1 - a}|\P...;0.6810
-qiskit-finance/09_credit_risk_analysis.py;/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparator;Quantum Arithmetic;name;IntegerComparator;1.0000
+qiskit-finance/00_amplitude_estimation.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Amplitude Estimation Given an operator $\mathcal{A}$ that acts as $$ \mathcal{A}|0\rangle = \sqrt{1 - a}|\P...;0.6810
 qiskit-finance/09_credit_risk_analysis.py;/qiskit/qiskit.circuit.library.arithmetic.weighted_adder.WeightedAdder;Quantum Arithmetic;name;WeightedAdder;1.0000
-qiskit-finance/09_credit_risk_analysis.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Credit Risk Analysis Introduction This tutorial shows how quantum algorithms can be used for credit risk analysis. ...;0.6566
+qiskit-finance/09_credit_risk_analysis.py;/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparator;Quantum Arithmetic;name;IntegerComparator;1.0000
+qiskit-finance/09_credit_risk_analysis.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Credit Risk Analysis Introduction This tutorial shows how quantum algorithms can be used for credit risk analysis. ...;0.6566
 qiskit-finance/06_basket_option_pricing.py;/qiskit/qiskit.circuit.library.arithmetic.weighted_adder.WeightedAdder;Quantum Arithmetic;name;WeightedAdder;1.0000
-qiskit-finance/06_basket_option_pricing.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;"!/usr/bin/env python coding: utf-8 Pricing Basket Options Introduction <br> Suppose a <a href=""https://www.investopedia.com/terms/b/basketoption.asp"">...";0.6622
+qiskit-finance/06_basket_option_pricing.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;"!/usr/bin/env python coding: utf-8 Pricing Basket Options Introduction <br> Suppose a <a href=""https://www.investopedia.com/terms/b/basketoption.asp"">...";0.6622
 qiskit-finance/10_qgan_option_pricing.py;/qiskit/qiskit.circuit.library.n_local.two_local.TwoLocal;Variational Quantum Algorithm (VQA);name;TwoLocal;1.0000
 qiskit-finance/01_portfolio_optimization.py;/qiskit/qiskit.circuit.library.n_local.two_local.TwoLocal;Variational Quantum Algorithm (VQA);name;TwoLocal;1.0000
 qiskit-finance/02_portfolio_diversification.py;/qiskit/qiskit.circuit.library.n_local.two_local.TwoLocal;Variational Quantum Algorithm (VQA);name;TwoLocal;1.0000
-qiskit-finance/07_asian_barrier_spread_pricing.py;/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparator;Quantum Arithmetic;name;IntegerComparator;1.0000
 qiskit-finance/07_asian_barrier_spread_pricing.py;/qiskit/qiskit.circuit.library.arithmetic.weighted_adder.WeightedAdder;Quantum Arithmetic;name;WeightedAdder;1.0000
+qiskit-finance/07_asian_barrier_spread_pricing.py;/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparator;Quantum Arithmetic;name;IntegerComparator;1.0000
 qiskit-machine-learning/02_neural_network_classifier_and_regressor.py;/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.z_feature_map;Data Encoding;name;zz_feature_map;0.9555
 qiskit-machine-learning/02_neural_network_classifier_and_regressor.py;/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.zz_feature_map;Data Encoding;name;zz_feature_map;1.0000
 qiskit-machine-learning/02_neural_network_classifier_and_regressor.py;/pennylane/pennylane.templates.embeddings.qaoaembedding.QAOAEmbedding;Quantum Approximate Optimization Algorithm (QAOA);summary;!/usr/bin/env python coding: utf-8 Neural Network Classifier & Regressor In this tutorial we show how the `NeuralNetworkClassifier` and `NeuralNetwork...;0.6573
@@ -56,28 +56,28 @@ qiskit-machine-learning/08_quantum_kernel_trainer.py;/qiskit/qiskit.circuit.libr
 Qrisp/FT_compilation.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;QFT;1.0000
 Qrisp/FT_compilation.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;QFT;1.0000
 Qrisp/FT_compilation.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;QFT;1.0000
+Qrisp/tutorial.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;QPE;1.0000
 Qrisp/tutorial.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;QFT;1.0000
 Qrisp/tutorial.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;QFT;1.0000
 Qrisp/tutorial.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;QFT;1.0000
-Qrisp/tutorial.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;QPE;1.0000
 Qrisp/tutorial.py;/classiq/open_library.functions.amplitude_amplification.amplitude_amplification;Amplitude Amplification;summary;!/usr/bin/env python coding: utf-8 Getting familiar with Qrisp Congratulations, you made it to your first Qrisp tutorial! This tutorial is designed to...;0.6514
 Qrisp/tutorial.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Getting familiar with Qrisp Congratulations, you made it to your first Qrisp tutorial! This tutorial is designed to...;0.6980
 Qrisp/tutorial.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Getting familiar with Qrisp Congratulations, you made it to your first Qrisp tutorial! This tutorial is designed to...;0.6840
-Qrisp/tutorial.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Getting familiar with Qrisp Congratulations, you made it to your first Qrisp tutorial! This tutorial is designed to...;0.6661
+Qrisp/tutorial.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Getting familiar with Qrisp Congratulations, you made it to your first Qrisp tutorial! This tutorial is designed to...;0.6661
 Qrisp/Shor.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;QFT;1.0000
 Qrisp/Shor.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;QFT;1.0000
 Qrisp/Shor.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;QFT;1.0000
 Qrisp/Jasp.py;/qiskit/qiskit.circuit.library.arithmetic.multipliers.rg_qft_multiplier.RGQFTMultiplier;Quantum Arithmetic;name;RGQFTMultiplier;1.0000
 Qrisp/TSP.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;QPE;1.0000
-Qrisp/QMCItutorial.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Quantum Monte Carlo Integration This tutorial will provide you with an introduction to Quantum Monte Carlo (QMCI) I...;0.7154
+Qrisp/QMCItutorial.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Monte Carlo Integration This tutorial will provide you with an introduction to Quantum Monte Carlo (QMCI) I...;0.7154
 Qrisp/HHL.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;QPE;1.0000
 Perceval/QLOQ_QUBO_tutorial.py;/pennylane/pennylane.templates.layers.random.RandomLayers;Variational Quantum Algorithm (VQA);summary;!/usr/bin/env python coding: utf-8 QLOQ (Qubit Logic on Qudits) Welcome to this tutorial, where we explore **QLOQ** (Qubit Logic on Qudits) for linear...;0.6935
-Perceval/Graph_States_Tutorial.py;/qiskit/qiskit.circuit.library.graph_state.GraphStateGate;Initialization;summary;!/usr/bin/env python coding: utf-8 Graph States I. Some definitions and properties of graph states Graph states are specific entangled states that are...;0.7415
+Perceval/Graph_States_Tutorial.py;/qiskit/qiskit.circuit.library.graph_state.GraphStateGate;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Graph States I. Some definitions and properties of graph states Graph states are specific entangled states that are...;0.7415
 qiskit-algorithms/13_trotterQRTE.py;/qiskit/qiskit.circuit.library.pauli_evolution.PauliEvolutionGate;Hamiltonian Simulation;name;PauliEvolutionGate;1.0000
 qiskit-algorithms/13_trotterQRTE.py;/pennylane/pennylane.templates.subroutines.time_evolution.approx_time_evolution.ApproxTimeEvolution;Hamiltonian Simulation;summary;!/usr/bin/env python coding: utf-8 Quantum Real Time Evolution using Trotterization As a real time evolution technique, the Trotterization or Trotteri...;0.6530
+qiskit-algorithms/06_grover.py;/qiskit/qiskit.circuit.library.phase_oracle.PhaseOracleGate;Oracle;name;PhaseOracleGate;1.0000
 qiskit-algorithms/06_grover.py;/pennylane/pennylane.templates.subroutines.grover.GroverOperator;Grover;name;GroverOperator;1.0000
 qiskit-algorithms/06_grover.py;/qiskit/qiskit.circuit.library.grover_operator.GroverOperator;Grover;name;GroverOperator;1.0000
-qiskit-algorithms/06_grover.py;/qiskit/qiskit.circuit.library.phase_oracle.PhaseOracleGate;Oracle;name;PhaseOracleGate;1.0000
 qiskit-algorithms/06_grover.py;/classiq/open_library.functions.amplitude_amplification.amplitude_amplification;Amplitude Amplification;summary;!/usr/bin/env python coding: utf-8 Grover's Algorithm and Amplitude Amplification Grover's algorithm is one of the most famous quantum algorithms intr...;0.7121
 qiskit-algorithms/06_grover.py;/classiq/open_library.functions.grover.grover_search;Grover;summary;!/usr/bin/env python coding: utf-8 Grover's Algorithm and Amplitude Amplification Grover's algorithm is one of the most famous quantum algorithms intr...;0.7297
 qiskit-algorithms/07_grover_examples.py;/qiskit/qiskit.circuit.library.phase_oracle.PhaseOracleGate;Oracle;name;PhaseOracleGate;1.0000
@@ -93,35 +93,35 @@ tensorcircuit/qaoa.py;/qiskit/qiskit.circuit.library.n_local.qaoa_ansatz.QAOAAns
 grove/GroversAlgorithm.py;/classiq/open_library.functions.amplitude_amplification.amplitude_amplification;Amplitude Amplification;summary;!/usr/bin/env python coding: utf-8 This notebook is a brief sketch of how to use Grover's algorithm. We start by declaring all necessary imports. In[ ...;0.6683
 guppylang/canonical-qpe.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Canonical Quantum Phase estimation **Download this notebook - {nb-download}`canonical-qpe.ipynb`** Based on this [s...;0.8276
 guppylang/canonical-qpe.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Canonical Quantum Phase estimation **Download this notebook - {nb-download}`canonical-qpe.ipynb`** Based on this [s...;0.8288
-guppylang/canonical-qpe.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Canonical Quantum Phase estimation **Download this notebook - {nb-download}`canonical-qpe.ipynb`** Based on this [s...;0.6856
+guppylang/canonical-qpe.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Canonical Quantum Phase estimation **Download this notebook - {nb-download}`canonical-qpe.ipynb`** Based on this [s...;0.6856
 qiskit-optimization/04_grover_optimizer.py;/classiq/open_library.functions.grover.grover_search;Grover;summary;!/usr/bin/env python coding: utf-8 Grover Optimizer Introduction Grover Adaptive Search (GAS) has been explored as a possible solution for combinatori...;0.7253
 qiskit-optimization/06_examples_max_cut_and_tsp.py;/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation;Circuit Construction Utility;name;permutations;0.9776
 thewalrus/permanent_tutorial.py;/qiskit/qiskit.circuit.library.generalized_gates.diagonal.Diagonal;Circuit Construction Utility;name;diagonal;1.0000
 thewalrus/hafnian_tutorial.py;/qiskit/qiskit.circuit.library.generalized_gates.diagonal.Diagonal;Circuit Construction Utility;name;diagonal;1.0000
 amazon-braket-algorithm-library/Quantum_Phase_Estimation_Algorithm.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation This example provides an implementation of the Quantum Phase Estimation (QPE) algorithm us...;0.8073
 amazon-braket-algorithm-library/Quantum_Phase_Estimation_Algorithm.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation This example provides an implementation of the Quantum Phase Estimation (QPE) algorithm us...;0.8099
-amazon-braket-algorithm-library/Quantum_Phase_Estimation_Algorithm.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation This example provides an implementation of the Quantum Phase Estimation (QPE) algorithm us...;0.7026
+amazon-braket-algorithm-library/Quantum_Phase_Estimation_Algorithm.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation This example provides an implementation of the Quantum Phase Estimation (QPE) algorithm us...;0.7026
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.7250
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.7153
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.6796
-amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Oracle;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.6616
+amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.6616
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.7098
 amazon-braket-algorithm-library/Quantum_Fourier_Transform.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFTGate;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The Quantum Fourier Transform (QFT) is an important subroutine to many quantum algorithms...;0.6854
 amazon-braket-algorithm-library/Random_Circuit.py;/qiskit/qiskit.circuit.library.iqp.random_iqp;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Random Circuit Generates random quantum circuits using the Amazon Braket SDK. Circuit Generation for Testing Random...;0.6616
 amazon-braket-algorithm-library/Grovers_Search.py;/classiq/open_library.functions.grover.grover_search;Grover;name;grovers_search;0.9720
 Cirq/hidden_linear_function.py;/qiskit/qiskit.circuit.library.hidden_linear_function.HiddenLinearFunction;Oracle;name;HiddenLinearFunctionProblem;0.9214
-Cirq/Cirq-to-Tensor-Networks.py;/pennylane/pennylane.templates.subroutines.select.Select;Oracle;name;select;1.0000
+Cirq/Cirq-to-Tensor-Networks.py;/pennylane/pennylane.templates.subroutines.select.Select;Dynamic Circuit;name;select;1.0000
 Cirq/Cirq-to-Tensor-Networks.py;/pennylane/pennylane.templates.tensornetworks.mps.MPS;Quantum Neural Network (QNN);summary;!/usr/bin/env python coding: utf-8 In[ ]: Cirq to Tensor Networks Here we demonstrate turning circuits into tensor network representations of the circ...;0.6944
 Cirq/Cirq-to-Tensor-Networks.py;/pennylane/pennylane.templates.tensornetworks.ttn.TTN;Quantum Neural Network (QNN);summary;!/usr/bin/env python coding: utf-8 In[ ]: Cirq to Tensor Networks Here we demonstrate turning circuits into tensor network representations of the circ...;0.6752
 Cirq/quantum_utility_sim_4a.py;/qiskit/qiskit.circuit.library.iqp.random_iqp;Circuit Construction Utility;summary;"!/usr/bin/env python coding: utf-8 In[1]: Copyright 2023 The Cirq Developers Licensed under the Apache License, Version 2.0 (the ""License""), you may n...";0.6580
+Cirq/shor.py;/pennylane/pennylane.templates.subroutines.arithmetic.adder.Adder;Quantum Arithmetic;name;Adder;1.0000
+Cirq/shor.py;/qiskit/qiskit.circuit.library.arithmetic.adders.adder.Adder;Quantum Arithmetic;name;Adder;1.0000
 Cirq/shor.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 Cirq/shor.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 Cirq/shor.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-Cirq/shor.py;/pennylane/pennylane.templates.subroutines.arithmetic.adder.Adder;Quantum Arithmetic;name;Adder;1.0000
-Cirq/shor.py;/qiskit/qiskit.circuit.library.arithmetic.adders.adder.Adder;Quantum Arithmetic;name;Adder;1.0000
 Cirq/fourier_checking.py;/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation;Circuit Construction Utility;name;permutation;1.0000
 Cirq/noisy_simulation.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 Cirq/noisy_simulation.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
@@ -131,31 +131,31 @@ Cirq/textbook_algorithms.py;/pennylane/pennylane.templates.subroutines.qft.QFT;B
 Cirq/textbook_algorithms.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
 Cirq/quantum_volume.py;/qiskit/qiskit.circuit.library.quantum_volume.QuantumVolume;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Running the Quantum Volume Algorithm This example walks through the steps of running the quantum volume algorithm o...;0.6639
 Cirq/quantum_utility_sim_4b.py;/pennylane/pennylane.templates.embeddings.angle.AngleEmbedding;Data Encoding;summary;"!/usr/bin/env python coding: utf-8 In[1]: Copyright 2023 The Cirq Developers Licensed under the Apache License, Version 2.0 (the ""License""), you may n...";0.6567
-qibo/qfiae_demo.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Iterative Amplitude Estimation Code at: [https://github.com/qiboteam/qibo/tree/master/examples/qfia...;0.6603
+qibo/qfiae_demo.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Iterative Amplitude Estimation Code at: [https://github.com/qiboteam/qibo/tree/master/examples/qfia...;0.6603
 qibo/qibo-draw-circuit-matplotlib.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;QFT;1.0000
 qibo/qibo-draw-circuit-matplotlib.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;QFT;1.0000
 qibo/qibo-draw-circuit-matplotlib.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;QFT;1.0000
 ReCirq/binary_paintshop.py;/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation;Circuit Construction Utility;name;permutation;1.0000
 amazon-braket-examples/3_Hydrogen_Molecule_geometry_with_VQE.py;/pennylane/pennylane.templates.subroutines.qchem.all_singles_doubles.AllSinglesDoubles;Variational Quantum Eigensolver (VQE);name;AllSinglesDoubles;1.0000
 amazon-braket-examples/3_Hydrogen_Molecule_geometry_with_VQE.py;/pennylane/pennylane.templates.subroutines.qchem.all_singles_doubles.AllSinglesDoubles;Variational Quantum Eigensolver (VQE);summary;!/usr/bin/env python coding: utf-8 Hydrogen Molecule geometry with VQE This tutorial will show you how to solve an important problem for quantum chemi...;0.6915
-amazon-braket-examples/01_Local_Emulation_for_Verbatim_Circuits_on_Amazon_Braket.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Oracle;summary;!/usr/bin/env python coding: utf-8 Local emulation for verbatim circuits on Amazon Braket This notebook introduces the local emulator, a tool that ena...;0.6512
+amazon-braket-examples/01_Local_Emulation_for_Verbatim_Circuits_on_Amazon_Braket.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Basis Change;summary;!/usr/bin/env python coding: utf-8 Local emulation for verbatim circuits on Amazon Braket This notebook introduces the local emulator, a tool that ena...;0.6512
 amazon-braket-examples/Quantum_Phase_Estimation.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 amazon-braket-examples/Quantum_Phase_Estimation.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 QUANTUM PHASE ESTIMATION In[23]: Use Braket SDK Cost Tracking to estimate the cost to run this example This tutoria...;0.8607
 amazon-braket-examples/Quantum_Phase_Estimation.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 QUANTUM PHASE ESTIMATION In[23]: Use Braket SDK Cost Tracking to estimate the cost to run this example This tutoria...;0.8126
-amazon-braket-examples/Quantum_Phase_Estimation.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 QUANTUM PHASE ESTIMATION In[23]: Use Braket SDK Cost Tracking to estimate the cost to run this example This tutoria...;0.7559
+amazon-braket-examples/Quantum_Phase_Estimation.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 QUANTUM PHASE ESTIMATION In[23]: Use Braket SDK Cost Tracking to estimate the cost to run this example This tutoria...;0.7559
+amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;name;qft_no_swap;1.0000
 amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 amazon-braket-examples/Quantum_Fourier_Transform.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 amazon-braket-examples/Quantum_Fourier_Transform.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;name;qft_no_swap;1.0000
 amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.6952
 amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.7039
 amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.7610
 amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.6971
-amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.6812
+amazon-braket-examples/Quantum_Fourier_Transform.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.6812
 amazon-braket-examples/Quantum_Fourier_Transform.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;summary;!/usr/bin/env python coding: utf-8 QUANTUM FOURIER TRANSFORM In this tutorial, we provide a detailed implementation of the Quantum Fourier Transform (...;0.6509
 amazon-braket-examples/Error_Mitigation_on_Amazon_Braket.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Error mitigation on Amazon Braket In this example notebook, you will learn how to get started with using IonQ's Ari...;0.6878
 amazon-braket-examples/Error_Mitigation_on_Amazon_Braket.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Error mitigation on Amazon Braket In this example notebook, you will learn how to get started with using IonQ's Ari...;0.7236
-amazon-braket-examples/Error_Mitigation_on_Amazon_Braket.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Error mitigation on Amazon Braket In this example notebook, you will learn how to get started with using IonQ's Ari...;0.6537
+amazon-braket-examples/Error_Mitigation_on_Amazon_Braket.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Error mitigation on Amazon Braket In this example notebook, you will learn how to get started with using IonQ's Ari...;0.6537
 amazon-braket-examples/0_Intro_to_Dynamic_Circuits_on_IQM.py;/qiskit/qiskit.circuit.library.iqp.random_iqp;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Introduction to Dynamic Circuits with Amazon Braket on IQM Garnet In this notebook we introduce experimental dynami...;0.6529
 amazon-braket-examples/Using_the_tensor_network_simulator_TN1.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 amazon-braket-examples/Using_the_tensor_network_simulator_TN1.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
@@ -169,11 +169,11 @@ amazon-braket-examples/Quantum_Amplitude_Amplification.py;/classiq/open_library.
 amazon-braket-examples/Using_the_experimental_local_simulator.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 amazon-braket-examples/Using_the_experimental_local_simulator.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 amazon-braket-examples/Using_the_experimental_local_simulator.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-amazon-braket-examples/3_Deep_dive_into_the_anatomy_of_quantum_circuits.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Oracle;summary;!/usr/bin/env python coding: utf-8 Anatomy of Quantum Circuits and Quantum Tasks in Amazon Braket In[1]: Use Braket SDK Cost Tracking to estimate the ...;0.6507
+amazon-braket-examples/3_Deep_dive_into_the_anatomy_of_quantum_circuits.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Basis Change;summary;!/usr/bin/env python coding: utf-8 Anatomy of Quantum Circuits and Quantum Tasks in Amazon Braket In[1]: Use Braket SDK Cost Tracking to estimate the ...;0.6507
 amazon-braket-examples/3_Deep_dive_into_the_anatomy_of_quantum_circuits.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;summary;!/usr/bin/env python coding: utf-8 Anatomy of Quantum Circuits and Quantum Tasks in Amazon Braket In[1]: Use Braket SDK Cost Tracking to estimate the ...;0.6589
 amazon-braket-examples/3_Deep_dive_into_the_anatomy_of_quantum_circuits.py;/qiskit/qiskit.circuit.library.iqp.random_iqp;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Anatomy of Quantum Circuits and Quantum Tasks in Amazon Braket In[1]: Use Braket SDK Cost Tracking to estimate the ...;0.6560
 amazon-braket-examples/IonQ_Native_Gates.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;name;qft_no_swap;1.0000
-amazon-braket-examples/IonQ_Native_Gates.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Oracle;summary;!/usr/bin/env python coding: utf-8 IonQ Native Gates In this notebook, we will dive into the details of IonQ's native gates and their functionalities,...;0.6746
+amazon-braket-examples/IonQ_Native_Gates.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Basis Change;summary;!/usr/bin/env python coding: utf-8 IonQ Native Gates In this notebook, we will dive into the details of IonQ's native gates and their functionalities,...;0.6746
 amazon-braket-examples/IonQ_Native_Gates.py;/qiskit/qiskit.circuit.library.generalized_gates.pauli.PauliGate;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 IonQ Native Gates In this notebook, we will dive into the details of IonQ's native gates and their functionalities,...;0.6696
 amazon-braket-examples/TN1_demo_local_vs_non-local_random_circuits.py;/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation;Circuit Construction Utility;name;permutation;1.0000
 OpenFermion/fermi_hubbard.py;/qiskit/qiskit.circuit.library.generalized_gates.diagonal.Diagonal;Circuit Construction Utility;name;diagonal;1.0000
@@ -187,12 +187,12 @@ ProjectQ/spectral_measurement.py;/classiq/open_library.functions.qpe.qpe;Quantum
 ProjectQ/mapper_tutorial.py;/pennylane/pennylane.templates.embeddings.qaoaembedding.QAOAEmbedding;Quantum Approximate Optimization Algorithm (QAOA);summary;!/usr/bin/env python coding: utf-8 ProjectQ Mapper Tutorial The aim of this short tutorial is to give an introduction to the ProjectQ mappers. Project...;0.6613
 Qualtran/tensor_product.py;/pennylane/pennylane.templates.subroutines.prepselprep.PrepSelPrep;Data Encoding;summary;!/usr/bin/env python coding: utf-8 Tensor Product In[ ]: `TensorProduct` Tensor product of a sequence of block encodings. Builds the block encoding as...;0.6660
 Qualtran/Adjoint.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;name;And;1.0000
-Qualtran/qubitization_qpe.py;/pennylane/pennylane.templates.subroutines.qubitization.Qubitization;Oracle;name;QubitizationQPE;0.9036
+Qualtran/qubitization_qpe.py;/pennylane/pennylane.templates.subroutines.qubitization.Qubitization;Data Encoding;name;QubitizationQPE;0.9036
 Qualtran/qubitization_qpe.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Qubitization Phase Estimation In[ ]: `QubitizationQPE` Heisenberg limited phase estimation circuit for learning eig...;0.7160
 Qualtran/qubitization_qpe.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Qubitization Phase Estimation In[ ]: `QubitizationQPE` Heisenberg limited phase estimation circuit for learning eig...;0.6647
 Qualtran/always.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;name;And;1.0000
 Qualtran/qrom.py;/pennylane/pennylane.templates.subroutines.qrom.QROM;Data Encoding;name;QROM;1.0000
-Qualtran/qrom.py;/pennylane/pennylane.templates.state_preparations.qrom_state_prep.QROMStatePreparation;Data Encoding;summary;!/usr/bin/env python coding: utf-8 QROM Quantum read-only memory. In[ ]: `QROMBase` Interface for Bloqs to load `data[l]` when the selection register ...;0.6509
+Qualtran/qrom.py;/pennylane/pennylane.templates.state_preparations.qrom_state_prep.QROMStatePreparation;Initialization;summary;!/usr/bin/env python coding: utf-8 QROM Quantum read-only memory. In[ ]: `QROMBase` Interface for Bloqs to load `data[l]` when the selection register ...;0.6509
 Qualtran/gf2_square.py;/qiskit/qiskit.circuit.library.arithmetic.quadratic_form.QuadraticFormGate;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 GF($2^m$) Square In[ ]: `GF2Square` In place squaring for elements in GF($2^m$) The bloq implements in-place squari...;0.6702
 Qualtran/linear_combination.py;/pennylane/pennylane.templates.subroutines.prepselprep.PrepSelPrep;Data Encoding;summary;!/usr/bin/env python coding: utf-8 Linear Combination In[ ]: `LinearCombination` Linear combination of a sequence of block encodings. Builds the block...;0.6839
 Qualtran/kaiser_window_state.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Kaiser Window State for Quantum Phase Estimation In[ ]: `KaiserWindowState` Bloq to prepare a Kaiser window state f...;0.6825
@@ -201,9 +201,9 @@ Qualtran/t_complexity.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_an
 Qualtran/MBUC.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;name;And;1.0000
 Qualtran/rsa.py;/pennylane/pennylane.templates.subroutines.arithmetic.mod_exp.ModExp;Quantum Arithmetic;name;ModExp;1.0000
 Qualtran/msft_resource_estimator_interop.py;/pennylane/pennylane.templates.subroutines.arithmetic.mod_exp.ModExp;Quantum Arithmetic;name;ModExp;1.0000
-Qualtran/state_preparation_via_rotation_tutorial.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Controlled Linear Rotation;summary;"!/usr/bin/env python coding: utf-8 In[ ]: Copyright 2023 Google LLC Licensed under the Apache License, Version 2.0 (the ""License""), you may not use th...";0.6734
+Qualtran/state_preparation_via_rotation_tutorial.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Data Encoding;summary;"!/usr/bin/env python coding: utf-8 In[ ]: Copyright 2023 Google LLC Licensed under the Apache License, Version 2.0 (the ""License""), you may not use th...";0.6734
 Qualtran/state_preparation_via_rotation_tutorial.py;/pennylane/pennylane.templates.embeddings.angle.AngleEmbedding;Data Encoding;summary;"!/usr/bin/env python coding: utf-8 In[ ]: Copyright 2023 Google LLC Licensed under the Apache License, Version 2.0 (the ""License""), you may not use th...";0.6542
-Qualtran/state_preparation_via_rotation_tutorial.py;/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot;Oracle;summary;"!/usr/bin/env python coding: utf-8 In[ ]: Copyright 2023 Google LLC Licensed under the Apache License, Version 2.0 (the ""License""), you may not use th...";0.6836
+Qualtran/state_preparation_via_rotation_tutorial.py;/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot;Circuit Construction Utility;summary;"!/usr/bin/env python coding: utf-8 In[ ]: Copyright 2023 Google LLC Licensed under the Apache License, Version 2.0 (the ""License""), you may not use th...";0.6836
 Qualtran/addition.py;/classiq/open_library.functions.modular_exponentiation.qft_space_add_const;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Addition In[ ]: `Add` An n-bit addition gate. This computes `a + b` and stores the result in `b`. Specifically it i...;0.6875
 Qualtran/addition.py;/classiq/open_library.functions.modular_exponentiation.cc_modular_add;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Addition In[ ]: `Add` An n-bit addition gate. This computes `a + b` and stores the result in `b`. Specifically it i...;0.6543
 Qualtran/addition.py;/classiq/open_library.functions.modular_exponentiation.modular_multiply;N/A;summary;!/usr/bin/env python coding: utf-8 Addition In[ ]: `Add` An n-bit addition gate. This computes `a + b` and stores the result in `b`. Specifically it i...;0.6515
@@ -217,10 +217,10 @@ Qualtran/permutation.py;/qiskit/qiskit.circuit.library.generalized_gates.permuta
 Qualtran/ui-export.py;/pennylane/pennylane.templates.subroutines.arithmetic.mod_exp.ModExp;Quantum Arithmetic;name;ModExp;1.0000
 Qualtran/cirq_interop.py;/pennylane/pennylane.templates.subroutines.arithmetic.mod_exp.ModExp;Quantum Arithmetic;name;ModExp;1.0000
 Qualtran/factoring-via-modexp.py;/pennylane/pennylane.templates.subroutines.arithmetic.mod_exp.ModExp;Quantum Arithmetic;name;ModExp;1.0000
-Qualtran/generalized_qsp.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing In[ ]: `GeneralizedQSP` Applies a QSP polynomial $P$ to a unitary $U$ to obta...;0.6863
+Qualtran/generalized_qsp.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing In[ ]: `GeneralizedQSP` Applies a QSP polynomial $P$ to a unitary $U$ to obta...;0.6863
 Qualtran/generalized_qsp.py;/classiq/open_library.functions.qsvt.qsvt_lcu;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing In[ ]: `GeneralizedQSP` Applies a QSP polynomial $P$ to a unitary $U$ to obta...;0.6949
 Qualtran/generalized_qsp.py;/classiq/open_library.functions.qsvt.gqsp;N/A;summary;!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing In[ ]: `GeneralizedQSP` Applies a QSP polynomial $P$ to a unitary $U$ to obta...;0.7807
-Qualtran/generalized_qsp.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Oracle;summary;!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing In[ ]: `GeneralizedQSP` Applies a QSP polynomial $P$ to a unitary $U$ to obta...;0.6677
+Qualtran/generalized_qsp.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Basis Change;summary;!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing In[ ]: `GeneralizedQSP` Applies a QSP polynomial $P$ to a unitary $U$ to obta...;0.6677
 Qualtran/call_graph.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;name;And;1.0000
 Qualtran/swap_network.py;/classiq/open_library.functions.modular_exponentiation.multiswap;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Swap Networks Functionality for moving data between registers (swapping). In[ ]: `CSwapApprox` Approximately implem...;0.6816
 Qualtran/unary_iteration.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;name;And;1.0000
@@ -229,7 +229,7 @@ Qualtran/qft_text_book.py;/classiq/open_library.functions.qft_functions.qft;Basi
 Qualtran/qft_text_book.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;summary;!/usr/bin/env python coding: utf-8 Textbook QFT In[ ]: `QFTTextBook` Standard Quantum Fourier Transform from Nielsen and Chuang Performs the QFT on a ...;0.6530
 Qualtran/qft_text_book.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFTGate;Basis Change;summary;!/usr/bin/env python coding: utf-8 Textbook QFT In[ ]: `QFTTextBook` Standard Quantum Fourier Transform from Nielsen and Chuang Performs the QFT on a ...;0.6564
 Qualtran/and_bloq.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AND;Quantum Logical Operators;name;And;1.0000
-Qualtran/rotation.py;/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot;Oracle;summary;!/usr/bin/env python coding: utf-8 Basic Rotation Gates Single-qubit rotation gates. A single qubit's state can be mapped to the Bloch sphere. Rotatio...;0.6931
+Qualtran/rotation.py;/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Basic Rotation Gates Single-qubit rotation gates. A single qubit's state can be mapped to the Bloch sphere. Rotatio...;0.6931
 Qualtran/rotation.py;/qiskit/qiskit.circuit.library.arithmetic.polynomial_pauli_rotations.PolynomialPauliRotationsGate;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Basic Rotation Gates Single-qubit rotation gates. A single qubit's state can be mapped to the Bloch sphere. Rotatio...;0.6751
 Qualtran/identity.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AndGate;Quantum Logical Operators;summary;!/usr/bin/env python coding: utf-8 Identity Gate In[ ]: `Identity` The identity gate on `n` qubits. Parameters - `bitsize`: number of qubits `n`, defa...;0.6527
 Qualtran/1-wiring-up.py;/classiq/open_library.functions.modular_exponentiation.c_modular_multiply;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Writing a quantum program 1: wiring up Qualtran lets you write quantum programs and subroutines by composing lower-...;0.6883
@@ -250,15 +250,15 @@ Qualtran/controlled_addition.py;/qiskit/qiskit.circuit.library.arithmetic.adders
 Qualtran/gf2_multiplication.py;/qiskit/qiskit.circuit.library.arithmetic.multipliers.rg_qft_multiplier.RGQFTMultiplier;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 GF($2^m$) Multiplication In[ ]: `GF2Multiplication` Out of place multiplication over GF($2^m$). The bloq implements...;0.6500
 classiq-library/vlasov_ampere.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;name;qsvt_inversion;1.0000
 classiq-library/vlasov_ampere.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/vlasov_ampere.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/vlasov_ampere.py;/classiq/open_library.functions.lcu.lcu;Linear Combination of Unitaries;name;lcu;1.0000
+classiq-library/vlasov_ampere.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/vehicle_routing_problem.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/vehicle_routing_problem.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
+classiq-library/linear_combination_of_unitaries.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/linear_combination_of_unitaries.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 classiq-library/linear_combination_of_unitaries.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/linear_combination_of_unitaries.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-classiq-library/linear_combination_of_unitaries.py;/pennylane/pennylane.templates.subroutines.select.Select;Oracle;name;select;1.0000
-classiq-library/linear_combination_of_unitaries.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
+classiq-library/linear_combination_of_unitaries.py;/pennylane/pennylane.templates.subroutines.select.Select;Dynamic Circuit;name;select;1.0000
 classiq-library/linear_combination_of_unitaries.py;/classiq/open_library.functions.lcu.lcu;Linear Combination of Unitaries;summary;!/usr/bin/env python coding: utf-8 Linear Combination of Unitaries (LCU) Quantum computing is based on the principles of quantum mechanics, which incl...;0.6829
 classiq-library/hadamard_test.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 classiq-library/hadamard_test.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
@@ -268,68 +268,68 @@ classiq-library/qft.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis 
 classiq-library/qft.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/qft.py;/classiq/open_library.functions.qft_functions.qft_no_swap;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The quantum Fourier transform (QFT) function is the quantum analog for discrete Fourier t...;0.6635
 classiq-library/qft.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Fourier Transform The quantum Fourier transform (QFT) function is the quantum analog for discrete Fourier t...;0.7352
-classiq-library/prepare_exponential_state.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Data Encoding;name;prepare_exponential_state;1.0000
+classiq-library/prepare_exponential_state.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Initialization;name;prepare_exponential_state;1.0000
 classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.state_preparation.prepare_bell_state;Creating Entanglement;name;create_bell_state;0.9017
+classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
+classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.state_preparation.prepare_ghz_state;Creating Entanglement;name;create_ghz_state;0.9225
+classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
 classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 classiq-library/algo_design_QCE_tutorial_part_I.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/algo_design_QCE_tutorial_part_I.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
-classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
-classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.state_preparation.prepare_bell_state;Creating Entanglement;name;create_bell_state;0.9017
-classiq-library/algo_design_QCE_tutorial_part_I.py;/classiq/open_library.functions.state_preparation.prepare_ghz_state;Creating Entanglement;name;create_ghz_state;0.9225
 classiq-library/qsvt_matrix_inversion.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;name;qsvt_inversion;1.0000
-classiq-library/qsvt_matrix_inversion.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;"!/usr/bin/env python coding: utf-8 Matrix Inversion with Quantum Singular Value Transform (QSVT) <blockquote style=""background:rgba(59,130,246,.08),bo...";0.7524
+classiq-library/qsvt_matrix_inversion.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;"!/usr/bin/env python coding: utf-8 Matrix Inversion with Quantum Singular Value Transform (QSVT) <blockquote style=""background:rgba(59,130,246,.08),bo...";0.7524
 classiq-library/qsvt_matrix_inversion.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;summary;"!/usr/bin/env python coding: utf-8 Matrix Inversion with Quantum Singular Value Transform (QSVT) <blockquote style=""background:rgba(59,130,246,.08),bo...";0.7435
+classiq-library/qmc_user_defined.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Data Encoding;name;linear_pauli_rotations;1.0000
 classiq-library/qmc_user_defined.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/qmc_user_defined.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;my_grover_operator;0.9093
-classiq-library/qmc_user_defined.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Controlled Linear Rotation;name;linear_pauli_rotations;1.0000
-classiq-library/qmc_user_defined.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Quantum Monte Carlo Integration (QMCI) Monte Carlo integration refers to estimating expectation values of a functio...;0.6780
+classiq-library/qmc_user_defined.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Monte Carlo Integration (QMCI) Monte Carlo integration refers to estimating expectation values of a functio...;0.6780
 classiq-library/qpe_for_matrix.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
 classiq-library/qpe_for_matrix.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/qpe_for_matrix.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for Solving Matrix Eigenvalues Quantum Phase Estimation (QPE) is a key algorithm in quantu...;0.7470
 classiq-library/qpe_for_matrix.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for Solving Matrix Eigenvalues Quantum Phase Estimation (QPE) is a key algorithm in quantu...;0.7979
-classiq-library/qpe_for_matrix.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for Solving Matrix Eigenvalues Quantum Phase Estimation (QPE) is a key algorithm in quantu...;0.6958
+classiq-library/qpe_for_matrix.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for Solving Matrix Eigenvalues Quantum Phase Estimation (QPE) is a key algorithm in quantu...;0.6958
 classiq-library/hadamard_transform.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/hadamard_transform.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;summary;!/usr/bin/env python coding: utf-8 Hadamard Transform The Hadamard transform function applies an H gate on each qubit of the register inputted to the ...;0.7184
-classiq-library/molecule_eigensolver.py;/classiq/open_library.functions.hea.full_hea;Variational Quantum Algorithm (VQA);name;full_hea;1.0000
 classiq-library/molecule_eigensolver.py;/classiq/open_library.functions.state_preparation.prepare_basis_state;Initialization;name;prepare_basis_state;1.0000
+classiq-library/molecule_eigensolver.py;/classiq/open_library.functions.hea.full_hea;Variational Quantum Algorithm (VQA);name;full_hea;1.0000
 classiq-library/modular_exp_example.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/modular_exp_example.py;/classiq/open_library.functions.modular_exponentiation.modular_exp;Quantum Arithmetic;name;modular_exp;1.0000
 classiq-library/modular_exp_example.py;/classiq/open_library.functions.modular_exponentiation.inplace_c_modular_multiply;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Modular Exponentiation The `modular_exp` function raises a classical integer `a` to the power of a quantum number `...;0.6608
 classiq-library/modular_exp_example.py;/classiq/open_library.functions.modular_exponentiation.inplace_modular_multiply;N/A;summary;!/usr/bin/env python coding: utf-8 Modular Exponentiation The `modular_exp` function raises a classical integer `a` to the power of a quantum number `...;0.6540
 classiq-library/modular_exp_example.py;/classiq/open_library.functions.modular_exponentiation.modular_exp;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Modular Exponentiation The `modular_exp` function raises a classical integer `a` to the power of a quantum number `...;0.7464
-classiq-library/time_marching.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;name;qsvt;1.0000
-classiq-library/time_marching.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Quantum Singular Value Transformation (QSVT);name;qsvt;1.0000
-classiq-library/time_marching.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/time_marching.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;name;qsvt;1.0000
+classiq-library/time_marching.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Domain Specific Application;name;qsvt;1.0000
+classiq-library/time_marching.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Data Encoding;name;linear_pauli_rotations;1.0000
 classiq-library/time_marching.py;/classiq/open_library.functions.qsvt.qsvt_lcu;Quantum Singular Value Transformation;name;qsvt_lcu;1.0000
-classiq-library/time_marching.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Controlled Linear Rotation;name;linear_pauli_rotations;1.0000
+classiq-library/time_marching.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/whitebox_fuzzing.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/whitebox_fuzzing.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;my_grover_operator;0.9093
 classiq-library/advection_equation_2nd_place_submission.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/second_quantized_hamiltonian.py;/classiq/open_library.functions.hea.full_hea;Variational Quantum Algorithm (VQA);name;full_hea;1.0000
-classiq-library/discrete_log.py;/classiq/open_library.functions.modular_exponentiation.modular_exp;Quantum Arithmetic;name;modular_exp;1.0000
+classiq-library/discrete_log.py;/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state;Initialization;name;prepare_uniform_trimmed_state;1.0000
 classiq-library/discrete_log.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/discrete_log.py;/classiq/open_library.functions.modular_exponentiation.modular_exp;Quantum Arithmetic;name;modular_exp;1.0000
 classiq-library/discrete_log.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 classiq-library/discrete_log.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/discrete_log.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-classiq-library/discrete_log.py;/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state;Initialization;name;prepare_uniform_trimmed_state;1.0000
 classiq-library/molecular_energy_curve.py;/classiq/open_library.functions.state_preparation.prepare_basis_state;Initialization;name;prepare_basis_state;1.0000
-classiq-library/verify_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Block Encoding Verification This notebook verifies the various block encoding, whose code are given in this directo...;0.6867
+classiq-library/verify_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Block Encoding Verification This notebook verifies the various block encoding, whose code are given in this directo...;0.6867
 classiq-library/verify_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Block Encoding Verification This notebook verifies the various block encoding, whose code are given in this directo...;0.6528
 classiq-library/qls_chebyshev_lcu.py;/classiq/open_library.functions.grover.reflect_about_zero;Amplitude Amplification;name;reflect_about_zero;1.0000
 classiq-library/bernstein_vazirani.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/bernstein_vazirani.py;/classiq/open_library.functions.modular_exponentiation.c_modular_multiply;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Bernstein-Vazirani Algorithm The Bernstein-Vazirani (BV) algorithm [[1](#BVWiki)], named after Ethan Bernstein and ...;0.6524
 classiq-library/classiq_qsvt.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/classiq_qsvt.py;/classiq/open_library.functions.qsvt.qsvt_step;Quantum Singular Value Transformation;name;my_qsvt_step;0.9091
+classiq-library/classiq_qsvt.py;/classiq/open_library.functions.qsvt.qsvt_step;Domain Specific Application;name;my_qsvt_step;0.9091
 classiq-library/classiq_qsvt.py;/classiq/open_library.functions.qsvt.projector_controlled_phase;Phase Shift;name;my_projector_controlled_phase;0.9730
 classiq-library/classiq_qsvt.py;/classiq/open_library.functions.qsvt.projector_controlled_double_phase;Phase Shift;name;my_projector_controlled_phase;0.9123
 classiq-library/classiq_qsvt.py;/classiq/open_library.functions.grover.reflect_about_zero;Amplitude Amplification;name;reflect_about_zero;1.0000
-classiq-library/qiskit_qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Qiskit code for QSVT example This notebook shows how to generate data for the QSVT example using `qiskit` 1.2.4. He...;0.6818
+classiq-library/qiskit_qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Qiskit code for QSVT example This notebook shows how to generate data for the QSVT example using `qiskit` 1.2.4. He...;0.6818
 classiq-library/execution_tutorial.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/shor.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
 classiq-library/shor.py;/classiq/open_library.functions.modular_exponentiation.inplace_c_modular_multiply;Quantum Arithmetic;name;inplace_modular_multiply;0.9340
 classiq-library/shor.py;/classiq/open_library.functions.modular_exponentiation.inplace_modular_multiply;N/A;name;inplace_modular_multiply;1.0000
-classiq-library/shor.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
-classiq-library/rainbow_options_integration_method.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Data Encoding;name;prepare_exponential_state;1.0000
+classiq-library/rainbow_options_integration_method.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Initialization;name;prepare_exponential_state;1.0000
 classiq-library/comparator_example.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/comparator_example.py;/qiskit/qiskit.circuit.library.arithmetic.integer_comparator.IntegerComparatorGate;Quantum Arithmetic;summary;!/usr/bin/env python coding: utf-8 Comparators The following comparators are supported: - Equal (denoted as '==') - NotEqual (denoted as '!=') - Great...;0.7171
 classiq-library/hamiltonian_simulation_guide.py;/pennylane/pennylane.templates.subroutines.time_evolution.qdrift.QDrift;Hamiltonian Simulation;name;qdrift;1.0000
@@ -337,30 +337,30 @@ classiq-library/hamiltonian_simulation_guide.py;/classiq/qmod.builtins.functions
 classiq-library/simon.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/quantum_counting.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/quantum_counting.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/quantum_counting.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
 classiq-library/quantum_counting.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
-classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
-classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/quantum_counting.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
 classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.qsvt.qsvt_lcu;Quantum Singular Value Transformation;name;qsvt_lcu;1.0000
+classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.grover.reflect_about_zero;Amplitude Amplification;name;reflect_about_zero;1.0000
+classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
 classiq-library/stateprep_guassian_using_qsvt.py;/classiq/open_library.functions.qsvt.gqsp;N/A;summary;!/usr/bin/env python coding: utf-8 Quantum state preparation without coherent arithmetic This notebook implements a quantum state preparation circuit ...;0.6528
 classiq-library/extremum_example.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/linear_pauli_rotations.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Controlled Linear Rotation;name;linear_pauli_rotations;1.0000
-classiq-library/linear_pauli_rotations.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Controlled Linear Rotation;summary;!/usr/bin/env python coding: utf-8 Linear Pauli Rotations This function performs a rotation on a series of $m$ target qubits, where the rotation angle...;0.7753
-classiq-library/linear_pauli_rotations.py;/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot;Oracle;summary;!/usr/bin/env python coding: utf-8 Linear Pauli Rotations This function performs a rotation on a series of $m$ target qubits, where the rotation angle...;0.6587
+classiq-library/linear_pauli_rotations.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Data Encoding;name;linear_pauli_rotations;1.0000
+classiq-library/linear_pauli_rotations.py;/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations;Data Encoding;summary;!/usr/bin/env python coding: utf-8 Linear Pauli Rotations This function performs a rotation on a series of $m$ target qubits, where the rotation angle...;0.7753
+classiq-library/linear_pauli_rotations.py;/pennylane/pennylane.templates.subroutines.select_pauli_rot.SelectPauliRot;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Linear Pauli Rotations This function performs a rotation on a series of $m$ target qubits, where the rotation angle...;0.6587
+classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.swap_test.swap_test;SWAP Test;name;swap_test;1.0000
+classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;my_qpe_flexible;0.9355
+classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 classiq-library/high_level_modeling_flexible_qpe.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/high_level_modeling_flexible_qpe.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.swap_test.swap_test;SWAP Test;name;swap_test;1.0000
-classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
-classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;my_qpe_flexible;0.9355
 classiq-library/high_level_modeling_flexible_qpe.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Designing Quantum Algorithms with Second Order Functions: A Flexible QPE Quantum Phase Estimation (QPE) is a fundam...;0.7975
 classiq-library/high_level_modeling_flexible_qpe.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Designing Quantum Algorithms with Second Order Functions: A Flexible QPE Quantum Phase Estimation (QPE) is a fundam...;0.7459
+classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
 classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qct_qst_type1;Basis Change;name;qct_type2;0.9226
 classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qct_qst_type2;Basis Change;name;qct_type2;0.9476
 classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qct_type2;Basis Change;name;qct_type2;1.0000
-classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
 classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qct_qst_type2;Basis Change;name;qst_type2;0.9102
 classiq-library/discrete_poisson_solver.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qst_type2;Basis Change;name;qst_type2;1.0000
 classiq-library/discrete_poisson_solver.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
@@ -370,7 +370,7 @@ classiq-library/algo_design_QCE_tutorial_part_II.py;/classiq/open_library.functi
 classiq-library/qpe_for_unitary_matrix.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/qpe_for_unitary_matrix.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for a Matrix This notebook demonstrates the capability of Classiq's Synthesis engine to re...;0.7498
 classiq-library/qpe_for_unitary_matrix.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for a Matrix This notebook demonstrates the capability of Classiq's Synthesis engine to re...;0.7038
-classiq-library/qpe_for_unitary_matrix.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for a Matrix This notebook demonstrates the capability of Classiq's Synthesis engine to re...;0.7074
+classiq-library/qpe_for_unitary_matrix.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation for a Matrix This notebook demonstrates the capability of Classiq's Synthesis engine to re...;0.7074
 classiq-library/Qmod_tutorial_part2.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/Qmod_tutorial_part2.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/suzuki_trotter.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
@@ -381,34 +381,34 @@ classiq-library/vlasov_ampere_qiskit.py;/classiq/open_library.functions.qsvt.pro
 classiq-library/3sat_oracles.py;/qiskit/qiskit.circuit.library.phase_oracle.PhaseOracle;Oracle;name;PhaseOracle;1.0000
 classiq-library/3sat_oracles.py;/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation;Circuit Construction Utility;name;permutation;1.0000
 classiq-library/quantum_walks_via_efficient_blockencoding.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/quantum_walks_via_efficient_blockencoding.py;/pennylane/pennylane.templates.subroutines.fable.FABLE;Linear Combination of Unitaries (LCU);summary;!/usr/bin/env python coding: utf-8 Quantum walks via efficient block encoding circuits This notebook was developed as part of “**Implementation Challe...;0.7200
+classiq-library/quantum_walks_via_efficient_blockencoding.py;/pennylane/pennylane.templates.subroutines.fable.FABLE;Data Encoding;summary;!/usr/bin/env python coding: utf-8 Quantum walks via efficient block encoding circuits This notebook was developed as part of “**Implementation Challe...;0.7200
 classiq-library/qaoa_max_cut.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/qaoa_max_cut.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
-classiq-library/superposition.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/superposition.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;my_hadamard_transform;0.9268
+classiq-library/superposition.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
+classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state;Initialization;name;prepare_uniform_trimmed_state;1.0000
+classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.qft_functions.qft;Basis Change;name;qft;1.0000
 classiq-library/quantum_thermal_state_preparation.py;/pennylane/pennylane.templates.subroutines.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/quantum_thermal_state_preparation.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
-classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state;Initialization;name;prepare_uniform_trimmed_state;1.0000
-classiq-library/quantum_thermal_state_preparation.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/quantum_thermal_state_preparation.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/example_exponentiation.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
-classiq-library/qpe_for_grover_operator.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/qpe_for_grover_operator.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/qpe_for_grover_operator.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/qpe_for_grover_operator.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation on a Grover Operator This notebook demonstrates the capability of Classiq's QPE function, ...;0.7132
 classiq-library/qpe_for_grover_operator.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation on a Grover Operator This notebook demonstrates the capability of Classiq's QPE function, ...;0.6959
 classiq-library/solving_qlsp_with_aqc.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/quantum_compression_algorithm_for_symmetric_states.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/quantum_compression_algorithm_for_symmetric_states.py;/qiskit/qiskit.circuit.library.generalized_gates.permutation.Permutation;Circuit Construction Utility;summary;!/usr/bin/env python coding: utf-8 Paper implementation challenge - Quantum Compression Algorithm for Symmetric States This notebook is part of the pa...;0.6575
-classiq-library/quantum_autocallable_option_pricing.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Data Encoding;name;prepare_exponential_state;1.0000
-classiq-library/partial_exponential_state_preparation.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
+classiq-library/quantum_autocallable_option_pricing.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Initialization;name;prepare_exponential_state;1.0000
 classiq-library/partial_exponential_state_preparation.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
-classiq-library/partial_exponential_state_preparation.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Data Encoding;name;prepare_exponential_state;1.0000
+classiq-library/partial_exponential_state_preparation.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
+classiq-library/partial_exponential_state_preparation.py;/classiq/open_library.functions.state_preparation.prepare_exponential_state;Initialization;name;prepare_exponential_state;1.0000
 classiq-library/bpde.py;/classiq/open_library.functions.state_preparation.prepare_basis_state;Initialization;name;prepare_basis_state;1.0000
 classiq-library/bpde.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
-classiq-library/prepare_partial_uniform_state.py;/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state;Initialization;name;prepare_uniform_trimmed_state;1.0000
 classiq-library/prepare_partial_uniform_state.py;/classiq/open_library.functions.state_preparation.prepare_uniform_interval_state;Initialization;name;prepare_uniform_interval_state;1.0000
+classiq-library/prepare_partial_uniform_state.py;/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state;Initialization;name;prepare_uniform_trimmed_state;1.0000
 classiq-library/combi_workshop_Inequality_constriants_PO.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/combi_workshop_Inequality_constriants_PO.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/qdrift.py;/pennylane/pennylane.templates.subroutines.time_evolution.qdrift.QDrift;Hamiltonian Simulation;name;qdrift;1.0000
@@ -430,8 +430,8 @@ classiq-library/qct_qst.py;/classiq/open_library.functions.discrete_sine_cosine_
 classiq-library/qct_qst.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qct_qst_type2;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Sine and Cosine Transforms The quantum Sine and Cosine transforms functions are the quantum analog for the ...;0.7579
 classiq-library/qct_qst.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qct_type2;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Sine and Cosine Transforms The quantum Sine and Cosine transforms functions are the quantum analog for the ...;0.7251
 classiq-library/qct_qst.py;/classiq/open_library.functions.discrete_sine_cosine_transform.qst_type2;Basis Change;summary;!/usr/bin/env python coding: utf-8 Quantum Sine and Cosine Transforms The quantum Sine and Cosine transforms functions are the quantum analog for the ...;0.7254
-classiq-library/qsvt_fixed_point_amplitude_amplification.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;name;qsvt;1.0000
-classiq-library/qsvt_fixed_point_amplitude_amplification.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Quantum Singular Value Transformation (QSVT);name;qsvt;1.0000
+classiq-library/qsvt_fixed_point_amplitude_amplification.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;name;qsvt;1.0000
+classiq-library/qsvt_fixed_point_amplitude_amplification.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Domain Specific Application;name;qsvt;1.0000
 classiq-library/qsvt_fixed_point_amplitude_amplification.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/qsvt_fixed_point_amplitude_amplification.py;/classiq/open_library.functions.amplitude_amplification.amplitude_amplification;Amplitude Amplification;summary;!/usr/bin/env python coding: utf-8 Using QSVT for Fixed-point Amplitude Amplification This demo shows how to use the QSVT framework for search problem...;0.6839
 classiq-library/hidden_shift.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
@@ -441,21 +441,21 @@ classiq-library/hybrid_qnn_for_subset_majority.py;/pennylane/pennylane.templates
 classiq-library/prepare_ghz_state.py;/classiq/open_library.functions.state_preparation.prepare_ghz_state;Creating Entanglement;name;prepare_ghz_state;1.0000
 classiq-library/gqsp.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/gqsp.py;/classiq/open_library.functions.qsvt.gqsp;N/A;name;gqsp;1.0000
-classiq-library/gqsp.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Oracle;name;gqsp;1.0000
+classiq-library/gqsp.py;/pennylane/pennylane.templates.subroutines.gqsp.GQSP;Basis Change;name;gqsp;1.0000
 classiq-library/gqsp.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.6552
-classiq-library/gqsp.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.7371
+classiq-library/gqsp.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.7371
 classiq-library/gqsp.py;/classiq/open_library.functions.qsvt.qsvt_lcu;Quantum Singular Value Transformation;summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.7161
 classiq-library/gqsp.py;/classiq/open_library.functions.qsvt.gqsp;N/A;summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.7933
 classiq-library/gqsp.py;/qiskit/qiskit.circuit.library.arithmetic.piecewise_polynomial_pauli_rotations.PiecewisePolynomialPauliRotationsGate;Quantum Arithmetic;summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.6545
 classiq-library/gqsp.py;/qiskit/qiskit.circuit.library.arithmetic.polynomial_pauli_rotations.PolynomialPauliRotations;Quantum Arithmetic;summary;"!/usr/bin/env python coding: utf-8 Generalized Quantum Signal Processing (GQSP) <blockquote style=""background:rgba(59,130,246,.08),border-left:6px sol...";0.6567
-classiq-library/grover_workshop.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;my_grover_operator;0.9093
 classiq-library/grover_workshop.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
-classiq-library/deutsch_jozsa.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
+classiq-library/grover_workshop.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;my_grover_operator;0.9093
 classiq-library/deutsch_jozsa.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/classiq_iQuHack_2025_final_sol.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
+classiq-library/deutsch_jozsa.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
 classiq-library/classiq_iQuHack_2025_final_sol.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/dqi_max_xorsat.py;/classiq/open_library.functions.state_preparation.prepare_dicke_state;Initialization;name;prepare_dicke_state;1.0000
+classiq-library/classiq_iQuHack_2025_final_sol.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
 classiq-library/dqi_max_xorsat.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
+classiq-library/dqi_max_xorsat.py;/classiq/open_library.functions.state_preparation.prepare_dicke_state;Initialization;name;prepare_dicke_state;1.0000
 classiq-library/dqi_max_xorsat.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/qpe.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/qpe.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
@@ -465,39 +465,39 @@ classiq-library/qpe.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum 
 classiq-library/qpe.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation The quantum phase estimation (QPE) function estimates the phase of an eigenvector of a uni...;0.8643
 classiq-library/qpe.py;/pennylane/pennylane.templates.subroutines.qpe.QuantumPhaseEstimation;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation The quantum phase estimation (QPE) function estimates the phase of an eigenvector of a uni...;0.6501
 classiq-library/qls_qsvt.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;name;qsvt_inversion;1.0000
-classiq-library/qls_qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Quantum linear solver based on QSVT The code here can be integrated as part of a larger CFD solver, e.g., as in [qc...;0.6943
+classiq-library/qls_qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Quantum linear solver based on QSVT The code here can be integrated as part of a larger CFD solver, e.g., as in [qc...;0.6943
 classiq-library/qls_qsvt.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Quantum linear solver based on QSVT The code here can be integrated as part of a larger CFD solver, e.g., as in [qc...;0.6887
 classiq-library/oracles_workshop.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/oracles_workshop.py;/classiq/open_library.functions.grover.grover_search;Grover;name;grover_search;1.0000
 classiq-library/oracles_workshop.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
+classiq-library/oracles_workshop.py;/classiq/open_library.functions.grover.grover_search;Grover;name;grover_search;1.0000
 classiq-library/grover.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/grover.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
 classiq-library/grover.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
+classiq-library/grover.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
 classiq-library/grover.py;/classiq/open_library.functions.grover.grover_search;Grover;summary;"!/usr/bin/env python coding: utf-8 Grover's Search Algorithm <blockquote style=""background:rgba(59,130,246,.08),border-left:6px solid #3b82f6,padding:...";0.7041
 classiq-library/multiplication.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/quantum_autoencoder.py;/classiq/open_library.functions.swap_test.swap_test;SWAP Test;name;swap_test;1.0000
 classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.lcu.lcu_pauli;Linear Combination of Unitaries;name;lcu_pauli;1.0000
 classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.qsvt.qsvt_inversion;Quantum Singular Value Transformation;name;qsvt_inversion;1.0000
-classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.state_preparation.inplace_prepare_complex_amplitudes;Data Encoding;name;inplace_prepare_complex_amplitudes;1.0000
 classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.amplitude_estimation.amplitude_estimation;Quantum Amplitude Estimation;name;amplitude_estimation;1.0000
+classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.state_preparation.inplace_prepare_complex_amplitudes;Initialization;name;inplace_prepare_complex_amplitudes;1.0000
 classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.qaoa_penalty.qaoa_layer;Quantum Approximate Optimization Algorithm (QAOA);name;qaoa_layer;1.0000
+classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.amplitude_estimation.amplitude_estimation;Quantum Amplitude Estimation;name;amplitude_estimation;1.0000
 classiq-library/cooling_systems_optimization.py;/classiq/open_library.functions.grover.reflect_about_zero;Amplitude Amplification;name;reflect_about_zero;1.0000
 classiq-library/combinatorial_qmod_workshop_for_maxcut.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/combinatorial_qmod_workshop_for_maxcut.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
 classiq-library/vqls_with_lcu.py;/classiq/open_library.functions.lcu.lcu_pauli;Linear Combination of Unitaries;name;lcu_pauli;1.0000
 classiq-library/vqls_with_lcu.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
-classiq-library/hhl_lanchester.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/hhl_lanchester.py;/classiq/open_library.functions.swap_test.swap_test;SWAP Test;name;swap_test;1.0000
-classiq-library/grover_operator.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
+classiq-library/hhl_lanchester.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);name;qpe;1.0000
 classiq-library/grover_operator.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/grover_operator.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
+classiq-library/grover_operator.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
 classiq-library/grover_operator.py;/classiq/open_library.functions.amplitude_amplification.amplitude_amplification;Amplitude Amplification;summary;!/usr/bin/env python coding: utf-8 Grover Operator The Grover operator is a unitary used in amplitude estimation and amplitude amplification algorithm...;0.7407
 classiq-library/grover_operator.py;/classiq/open_library.functions.grover.grover_search;Grover;summary;!/usr/bin/env python coding: utf-8 Grover Operator The Grover operator is a unitary used in amplitude estimation and amplitude amplification algorithm...;0.7001
 classiq-library/Qmod_tutorial_part1.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;my_hadamard_transform;0.9268
 classiq-library/classiq_iQuHack_2025_final.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/advection_equation_winning_submission.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
-classiq-library/option_pricing.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Quantum Amplitude Estimation (QAE);summary;!/usr/bin/env python coding: utf-8 Estimating European Option Price Using Amplitude Estimation In finance models it is often interesting to calculate ...;0.6609
+classiq-library/option_pricing.py;/pennylane/pennylane.templates.subroutines.qmc.QuantumMonteCarlo;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Estimating European Option Price Using Amplitude Estimation In finance models it is often interesting to calculate ...;0.6609
 classiq-library/mcx_example.py;/qiskit/qiskit.circuit.library.boolean_logic.quantum_and.AndGate;Quantum Logical Operators;summary;!/usr/bin/env python coding: utf-8 Multi-Control-X The multi-control-X applies X gate to one target qubit bit only if the logical AND of all control q...;0.6629
 classiq-library/combi_workshop_equality_constriants_PO.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/combi_workshop_equality_constriants_PO.py;/classiq/open_library.functions.utility_functions.apply_to_all;Circuit Construction Utility;name;apply_to_all;1.0000
@@ -513,14 +513,14 @@ classiq-library/variational_data_encoding.py;/classiq/open_library.functions.var
 classiq-library/variational_data_encoding.py;/classiq/open_library.functions.variational.encode_on_bloch;Data Encoding;summary;!/usr/bin/env python coding: utf-8 Variational Data Encoding Encoding classical data on quantum states is an important subroutine in variational quant...;0.6627
 classiq-library/variational_data_encoding.py;/pennylane/pennylane.templates.embeddings.angle.AngleEmbedding;Data Encoding;summary;!/usr/bin/env python coding: utf-8 Variational Data Encoding Encoding classical data on quantum states is an important subroutine in variational quant...;0.7446
 classiq-library/logical_qubits_by_alice_and_bob.py;/classiq/open_library.functions.swap_test.swap_test;SWAP Test;name;swap_test;1.0000
-classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;name;qsvt;1.0000
-classiq-library/qsvt.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Quantum Singular Value Transformation (QSVT);name;qsvt;1.0000
+classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;name;qsvt;1.0000
+classiq-library/qsvt.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Domain Specific Application;name;qsvt;1.0000
 classiq-library/qsvt.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
-classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt_step;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.7433
-classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.8156
-classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt_lcu_step;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.6837
+classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt_step;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.7433
+classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.8156
+classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt_lcu_step;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.6837
 classiq-library/qsvt.py;/classiq/open_library.functions.qsvt.qsvt_lcu;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.6717
-classiq-library/qsvt.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Quantum Singular Value Transformation (QSVT);summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.6847
+classiq-library/qsvt.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 QSVT The Quantum Singlar Value Transformation (QSVT) [[1]](#QSVT) is an algorithmic framework, used to apply polyno...;0.6847
 classiq-library/exact_amplitude_amplification.py;/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification;Amplitude Amplification;name;exact_amplitude_amplification;1.0000
 classiq-library/exact_amplitude_amplification.py;/classiq/open_library.functions.amplitude_amplification.amplitude_amplification;Amplitude Amplification;summary;!/usr/bin/env python coding: utf-8 Exact Amplitude Amplification The following is a usage example for the `exact_amplitude_amplification` function. We...;0.7357
 classiq-library/WS_iQuHack_2025_final.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
@@ -537,20 +537,20 @@ classiq-library/elliptic_curve_discrete_log.py;/pennylane/pennylane.templates.su
 classiq-library/elliptic_curve_discrete_log.py;/qiskit/qiskit.circuit.library.basis_change.qft.QFT;Basis Change;name;qft;1.0000
 classiq-library/classiq_overview_tutorial.py;/classiq/open_library.functions.utility_functions.hadamard_transform;Basis Change;name;hadamard_transform;1.0000
 classiq-library/oblivious_amplitude_amplification.py;/classiq/open_library.functions.lcu.lcu_pauli;Linear Combination of Unitaries;name;lcu_pauli;1.0000
-classiq-library/oblivious_amplitude_amplification.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
 classiq-library/oblivious_amplitude_amplification.py;/classiq/open_library.functions.grover.phase_oracle;Oracle;name;phase_oracle;1.0000
+classiq-library/oblivious_amplitude_amplification.py;/classiq/open_library.functions.grover.grover_operator;Amplitude Amplification;name;grover_operator;1.0000
+classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;name;qsvt;1.0000
+classiq-library/hamiltonian_simulation_with_block_encoding.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Domain Specific Application;name;qsvt;1.0000
 classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.lcu.lcu_pauli;Linear Combination of Unitaries;name;lcu_pauli;1.0000
-classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;name;qsvt;1.0000
-classiq-library/hamiltonian_simulation_with_block_encoding.py;/pennylane/pennylane.templates.subroutines.qsvt.QSVT;Quantum Singular Value Transformation (QSVT);name;qsvt;1.0000
 classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.lcu.lcu;Linear Combination of Unitaries;name;lcu;1.0000
 classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.grover.reflect_about_zero;Amplitude Amplification;name;reflect_about_zero;1.0000
-classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 Hamiltonian Simulation with Block-Encoding This tutorial demonstrates how to implement Hamiltonian simulation for b...;0.6790
+classiq-library/hamiltonian_simulation_with_block_encoding.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 Hamiltonian Simulation with Block-Encoding This tutorial demonstrates how to implement Hamiltonian simulation for b...;0.6790
 classiq-library/hhl.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
 classiq-library/hhl.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/hhl.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 HHL Algorithm Solving linear equations appears in many research, engineering, and design fields. For example, many ...;0.6827
-classiq-library/hhl.py;/classiq/open_library.functions.qsvt.qsvt;Quantum Singular Value Transformation;summary;!/usr/bin/env python coding: utf-8 HHL Algorithm Solving linear equations appears in many research, engineering, and design fields. For example, many ...;0.6681
-classiq-library/qpe_for_molecules.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
+classiq-library/hhl.py;/classiq/open_library.functions.qsvt.qsvt;Domain Specific Application;summary;!/usr/bin/env python coding: utf-8 HHL Algorithm Solving linear equations appears in many research, engineering, and design fields. For example, many ...;0.6681
 classiq-library/qpe_for_molecules.py;/classiq/open_library.functions.state_preparation.prepare_basis_state;Initialization;name;prepare_basis_state;1.0000
+classiq-library/qpe_for_molecules.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);name;qpe_flexible;1.0000
 classiq-library/qpe_for_molecules.py;/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter;Hamiltonian Simulation;name;suzuki_trotter;1.0000
 classiq-library/qpe_for_molecules.py;/classiq/open_library.functions.qpe.qpe_flexible;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation (QPE) for Solving Molecular Energies Quantum Phase Estimation (QPE) is a key algorithm in ...;0.6525
 classiq-library/qpe_for_molecules.py;/classiq/open_library.functions.qpe.qpe;Quantum Phase Estimation (QPE);summary;!/usr/bin/env python coding: utf-8 Quantum Phase Estimation (QPE) for Solving Molecular Energies Quantum Phase Estimation (QPE) is a key algorithm in ...;0.7060

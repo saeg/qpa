@@ -12,7 +12,7 @@ from src.conf import config
 load_dotenv()
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN") or os.getenv("GITHUB_PAT")
 
-TARGET_RESULT_COUNT = 60
+TARGET_RESULT_COUNT = 200
 SORT_BY = "stars"
 SORT_ORDER = "desc"
 
@@ -60,38 +60,13 @@ known_repos = [
     "amazon-braket/amazon-braket-algorithm-library",
 ]
 
-MIN_STARS = 50
+MIN_STARS = 30
 MIN_CONTRIBUTORS = 10
 MAX_INACTIVITY_MONTHS = 12
 
 EXCLUSION_KEYWORDS = [
-    "provider",
-    "qpu",
-    "hardware",
-    "device",
-    "backend",
-    "client",
-    "cloud",
-    "pulse",
-    "control",
-    "calibration",
-    "benchmarking",
-    "chip",
-    "metal",
-    "workshop",
-    "game",
-    "qiskit-advocate",
-    "tutorial",
     "awesome-list",
-    "plugin",
-    "connector",
-    "interface",
-    "adapter",
-    "books",
-    "paper",
-    "cryptography",
-    "qkd",
-    "post-quantum",
+    "books"
 ]
 
 OUTPUT_FOLDER = config.PROJECT_ROOT / "data"
