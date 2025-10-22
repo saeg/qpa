@@ -281,8 +281,8 @@
 | Classiq     | ...qft_no_swap             |         8 |
 | Qiskit      | ...zz_feature_map          |         8 |
 | Classiq     | ...amplitude_amplification |         7 |
-| Classiq     | ...qct_qst_type2           |         7 |
 | Classiq     | ...qsvt_inversion          |         7 |
+| Classiq     | ...qct_qst_type2           |         7 |
 | Qiskit      | ...Permutation             |         7 |
 
 ---

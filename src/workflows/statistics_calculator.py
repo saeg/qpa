@@ -163,3 +163,5 @@ class StatisticsCalculator:
             Set of unmatched patterns
         """
         return self.unmatched_patterns
+
+

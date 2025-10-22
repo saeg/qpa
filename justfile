@@ -51,6 +51,16 @@ report:
     @echo "\n>>> Generating final report..."
     @{{VENV}}/bin/python -m src.workflows.generate_final_report
 
+# Analyze extended pattern coverage across frameworks and target projects
+extended-patterns:
+    @echo "\n>>> Analyzing extended pattern coverage..."
+    @{{VENV}}/bin/python -m src.utils.analyze_extended_patterns
+
+# Generate PDF files from all Markdown files in docs folder
+pdf:
+    @echo "\n>>> Generating PDFs from Markdown files..."
+    @{{VENV}}/bin/python -m src.utils.generate_pdfs
+
 # Generate experimental data report with complete datasets
 experimental-data:
     @echo "\n>>> Generating experimental data report..."

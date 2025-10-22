@@ -1,8 +1,365 @@
 # Summary of Extracted Quantum Concepts (Pre-Classification)
 
-This document summarizes the raw quantum concepts automatically extracted from the source code of the Qiskit, PennyLane, and Classiq frameworks. 
-These concepts were identified by the `src/core_concepts/identify_*.py` scripts and serve as the input for the manual pattern classification step.
+This document summarizes the raw quantum concepts automatically extracted from the source code 
+of the Qiskit, PennyLane, and Classiq frameworks. 
+These concepts were identified by the `src/core_concepts/identify_*.py` scripts and serve as the input for the
+manual pattern classification step.
 
+## Pattern Coverage Analysis
+
+This analysis compares the quantum patterns found in the three frameworks against the base list 
+of 59 patterns from `quantum_patterns.json`.
+
+**Coverage: 25.4%** (15/59 base patterns found)
+
+### Framework Pattern Distribution
+
+| Framework | Patterns Found |
+|-----------|----------------|
+| Classiq | 21 |
+| PennyLane | 20 |
+| Qiskit | 13 |
+
+### Complete List of Patterns Found
+
+#### Classiq Patterns
+
+| Pattern | Concepts |
+|---------|----------|
+| Amplitude Amplification | `open_library.functions.amplitude_amplification.amplitude_amplification`, `open_library.functions.amplitude_amplification.exact_amplitude_amplification`, `open_library.functions.grover.grover_diffuser` (+2 more) |
+| Basis Change | `open_library.functions.discrete_sine_cosine_transform.qct_qst_type1`, `open_library.functions.discrete_sine_cosine_transform.qct_qst_type2`, `open_library.functions.discrete_sine_cosine_transform.qct_type2` (+5 more) |
+| Circuit Construction Utility | `open_library.functions.modular_exponentiation.multiswap`, `open_library.functions.utility_functions.apply_to_all` |
+| Controlled Linear Rotation | `open_library.functions.linear_pauli_rotation.linear_pauli_rotations` |
+| Creating Entanglement | `open_library.functions.state_preparation.prepare_bell_state`, `open_library.functions.state_preparation.prepare_ghz_state` |
+| Data Encoding | `open_library.functions.state_preparation.inplace_prepare_complex_amplitudes`, `open_library.functions.state_preparation.prepare_complex_amplitudes`, `open_library.functions.state_preparation.prepare_exponential_state` (+3 more) |
+| Dynamic Circuit | `open_library.functions.utility_functions.switch` |
+| Function Table | `open_library.functions.lookup_table.span_lookup_table` |
+| Grover | `open_library.functions.grover.grover_search` |
+| Hamiltonian Simulation | `qmod.builtins.functions.exponentiation.suzuki_trotter` |
+| Initialization | `open_library.functions.state_preparation.prepare_basis_state`, `open_library.functions.state_preparation.prepare_dicke_state`, `open_library.functions.state_preparation.prepare_dicke_state_unary_input` (+2 more) |
+| Linear Combination of Unitaries | `open_library.functions.lcu.lcu`, `open_library.functions.lcu.lcu_pauli` |
+| Oracle | `open_library.functions.grover.phase_oracle` |
+| Phase Shift | `open_library.functions.qsvt.projector_controlled_double_phase`, `open_library.functions.qsvt.projector_controlled_phase` |
+| Quantum Amplitude Estimation | `open_library.functions.amplitude_estimation.amplitude_estimation` |
+| Quantum Approximate Optimization Algorithm (QAOA) | `open_library.functions.qaoa_penalty.qaoa_cost_layer`, `open_library.functions.qaoa_penalty.qaoa_layer`, `open_library.functions.qaoa_penalty.qaoa_mixer_layer` (+1 more) |
+| Quantum Arithmetic | `open_library.functions.modular_exponentiation.c_modular_multiply`, `open_library.functions.modular_exponentiation.cc_modular_add`, `open_library.functions.modular_exponentiation.inplace_c_modular_multiply` (+3 more) |
+| Quantum Phase Estimation (QPE) | `open_library.functions.qpe.qpe`, `open_library.functions.qpe.qpe_flexible` |
+| Quantum Singular Value Transformation | `open_library.functions.qsvt.qsvt`, `open_library.functions.qsvt.qsvt_inversion`, `open_library.functions.qsvt.qsvt_lcu` (+2 more) |
+| SWAP Test | `open_library.functions.swap_test.swap_test` |
+| Variational Quantum Algorithm (VQA) | `open_library.functions.hea.full_hea` |
+
+#### PennyLane Patterns
+
+| Pattern | Concepts |
+|---------|----------|
+| Amplitude Amplification | `pennylane.templates.subroutines.amplitude_amplification.AmplitudeAmplification` |
+| Basis Change | `pennylane.templates.state_preparations.superposition.Superposition`, `pennylane.templates.subroutines.aqft.AQFT`, `pennylane.templates.subroutines.qft.QFT` |
+| Circuit Construction Utility | `pennylane.templates.subroutines.basis_rotation.BasisRotation`, `pennylane.templates.subroutines.permute.Permute`, `pennylane.templates.swapnetworks.ccl2.TwoLocalSwapNetwork` |
+| Data Encoding | `pennylane.templates.embeddings.amplitude.AmplitudeEmbedding`, `pennylane.templates.embeddings.angle.AngleEmbedding`, `pennylane.templates.embeddings.basis.BasisEmbedding` (+6 more) |
+| Grover | `pennylane.templates.subroutines.grover.GroverOperator`, `pennylane.templates.subroutines.reflection.Reflection` |
+| Hamiltonian Simulation | `pennylane.templates.subroutines.approx_time_evolution.ApproxTimeEvolution`, `pennylane.templates.subroutines.commuting_evolution.CommutingEvolution`, `pennylane.templates.subroutines.qdrift.QDrift` (+2 more) |
+| Initialization | `pennylane.templates.state_preparations.arbitrary_state_preparation.ArbitraryStatePreparation`, `pennylane.templates.state_preparations.basis_qutrit.QutritBasisStatePreparation`, `pennylane.templates.state_preparations.cosine_window.CosineWindow` (+1 more) |
+| Linear Combination of Unitaries (LCU) | `pennylane.templates.subroutines.fable.FABLE` |
+| Oracle | `pennylane.templates.subroutines.gqsp.GQSP`, `pennylane.templates.subroutines.qubitization.Qubitization`, `pennylane.templates.subroutines.select.Select` (+1 more) |
+| Phase Shift | `pennylane.templates.subroutines.flip_sign.FlipSign` |
+| Quantum Amplitude Estimation (QAE) | `pennylane.templates.subroutines.qmc.QuantumMonteCarlo` |
+| Quantum Approximate Optimization Algorithm (QAOA) | `pennylane.templates.embeddings.qaoaembedding.QAOAEmbedding` |
+| Quantum Arithmetic | `pennylane.templates.subroutines.adder.Adder`, `pennylane.templates.subroutines.mod_exp.ModExp`, `pennylane.templates.subroutines.multiplier.Multiplier` (+6 more) |
+| Quantum Neural Network (QNN) | `pennylane.templates.layers.cv_neural_net.CVNeuralNetLayers`, `pennylane.templates.subroutines.interferometer.Interferometer`, `pennylane.templates.tensornetworks.mera.MERA` (+2 more) |
+| Quantum Phase Estimation (QPE) | `pennylane.templates.subroutines.controlled_sequence.ControlledSequence`, `pennylane.templates.subroutines.qpe.QuantumPhaseEstimation` |
+| Quantum Singular Value Transformation (QSVT) | `pennylane.templates.subroutines.qsvt.QSVT` |
+| SWAP Test | `pennylane.templates.subroutines.hilbert_schmidt.HilbertSchmidt`, `pennylane.templates.subroutines.hilbert_schmidt.LocalHilbertSchmidt` |
+| Schmidt Decomposition | `pennylane.templates.state_preparations.mottonen.MottonenStatePreparation`, `pennylane.templates.subroutines.arbitrary_unitary.ArbitraryUnitary` |
+| Variational Quantum Algorithm (VQA) | `pennylane.templates.layers.basic_entangler.BasicEntanglerLayers`, `pennylane.templates.layers.gate_fabric.GateFabric`, `pennylane.templates.layers.random.RandomLayers` (+2 more) |
+| Variational Quantum Eigensolver (VQE) | `pennylane.templates.layers.particle_conserving_u1.ParticleConservingU1`, `pennylane.templates.layers.particle_conserving_u2.ParticleConservingU2`, `pennylane.templates.subroutines.all_singles_doubles.AllSinglesDoubles` (+4 more) |
+
+#### Qiskit Patterns
+
+| Pattern | Concepts |
+|---------|----------|
+| Basis Change | `basis_change.qft.QFT`, `basis_change.qft.QFTGate`, `data_preparation.state_preparation.UniformSuperpositionGate` |
+| Circuit Construction Utility | `blueprintcircuit.BlueprintCircuit`, `generalized_gates.diagonal.Diagonal`, `generalized_gates.diagonal.DiagonalGate` (+23 more) |
+| Data Encoding | `data_preparation.pauli_feature_map.PauliFeatureMap`, `data_preparation.pauli_feature_map.z_feature_map`, `data_preparation.pauli_feature_map.zz_feature_map` |
+| Grover | `grover_operator.GroverOperator` |
+| Hamiltonian Simulation | `hamiltonian_gate.HamiltonianGate`, `pauli_evolution.PauliEvolutionGate` |
+| Initialization | `data_preparation.initializer.Initialize`, `data_preparation.state_preparation.StatePreparation`, `graph_state.GraphState` (+1 more) |
+| Oracle | `bit_flip_oracle.BitFlipOracleGate`, `fourier_checking.FourierChecking`, `hidden_linear_function.HiddenLinearFunction` (+2 more) |
+| Quantum Approximate Optimization Algorithm (QAOA) | `n_local.qaoa_ansatz.QAOAAnsatz` |
+| Quantum Arithmetic | `arithmetic.adders.adder.Adder`, `arithmetic.adders.adder.FullAdderGate`, `arithmetic.adders.adder.HalfAdderGate` (+23 more) |
+| Quantum Logical Operators | `boolean_logic.quantum_and.AND`, `boolean_logic.quantum_and.AndGate`, `boolean_logic.quantum_or.OR` (+2 more) |
+| Quantum Phase Estimation (QPE) | `phase_estimation.PhaseEstimation` |
+| Variational Quantum Algorithm (VQA) | `n_local.efficient_su2.EfficientSU2`, `n_local.evolved_operator_ansatz.EvolvedOperatorAnsatz`, `n_local.excitation_preserving.ExcitationPreserving` (+4 more) |
+| Variational Quantum Eigensolver (VQE) | `n_local.evolved_operator_ansatz.hamiltonian_variational_ansatz` |
+
+### Missing Patterns
+
+The following 44 patterns from the base list were not found in any of the three frameworks:
+
+- Ad-hoc Hybrid Code Execution
+- Alternating Operator Ansatz (AOA)
+- Amplitude Encoding
+- Angle Encoding
+- Basis Encoding
+- Biased Initial State
+- Chained Optimization
+- Circuit Cutting
+- Classical-Quantum Interface
+- Error Correction
+- Gate Cut
+- Gate Error Mitigation
+- Hadamard Test
+- Hybrid Module
+- Matrix Encoding
+- Mid-Circuit Measurement
+- Orchestrated Execution
+- Post-Selective Measurement
+- Pre-Trained Feature Extractor
+- Pre-deployed Execution
+- Prioritized Execution
+- Quantum Application Archive
+- Quantum Application Testing
+- Quantum Associative Memory (QuAM)
+- Quantum Circuit Translator
+- Quantum Classification
+- Quantum Clustering
+- Quantum Fourier Transformation
+- Quantum Hardware Selection
+- Quantum Kernel Estimator (QKE)
+- Quantum Module
+- Quantum Module Template
+- Quantum Random Access Memory (QRAM) Encoding
+- Quantum-Classic Split
+- Readout Error Mitigation
+- Speedup via Verifying
+- Standalone Circuit Execution
+- Uncompute
+- Unified Execution
+- Unified Observability
+- Uniform Superposition
+- Variational Parameter Transfer
+- Warm Start
+- Wire Cut
+
+### New Patterns Created
+
+The following 13 patterns were found in the frameworks but are not in the base list:
+
+#### Basis Change
+
+**Observed in:**
+
+- **Classiq**: 8 concepts
+  - `open_library.functions.discrete_sine_cosine_transform.qct_qst_type1`
+  - `open_library.functions.discrete_sine_cosine_transform.qct_qst_type2`
+  - `open_library.functions.discrete_sine_cosine_transform.qct_type2`
+  - `open_library.functions.discrete_sine_cosine_transform.qst_type2`
+  - `open_library.functions.qaoa_penalty.qaoa_init`
+  - `open_library.functions.qft_functions.qft`
+  - `open_library.functions.qft_functions.qft_no_swap`
+  - `open_library.functions.utility_functions.hadamard_transform`
+- **PennyLane**: 3 concepts
+  - `pennylane.templates.state_preparations.superposition.Superposition`
+  - `pennylane.templates.subroutines.aqft.AQFT`
+  - `pennylane.templates.subroutines.qft.QFT`
+- **Qiskit**: 3 concepts
+  - `basis_change.qft.QFT`
+  - `basis_change.qft.QFTGate`
+  - `data_preparation.state_preparation.UniformSuperpositionGate`
+
+#### Circuit Construction Utility
+
+**Observed in:**
+
+- **Classiq**: 2 concepts
+  - `open_library.functions.modular_exponentiation.multiswap`
+  - `open_library.functions.utility_functions.apply_to_all`
+- **PennyLane**: 3 concepts
+  - `pennylane.templates.subroutines.basis_rotation.BasisRotation`
+  - `pennylane.templates.subroutines.permute.Permute`
+  - `pennylane.templates.swapnetworks.ccl2.TwoLocalSwapNetwork`
+- **Qiskit**: 26 concepts
+  - `blueprintcircuit.BlueprintCircuit`
+  - `generalized_gates.diagonal.Diagonal`
+  - `generalized_gates.diagonal.DiagonalGate`
+  - `generalized_gates.gms.GMS`
+  - `generalized_gates.gms.MSGate`
+  - `generalized_gates.gr.GR`
+  - `generalized_gates.gr.GRX`
+  - `generalized_gates.gr.GRY`
+  - `generalized_gates.gr.GRZ`
+  - `generalized_gates.isometry.Isometry`
+  - `generalized_gates.linear_function.LinearFunction`
+  - `generalized_gates.mcg_up_to_diagonal.MCGupDiag`
+  - `generalized_gates.mcmt.MCMTGate`
+  - `generalized_gates.mcmt.MCMTVChain`
+  - `generalized_gates.pauli.PauliGate`
+  - `generalized_gates.permutation.Permutation`
+  - `generalized_gates.permutation.PermutationGate`
+  - `generalized_gates.rv.RVGate`
+  - `generalized_gates.uc.UCGate`
+  - `generalized_gates.uc_pauli_rot.UCPauliRotGate`
+  - `generalized_gates.ucrz.UCRZGate`
+  - `generalized_gates.unitary.UnitaryGate`
+  - `iqp.IQP`
+  - `iqp.random_iqp`
+  - `overlap.UnitaryOverlap`
+  - `quantum_volume.QuantumVolume`
+
+#### Controlled Linear Rotation
+
+**Observed in:**
+
+- **Classiq**: 1 concepts
+  - `open_library.functions.linear_pauli_rotation.linear_pauli_rotations`
+
+#### Data Encoding
+
+**Observed in:**
+
+- **Classiq**: 6 concepts
+  - `open_library.functions.state_preparation.inplace_prepare_complex_amplitudes`
+  - `open_library.functions.state_preparation.prepare_complex_amplitudes`
+  - `open_library.functions.state_preparation.prepare_exponential_state`
+  - `open_library.functions.state_preparation.prepare_linear_amplitudes`
+  - `open_library.functions.variational.encode_in_angle`
+  - `open_library.functions.variational.encode_on_bloch`
+- **PennyLane**: 9 concepts
+  - `pennylane.templates.embeddings.amplitude.AmplitudeEmbedding`
+  - `pennylane.templates.embeddings.angle.AngleEmbedding`
+  - `pennylane.templates.embeddings.basis.BasisEmbedding`
+  - `pennylane.templates.embeddings.displacement.DisplacementEmbedding`
+  - `pennylane.templates.embeddings.iqp.IQPEmbedding`
+  - `pennylane.templates.embeddings.squeezing.SqueezingEmbedding`
+  - `pennylane.templates.state_preparations.qrom_state_prep.QROMStatePreparation`
+  - `pennylane.templates.subroutines.prepselprep.PrepSelPrep`
+  - `pennylane.templates.subroutines.qrom.QROM`
+- **Qiskit**: 3 concepts
+  - `data_preparation.pauli_feature_map.PauliFeatureMap`
+  - `data_preparation.pauli_feature_map.z_feature_map`
+  - `data_preparation.pauli_feature_map.zz_feature_map`
+
+#### Hamiltonian Simulation
+
+**Observed in:**
+
+- **Classiq**: 1 concepts
+  - `qmod.builtins.functions.exponentiation.suzuki_trotter`
+- **PennyLane**: 5 concepts
+  - `pennylane.templates.subroutines.approx_time_evolution.ApproxTimeEvolution`
+  - `pennylane.templates.subroutines.commuting_evolution.CommutingEvolution`
+  - `pennylane.templates.subroutines.qdrift.QDrift`
+  - `pennylane.templates.subroutines.trotter.TrotterProduct`
+  - `pennylane.templates.subroutines.trotter.TrotterizedQfunc`
+- **Qiskit**: 2 concepts
+  - `hamiltonian_gate.HamiltonianGate`
+  - `pauli_evolution.PauliEvolutionGate`
+
+#### Linear Combination of Unitaries
+
+**Observed in:**
+
+- **Classiq**: 2 concepts
+  - `open_library.functions.lcu.lcu`
+  - `open_library.functions.lcu.lcu_pauli`
+
+#### Linear Combination of Unitaries (LCU)
+
+**Observed in:**
+
+- **PennyLane**: 1 concepts
+  - `pennylane.templates.subroutines.fable.FABLE`
+
+#### Quantum Amplitude Estimation
+
+**Observed in:**
+
+- **Classiq**: 1 concepts
+  - `open_library.functions.amplitude_estimation.amplitude_estimation`
+
+#### Quantum Amplitude Estimation (QAE)
+
+**Observed in:**
+
+- **PennyLane**: 1 concepts
+  - `pennylane.templates.subroutines.qmc.QuantumMonteCarlo`
+
+#### Quantum Arithmetic
+
+**Observed in:**
+
+- **Classiq**: 6 concepts
+  - `open_library.functions.modular_exponentiation.c_modular_multiply`
+  - `open_library.functions.modular_exponentiation.cc_modular_add`
+  - `open_library.functions.modular_exponentiation.inplace_c_modular_multiply`
+  - `open_library.functions.modular_exponentiation.modular_exp`
+  - `open_library.functions.modular_exponentiation.qft_space_add_const`
+  - `open_library.functions.utility_functions.modular_increment`
+- **PennyLane**: 9 concepts
+  - `pennylane.templates.subroutines.adder.Adder`
+  - `pennylane.templates.subroutines.mod_exp.ModExp`
+  - `pennylane.templates.subroutines.multiplier.Multiplier`
+  - `pennylane.templates.subroutines.out_adder.OutAdder`
+  - `pennylane.templates.subroutines.out_multiplier.OutMultiplier`
+  - `pennylane.templates.subroutines.out_poly.OutPoly`
+  - `pennylane.templates.subroutines.phase_adder.PhaseAdder`
+  - `pennylane.templates.subroutines.semi_adder.SemiAdder`
+  - `pennylane.templates.subroutines.temporary_and.TemporaryAND`
+- **Qiskit**: 26 concepts
+  - `arithmetic.adders.adder.Adder`
+  - `arithmetic.adders.adder.FullAdderGate`
+  - `arithmetic.adders.adder.HalfAdderGate`
+  - `arithmetic.adders.adder.ModularAdderGate`
+  - `arithmetic.adders.cdkm_ripple_carry_adder.CDKMRippleCarryAdder`
+  - `arithmetic.adders.draper_qft_adder.DraperQFTAdder`
+  - `arithmetic.adders.vbe_ripple_carry_adder.VBERippleCarryAdder`
+  - `arithmetic.exact_reciprocal.ExactReciprocal`
+  - `arithmetic.exact_reciprocal.ExactReciprocalGate`
+  - `arithmetic.functional_pauli_rotations.FunctionalPauliRotations`
+  - `arithmetic.integer_comparator.IntegerComparator`
+  - `arithmetic.integer_comparator.IntegerComparatorGate`
+  - `arithmetic.linear_amplitude_function.LinearAmplitudeFunctionGate`
+  - `arithmetic.linear_pauli_rotations.LinearPauliRotationsGate`
+  - `arithmetic.multipliers.hrs_cumulative_multiplier.HRSCumulativeMultiplier`
+  - `arithmetic.multipliers.multiplier.MultiplierGate`
+  - `arithmetic.multipliers.rg_qft_multiplier.RGQFTMultiplier`
+  - `arithmetic.piecewise_chebyshev.PiecewiseChebyshevGate`
+  - `arithmetic.piecewise_linear_pauli_rotations.PiecewiseLinearPauliRotationsGate`
+  - `arithmetic.piecewise_polynomial_pauli_rotations.PiecewisePolynomialPauliRotationsGate`
+  - `arithmetic.polynomial_pauli_rotations.PolynomialPauliRotations`
+  - `arithmetic.polynomial_pauli_rotations.PolynomialPauliRotationsGate`
+  - `arithmetic.quadratic_form.QuadraticFormGate`
+  - `arithmetic.weighted_adder.WeightedAdder`
+  - `arithmetic.weighted_adder.WeightedSumGate`
+  - `boolean_logic.inner_product.InnerProductGate`
+
+#### Quantum Logical Operators
+
+**Observed in:**
+
+- **Qiskit**: 5 concepts
+  - `boolean_logic.quantum_and.AND`
+  - `boolean_logic.quantum_and.AndGate`
+  - `boolean_logic.quantum_or.OR`
+  - `boolean_logic.quantum_xor.BitwiseXorGate`
+  - `boolean_logic.quantum_xor.random_bitwise_xor`
+
+#### Quantum Singular Value Transformation
+
+**Observed in:**
+
+- **Classiq**: 5 concepts
+  - `open_library.functions.qsvt.qsvt`
+  - `open_library.functions.qsvt.qsvt_inversion`
+  - `open_library.functions.qsvt.qsvt_lcu`
+  - `open_library.functions.qsvt.qsvt_lcu_step`
+  - `open_library.functions.qsvt.qsvt_step`
+
+#### Quantum Singular Value Transformation (QSVT)
+
+**Observed in:**
+
+- **PennyLane**: 1 concepts
+  - `pennylane.templates.subroutines.qsvt.QSVT`
 
 ## Qiskit Concepts
 

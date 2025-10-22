@@ -1,0 +1,33 @@
+%%{init: {
+    'flowchart': {'useMaxWidth': true},
+    'themeVariables': {
+        'primaryColor': '#ffffff',
+        'primaryBorderColor': '#2c3e50',
+        'lineColor': '#2c3e50',
+        'textColor': '#000000',
+        'mainBkg': '#ffffff'
+    }
+}}%%
+graph TD
+    A["<b>Stage 1: Identify Framework-Specific <br/> Concepts</b><br/>(PennyLane, Qiskit, and Classiq SDK)"] -->|Extract QC concepts| B["<b>Output:</b><br/>3 CSV files"]
+
+    B --> C["<b>Stage 2: Pattern Matching</b><br/>Compare against Quantum <br/>Computing Patterns Atlas"]
+
+    C -->|Manual classification by 3 authors| D["<b>Output:</b><br/>3 Concept lists linked to QC patterns"]
+
+    E["<b>Stage 3: GitHub Search</b><br/>Search for QC repositories<br/> using GitHub API"] -->|Clone repositories| F["<b>Output:</b><br/>Collection of GitHub QC projects"]
+
+    D --> G["<b>Stage 4: Pattern Matching in Repositories</b><br/>Match concepts and patterns against GitHub code"]
+
+    F --> G
+
+    G -->|Analysis complete| H["<b>Final Output:</b><br/>QC patterns identified across open-source frameworks"]
+
+    style A fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style B fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style C fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style D fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style E fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style F fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style G fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000
+    style H fill:#ecf0f1,stroke:#2c3e50,stroke-width:2px,color:#000

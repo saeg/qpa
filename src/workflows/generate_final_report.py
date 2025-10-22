@@ -73,12 +73,21 @@ class ReportGenerator:
         self.total_matches = len(self.df)
         self.unique_files_matched = self.df["file_path"].nunique()
         self.unique_concepts_matched = self.df["concept_name"].nunique()
-        self.avg_score = self.df["similarity_score"].mean()
-
+        
+        # Convert similarity_score to numeric, handling non-numeric values
+        self.df["similarity_score"] = pd.to_numeric(self.df["similarity_score"], errors='coerce')
+        
+        # Handle case where all similarity scores are NaN or data is empty
+        if self.df["similarity_score"].isna().all() or len(self.df) == 0:
+            self.avg_score = 0.0
+            self.avg_score_by_type = pd.Series(dtype=float)
+        else:
+            self.avg_score = self.df["similarity_score"].mean()
+            self.avg_score_by_type = self.df.groupby("match_type")[
+                "similarity_score"
+            ].mean()
+        
         self.matches_by_type = self.df["match_type"].value_counts()
-        self.avg_score_by_type = self.df.groupby("match_type")[
-            "similarity_score"
-        ].mean()
         self.matches_by_framework = self.df["framework"].value_counts()
         self.matches_by_project = self.df["project"].value_counts()
 
@@ -163,9 +172,15 @@ class ReportGenerator:
         self.matches_by_type.reset_index().to_csv(
             output_dir / "match_type_counts.csv", index=False
         )
-        self.avg_score_by_type.round(4).reset_index().to_csv(
-            output_dir / "avg_score_by_type.csv", index=False
-        )
+        if len(self.avg_score_by_type) > 0:
+            self.avg_score_by_type.round(4).reset_index().to_csv(
+                output_dir / "avg_score_by_type.csv", index=False
+            )
+        else:
+            # Create empty CSV with headers
+            pd.DataFrame(columns=["match_type", "similarity_score"]).to_csv(
+                output_dir / "avg_score_by_type.csv", index=False
+            )
         self.matches_by_framework.reset_index().to_csv(
             output_dir / "matches_by_framework.csv", index=False
         )
@@ -292,7 +307,10 @@ class ReportGenerator:
             if is_md
             else "\nAverage Score by Match Type:"
         )
-        md_print(to_format(self.avg_score_by_type.round(4).reset_index()))
+        if len(self.avg_score_by_type) > 0:
+            md_print(to_format(self.avg_score_by_type.round(4).reset_index()))
+        else:
+            md_print("No similarity score data available.")
 
         md_print("\n---\n" if is_md else "\n" + "-" * 80)
 
