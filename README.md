@@ -125,6 +125,10 @@ This step finds all Jupyter Notebooks (`.ipynb`) within the cloned projects, con
 just preprocess-notebooks
 ```
 
+```bash
+just convert_notebooks
+```
+
 ### Step 5: Run the Main Semantic Analysis
 
 With all data prepared, this command runs the main workflow. It uses the `enriched_*.csv` files and the preprocessed source code to search for quantum computing concepts across all target projects.
