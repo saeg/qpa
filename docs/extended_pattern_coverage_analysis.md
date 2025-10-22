@@ -10,11 +10,11 @@ This report analyzes the coverage of 61 extended patterns across:
 | Framework | Patterns Found | Coverage % |
 |-----------|----------------|------------|
 | Classiq | 17 | 27.9% |
-| PennyLane | 20 | 32.8% |
-| Qiskit | 13 | 21.3% |
+| PennyLane | 17 | 27.9% |
+| Qiskit | 12 | 19.7% |
 
 ### Target Project Coverage
-**Patterns found in target projects: 21 (34.4%)**
+**Patterns found in target projects: 19 (31.1%)**
 
 ## Detailed Framework Analysis
 
@@ -87,31 +87,28 @@ This report analyzes the coverage of 61 extended patterns across:
 - Wire Cut
 
 ### PennyLane
-**Found: 20 patterns**
+**Found: 17 patterns**
 
 **Patterns found:**
 - Amplitude Amplification
 - Basis Change
 - Circuit Construction Utility
 - Data Encoding
+- Dynamic Circuit
 - Grover
 - Hamiltonian Simulation
 - Initialization
-- Linear Combination of Unitaries (LCU)
-- Oracle
 - Phase Shift
-- Quantum Amplitude Estimation (QAE)
 - Quantum Approximate Optimization Algorithm (QAOA)
 - Quantum Arithmetic
+- Quantum Logical Operators
 - Quantum Neural Network (QNN)
 - Quantum Phase Estimation (QPE)
-- Quantum Singular Value Transformation (QSVT)
-- SWAP Test
 - Schmidt Decomposition
 - Variational Quantum Algorithm (VQA)
 - Variational Quantum Eigensolver (VQE)
 
-**Missing patterns (41):**
+**Missing patterns (44):**
 - Ad-hoc Hybrid Code Execution
 - Alternating Operator Ansatz (AOA)
 - Biased Initial State
@@ -119,19 +116,21 @@ This report analyzes the coverage of 61 extended patterns across:
 - Circuit Cutting
 - Classical-Quantum Interface
 - Creating Entanglement
-- Dynamic Circuit
 - Error Correction
 - Function Table
 - Gate Cut
 - Gate Error Mitigation
 - Hadamard Test
 - Hybrid Module
+- Linear Combination of Unitaries (LCU)
 - Mid-Circuit Measurement
+- Oracle
 - Orchestrated Execution
 - Post-Selective Measurement
 - Pre-Trained Feature Extractor
 - Pre-deployed Execution
 - Prioritized Execution
+- Quantum Amplitude Estimation (QAE)
 - Quantum Application Archive
 - Quantum Application Testing
 - Quantum Associative Memory (QuAM)
@@ -140,11 +139,12 @@ This report analyzes the coverage of 61 extended patterns across:
 - Quantum Clustering
 - Quantum Hardware Selection
 - Quantum Kernel Estimator (QKE)
-- Quantum Logical Operators
 - Quantum Module
 - Quantum Module Template
+- Quantum Singular Value Transformation (QSVT)
 - Quantum-Classic Split
 - Readout Error Mitigation
+- SWAP Test
 - Speedup via Verifying
 - Standalone Circuit Execution
 - Uncompute
@@ -155,7 +155,7 @@ This report analyzes the coverage of 61 extended patterns across:
 - Wire Cut
 
 ### Qiskit
-**Found: 13 patterns**
+**Found: 12 patterns**
 
 **Patterns found:**
 - Basis Change
@@ -170,9 +170,8 @@ This report analyzes the coverage of 61 extended patterns across:
 - Quantum Logical Operators
 - Quantum Phase Estimation (QPE)
 - Variational Quantum Algorithm (VQA)
-- Variational Quantum Eigensolver (VQE)
 
-**Missing patterns (48):**
+**Missing patterns (49):**
 - Ad-hoc Hybrid Code Execution
 - Alternating Operator Ansatz (AOA)
 - Amplitude Amplification
@@ -219,12 +218,13 @@ This report analyzes the coverage of 61 extended patterns across:
 - Unified Execution
 - Unified Observability
 - Variational Parameter Transfer
+- Variational Quantum Eigensolver (VQE)
 - Warm Start
 - Wire Cut
 
 ## Target Project Analysis
 
-**Patterns found in target projects: 21**
+**Patterns found in target projects: 19**
 
 **Patterns found:**
 - Amplitude Amplification
@@ -232,43 +232,42 @@ This report analyzes the coverage of 61 extended patterns across:
 - Circuit Construction Utility
 - Creating Entanglement
 - Data Encoding
+- Dynamic Circuit
 - Grover
 - Hamiltonian Simulation
 - Initialization
-- Linear Combination of Unitaries (LCU)
 - Oracle
 - Phase Shift
-- Quantum Amplitude Estimation (QAE)
 - Quantum Approximate Optimization Algorithm (QAOA)
 - Quantum Arithmetic
 - Quantum Logical Operators
 - Quantum Neural Network (QNN)
 - Quantum Phase Estimation (QPE)
-- Quantum Singular Value Transformation (QSVT)
 - SWAP Test
 - Variational Quantum Algorithm (VQA)
 - Variational Quantum Eigensolver (VQE)
 
-**Missing patterns (40):**
+**Missing patterns (42):**
 - Ad-hoc Hybrid Code Execution
 - Alternating Operator Ansatz (AOA)
 - Biased Initial State
 - Chained Optimization
 - Circuit Cutting
 - Classical-Quantum Interface
-- Dynamic Circuit
 - Error Correction
 - Function Table
 - Gate Cut
 - Gate Error Mitigation
 - Hadamard Test
 - Hybrid Module
+- Linear Combination of Unitaries (LCU)
 - Mid-Circuit Measurement
 - Orchestrated Execution
 - Post-Selective Measurement
 - Pre-Trained Feature Extractor
 - Pre-deployed Execution
 - Prioritized Execution
+- Quantum Amplitude Estimation (QAE)
 - Quantum Application Archive
 - Quantum Application Testing
 - Quantum Associative Memory (QuAM)
@@ -279,6 +278,7 @@ This report analyzes the coverage of 61 extended patterns across:
 - Quantum Kernel Estimator (QKE)
 - Quantum Module
 - Quantum Module Template
+- Quantum Singular Value Transformation (QSVT)
 - Quantum-Classic Split
 - Readout Error Mitigation
 - Schmidt Decomposition
@@ -293,27 +293,25 @@ This report analyzes the coverage of 61 extended patterns across:
 
 ## Patterns Found Only in Frameworks (Not in Target Projects)
 
-**3 patterns found in frameworks but not in target projects:**
-- Dynamic Circuit
+**2 patterns found in frameworks but not in target projects:**
 - Function Table
 - Schmidt Decomposition
 
 ## Cross-Framework Analysis
 
-**Common patterns between Classiq and PennyLane (14):**
+**Common patterns between Classiq and PennyLane (13):**
 - Amplitude Amplification
 - Basis Change
 - Circuit Construction Utility
 - Data Encoding
+- Dynamic Circuit
 - Grover
 - Hamiltonian Simulation
 - Initialization
-- Oracle
 - Phase Shift
 - Quantum Approximate Optimization Algorithm (QAOA)
 - Quantum Arithmetic
 - Quantum Phase Estimation (QPE)
-- SWAP Test
 - Variational Quantum Algorithm (VQA)
 
 **Common patterns between Classiq and Qiskit (11):**
@@ -329,28 +327,26 @@ This report analyzes the coverage of 61 extended patterns across:
 - Quantum Phase Estimation (QPE)
 - Variational Quantum Algorithm (VQA)
 
-**Common patterns between PennyLane and Qiskit (12):**
+**Common patterns between PennyLane and Qiskit (11):**
 - Basis Change
 - Circuit Construction Utility
 - Data Encoding
 - Grover
 - Hamiltonian Simulation
 - Initialization
-- Oracle
 - Quantum Approximate Optimization Algorithm (QAOA)
 - Quantum Arithmetic
+- Quantum Logical Operators
 - Quantum Phase Estimation (QPE)
 - Variational Quantum Algorithm (VQA)
-- Variational Quantum Eigensolver (VQE)
 
-**Patterns found in all three frameworks (11):**
+**Patterns found in all three frameworks (10):**
 - Basis Change
 - Circuit Construction Utility
 - Data Encoding
 - Grover
 - Hamiltonian Simulation
 - Initialization
-- Oracle
 - Quantum Approximate Optimization Algorithm (QAOA)
 - Quantum Arithmetic
 - Quantum Phase Estimation (QPE)
