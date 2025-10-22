@@ -114,7 +114,10 @@ This is the only manual step in the workflow. The goal is to classify the concep
     2.  Add your classification data to the rows.
     3.  Save the modified files with the `enriched_` prefix (e.g., `data/enriched_qiskit_quantum_patterns.csv`).
 
-### Step 4: Preprocess Jupyter Notebooks
+### Step 4.0: Download list of repost from Github
+src/preprocessing/github_search.py
+
+### Step 4.1: Preprocess Jupyter Notebooks
 
 This step finds all Jupyter Notebooks (`.ipynb`) within the cloned projects, converts them to Python scripts (`.ipynb.py`) in-place for analysis, and creates an organized archive of the original notebooks.
 
