@@ -136,6 +136,12 @@ With all data prepared, this command runs the main workflow. It uses the `enrich
 ```bash
 just run_main
 ```
+Please ignore the warnings printed in the output as they are just warnings, not errors:
+
+```bash
+<unknown>:238: SyntaxWarning: invalid escape sequence '\d'
+<unknown>:485: SyntaxWarning: invalid escape sequence '\D'
+```
 
 ### Step 6: Generate the Final Report
 
