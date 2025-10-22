@@ -7,7 +7,7 @@ name,summary,pattern
 /classiq/open_library.functions.discrete_sine_cosine_transform.qct_type2,"Applies the quantum discrete cosine (DCT) transform of type 2, ${ m DCT}^{(2)}$, to the qubit array `x`.",Basis Change
 /classiq/open_library.functions.discrete_sine_cosine_transform.qst_type2,"Applies the quantum discrete sine (DST) transform of type 2, ${ m DST}^{(2)}$, to the qubit array `x`.",Basis Change
 /classiq/open_library.functions.grover.phase_oracle,Creates a phase oracle operator based on a predicate function.,Oracle
-/classiq/open_library.functions.grover.reflect_about_zero,Reflects the state about the |0> state (i. e.,Amplitude Amplification
+/classiq/open_library.functions.grover.reflect_about_zero,"Reflects the state about the |0> state (i. e.",Amplitude Amplification
 /classiq/open_library.functions.grover.grover_diffuser,"Reflects the given state about the A|0> state, where A is the `space_transform` parameter. It is defined as:.",Amplitude Amplification
 /classiq/open_library.functions.grover.grover_operator,"Applies the grover operator, defined by:.",Amplitude Amplification
 /classiq/open_library.functions.grover.grover_search,Applies Grover search algorithm.,Grover
