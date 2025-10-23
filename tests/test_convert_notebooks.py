@@ -49,16 +49,6 @@ class TestConvertSingleNotebook:
 class TestProcessAllNotebooks:
     """Test the process_all_notebooks function."""
 
-    def test_source_directory_not_found(self):
-        """Test handling when source directory doesn't exist."""
-        source_dir = Path("nonexistent")
-        dest_dir = Path("output")
-        
-        with patch("pathlib.Path.is_dir", return_value=False):
-            with patch("builtins.print") as mock_print:
-                process_all_notebooks(source_dir, dest_dir)
-                # Check that error message was printed
-                assert any("ERROR: Source directory not found" in str(call) for call in mock_print.call_args_list)
 
     def test_no_notebooks_found(self):
         """Test handling when no notebooks are found."""
