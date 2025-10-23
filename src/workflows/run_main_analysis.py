@@ -18,13 +18,13 @@ CONCEPT_FILES = [
     config.RESULTS_DIR / "classiq_quantum_concepts.json",
     config.RESULTS_DIR / "pennylane_quantum_concepts.json",
     config.RESULTS_DIR / "qiskit_quantum_concepts.json",
-]
+    ]
 
 PATTERN_FILES = [
     config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
     config.RESULTS_DIR / "enriched_pennylane_quantum_patterns.csv",
     config.RESULTS_DIR / "enriched_qiskit_quantum_patterns.csv",
-]
+    ]
 
 
 class CodeElementVisitor(ast.NodeVisitor):
@@ -93,10 +93,9 @@ def load_patterns_map(file_paths: list[Path]) -> dict[str, str]:
 
 
 def load_quantum_concepts(
-    file_paths: list[Path], pattern_map: dict[str, str]
+        file_paths: list[Path], pattern_map: dict[str, str]
 ) -> list[dict]:
     concepts = []
-    # Create a secondary map for faster short-name lookups
     pattern_map_by_short_name = {
         extract_short_name(k): v for k, v in pattern_map.items()
     }
@@ -113,7 +112,6 @@ def load_quantum_concepts(
                         short_name = extract_short_name(full_name)
                         found_pattern = "N/A"
 
-                        # --- 3-STEP MATCHING LOGIC ---
                         if full_name in pattern_map:
                             found_pattern = pattern_map[full_name]
                         elif short_name in pattern_map_by_short_name:
@@ -138,7 +136,6 @@ def load_quantum_concepts(
 
 
 def _save_unclassified_concepts(concepts: list[dict], output_path: Path):
-    """Saves a CSV of concepts that could not be mapped to a pattern."""
     unclassified = [
         {"name": c["name"], "summary": c["summary"]}
         for c in concepts
@@ -146,7 +143,6 @@ def _save_unclassified_concepts(concepts: list[dict], output_path: Path):
     ]
 
     if not unclassified:
-        # If the file exists but there are no unclassified concepts, clear it.
         if output_path.exists():
             output_path.unlink()
         print("All concepts are classified. No 'unclassified_concepts.csv' needed.")
@@ -164,8 +160,41 @@ def _save_unclassified_concepts(concepts: list[dict], output_path: Path):
         print(f"  - Error writing unclassified concepts file: {e}")
 
 
+def extract_and_save_unique_patterns(input_files: list[Path], output_file: Path):
+    unique_patterns = set()
+    for path in input_files:
+        if not path.exists():
+            print(f"Warning: Pattern file not found, skipping for unique pattern extraction: {path}")
+            continue
+        try:
+            with open(path, encoding="utf-8") as f:
+                reader = csv.reader(f, delimiter=",")
+                next(reader)
+                for row in reader:
+                    if len(row) >= 3:
+                        pattern = row[2].strip()
+                        if pattern:
+                            unique_patterns.add(pattern)
+        except Exception as e:
+            print(f"Error reading patterns from {path}: {e}")
+
+    try:
+        output_file.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_file, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["PatternName"])
+            for pattern in sorted(list(unique_patterns)):
+                writer.writerow([pattern])
+        print(f"Saved {len(unique_patterns)} unique patterns to '{output_file}'")
+    except Exception as e:
+        print(f"Error saving unique patterns to {output_file}: {e}")
+
+
 def main():
-    print(f"Loading patterns from {len(PATTERN_FILES)} CSV files...")
+    OUTPUT_PATTERN_FILE = config.RESULTS_DIR / "extended_pattern_list.csv"
+    extract_and_save_unique_patterns(PATTERN_FILES, OUTPUT_PATTERN_FILE)
+
+    print(f"\nLoading patterns from {len(PATTERN_FILES)} CSV files...")
     pattern_map = load_patterns_map(PATTERN_FILES)
     print(f"Loaded a total of {len(pattern_map)} concept-to-pattern mappings.")
 
@@ -221,7 +250,6 @@ def main():
                 print(f"Could not read file {file_path}: {e}")
                 continue
 
-            # Name-based matching
             code_elements = get_code_elements_from_script(script_content)
             if code_elements:
                 code_element_embeddings = model.encode(
@@ -247,7 +275,6 @@ def main():
                                 ]
                             )
 
-            # Summary-based matching
             comment_block = extract_comments_from_script(file_path)
             if comment_block:
                 comment_embedding = model.encode(

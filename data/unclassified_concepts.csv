@@ -1,3 +1,4 @@
 name,summary
-/classiq/open_library.functions.modular_exponentiation.modular_add_qft_space,Adds a constant `a` to a quantum number `phi_b` modulo the constant `n`. The quantum number `phi_b` is assumed to be in the QFT space.
-
+/classiq/open_library.functions.state_preparation.inplace_prepare_int,"This function is **deprecated**. Use in-place-xor assignment statement in the form _target-var_ **^=** _quantum-expression_ or **inplace_xor(**_quantum-expression_**,** _target-var_**)** instead."
+/classiq/open_library.functions.state_preparation.prepare_int,"This function is **deprecated**. Use assignment statement in the form _target-var_ **|=** _quantum-expression_ or **assign(**_quantum-expression_**,** _target-var_**)** instead."
+/qiskit/qiskit.circuit.library.data_preparation.pauli_feature_map.self_product,Define a function map from R^n to R.

@@ -236,8 +236,8 @@ Top 20 Most Frequently Matched Concepts:
 Framework                    Concept  Matches
   Classiq      ...hadamard_transform      104
   Classiq                     ...qpe       60
-  Classiq                     ...qft       52
   Classiq            ...qpe_flexible       52
+  Classiq                     ...qft       52
    Qiskit                     ...QFT       48
 Pennylane                     ...QFT       42
   Classiq                    ...qsvt       38
@@ -247,13 +247,13 @@ Pennylane                     ...QFT       42
 Pennylane       ...QuantumMonteCarlo       19
   Classiq            ...phase_oracle       18
   Classiq         ...grover_operator       17
-   Qiskit             ...Permutation       16
   Classiq             ...qft_no_swap       16
-   Qiskit          ...zz_feature_map       16
    Qiskit           ...z_feature_map       16
-  Classiq ...amplitude_amplification       14
-  Classiq          ...qsvt_inversion       14
+   Qiskit          ...zz_feature_map       16
+   Qiskit             ...Permutation       16
   Classiq           ...qct_qst_type2       14
+  Classiq          ...qsvt_inversion       14
+  Classiq ...amplitude_amplification       14
 
 --------------------------------------------------------------------------------
 

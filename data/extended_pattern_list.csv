@@ -1,62 +1,27 @@
 PatternName
-Pre-Trained Feature Extractor
-Variational Parameter Transfer
-Chained Optimization
-Quantum Clustering
-Biased Initial State
-Circuit Cutting
-Schmidt Decomposition
-Uncompute
-Creating Entanglement
-Error Correction
-Gate Error Mitigation
-Quantum Kernel Estimator (QKE)
-Function Table
+#REF!
 Amplitude Amplification
-Post-Selective Measurement
-Initialization
-Unified Observability
-Alternating Operator Ansatz (AOA)
-Phase Shift
-Unified Execution
-Quantum Application Archive
-Quantum Application Testing
-Quantum Hardware Selection
-Ad-hoc Hybrid Code Execution
-Classical-Quantum Interface
-Hybrid Module
-Orchestrated Execution
-Pre-deployed Execution
-Quantum Classification
-Quantum Neural Network (QNN)
-Hadamard Test
-SWAP Test
-Mid-Circuit Measurement
-Dynamic Circuit
-Prioritized Execution
-Quantum Circuit Translator
-Quantum Module
-Quantum Module Template
-Readout Error Mitigation
-Quantum Approximate Optimization Algorithm (QAOA)
-Standalone Circuit Execution
-Wire Cut
-Gate Cut
-Variational Quantum Eigensolver (VQE)
-Warm Start
-Variational Quantum Algorithm (VQA)
-Grover
-Oracle
-Quantum Associative Memory (QuAM)
-Quantum-Classic Split
-Quantum Phase Estimation (QPE)
-Speedup via Verifying
-Data Encoding
 Basis Change
-Quantum Amplitude Estimation (QAE)
-Linear Combination of Unitaries (LCU)
+Circuit Construction Utility
+Creating Entanglement
+Data Encoding
+Domain Specific Application
+Dynamic Circuit
+Function Table
+Grover
+Hamiltonian Simulation
+Initialization
+Linear Combination of Unitaries
+Oracle
+Phase Shift
+Quantum Amplitude Estimation
+Quantum Approximate Optimization Algorithm (QAOA)
 Quantum Arithmetic
 Quantum Logical Operators
-Circuit Construction Utility
-Quantum Singular Value Transformation (QSVT)
-Hamiltonian Simulation
+Quantum Neural Network (QNN)
+Quantum Phase Estimation (QPE)
+Quantum Singular Value Transformation
+SWAP Test
+Schmidt Decomposition
+Variational Quantum Algorithm (VQA)
+Variational Quantum Eigensolver (VQE)
