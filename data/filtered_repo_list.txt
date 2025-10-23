@@ -50,14 +50,14 @@ amazon-braket/amazon-braket-algorithm-library
 Infleqtion/client-superstaq
 XanaduAI/thewalrus
 munich-quantum-toolkit/bench
+Qiskit/qiskit-serverless
 dwavesystems/dwave-system
 qBraid/qBraid
-Qiskit/qiskit-serverless
-CQCL/guppylang
 Qiskit/qiskit-addon-cutting
+sQUlearn/squlearn
+CQCL/guppylang
 TeamGraphix/graphix
 XanaduAI/MrMustard
-sQUlearn/squlearn
 oqtopus-team/oqtopus-cloud
 pasqal-io/qadence
 quantumlib/OpenFermion-Psi4

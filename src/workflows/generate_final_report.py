@@ -21,7 +21,7 @@ PATTERN_FILES = [
     config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
     config.RESULTS_DIR / "enriched_pennylane_quantum_patterns.csv",
     config.RESULTS_DIR / "enriched_qiskit_quantum_patterns.csv",
-]
+    ]
 TOP_N_CONCEPTS = 20
 
 
@@ -73,10 +73,12 @@ class ReportGenerator:
         self.total_matches = len(self.df)
         self.unique_files_matched = self.df["file_path"].nunique()
         self.unique_concepts_matched = self.df["concept_name"].nunique()
-        
+
         # Convert similarity_score to numeric, handling non-numeric values
-        self.df["similarity_score"] = pd.to_numeric(self.df["similarity_score"], errors='coerce')
-        
+        self.df["similarity_score"] = pd.to_numeric(
+            self.df["similarity_score"], errors="coerce"
+        )
+
         # Handle case where all similarity scores are NaN or data is empty
         if self.df["similarity_score"].isna().all() or len(self.df) == 0:
             self.avg_score = 0.0
@@ -86,7 +88,7 @@ class ReportGenerator:
             self.avg_score_by_type = self.df.groupby("match_type")[
                 "similarity_score"
             ].mean()
-        
+
         self.matches_by_type = self.df["match_type"].value_counts()
         self.matches_by_framework = self.df["framework"].value_counts()
         self.matches_by_project = self.df["project"].value_counts()
@@ -110,7 +112,7 @@ class ReportGenerator:
 
         self.df_with_patterns = self.df[
             self.df["pattern"].notna() & (self.df["pattern"] != "N/A")
-        ].copy()
+            ].copy()
         self.found_patterns = set(self.df_with_patterns["pattern"].unique())
         self.unmatched_patterns = sorted(list(self.all_patterns - self.found_patterns))
 
@@ -142,6 +144,162 @@ class ReportGenerator:
                 ["target_project_coverage", "target_project_names"]
             ].sort_values(by="target_project_coverage", ascending=False)
 
+    # --- LaTeX Generation Methods ---
+    def _escape_latex(self, text: str) -> str:
+        """Escapes special LaTeX characters in a string."""
+        if not isinstance(text, str):
+            return str(text)
+        return (
+            text.replace("\\", r"\textbackslash{}")
+            .replace("{", r"\{")
+            .replace("}", r"\}")
+            .replace("&", r"\&")
+            .replace("%", r"\%")
+            .replace("$", r"\$")
+            .replace("#", r"\#")
+            .replace("_", r"\_")
+            .replace("~", r"\textasciitilde{}")
+            .replace("^", r"\textasciicircum{}")
+        )
+
+    def _df_to_latex(
+            self,
+            df: pd.DataFrame,
+            caption: str,
+            label: str,
+            output_path: Path,
+            texttt_cols=None,
+    ):
+        """Converts a DataFrame to a LaTeX table and saves it."""
+        if df.empty:
+            print(f"  - Skipping empty table: {output_path.name}")
+            return
+
+        if texttt_cols is None:
+            texttt_cols = []
+
+        # Prepare column alignment string
+        num_cols = len(df.columns)
+        alignments = [
+            "r" if pd.api.types.is_numeric_dtype(df[col]) else "l"
+            for col in df.columns
+        ]
+        if num_cols > 1:
+            col_spec = (
+                    " ".join(alignments[:-1])
+                    + f" @{{\\extracolsep{{\\fill}}}} {alignments[-1]}"
+            )
+        else:
+            col_spec = alignments[0]
+        tabular_spec = f"{{@{{}} {col_spec} @{{}}}}"
+
+        # Header
+        header = (
+                " & ".join([f"\\textbf{{{self._escape_latex(col)}}}" for col in df.columns])
+                + " \\\\\n"
+        )
+
+        # Body
+        body_rows = []
+        for _, row in df.iterrows():
+            row_items = []
+            for col_name, item in row.items():
+                escaped_item = self._escape_latex(str(item))
+                if col_name in texttt_cols:
+                    row_items.append(f"\\texttt{{{escaped_item}}}")
+                else:
+                    row_items.append(escaped_item)
+            body_rows.append(" & ".join(row_items) + " \\\\")
+        body = "\n".join(body_rows)
+
+        # Assemble the full table
+        latex_string = f"""\\begin{{table}}[ht]
+\\centering
+\\caption{{{caption}}}
+\\label{{tab:{label}}}
+\\begin{{tabular*}}{{\\columnwidth}}{{{tabular_spec}}}
+\\toprule
+{header}\\midrule
+{body}
+\\bottomrule
+\\end{{tabular*}}
+\\end{{table}}
+"""
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(latex_string)
+        print(f"  - Generated LaTeX table: {output_path.name}")
+
+    def generate_latex_report(self, output_dir: Path):
+        """Generates all tables in LaTeX format and saves them to separate files."""
+        output_dir.mkdir(parents=True, exist_ok=True)
+        print(f"\nGenerating LaTeX tables in '{output_dir}'...")
+        print("(Note: These tables require the 'booktabs' package in LaTeX: \\usepackage{booktabs})")
+
+        # Table: Top Matched Concepts
+        self._df_to_latex(
+            df=self.top_20_table_data,
+            caption=f"Top {TOP_N_CONCEPTS} Most Frequently Matched Quantum Concepts",
+            label="top-quantum-concepts",
+            output_path=output_dir / "top_matched_concepts.tex",
+            texttt_cols=["Concept"],
+        )
+
+        # Table: Match Type Counts
+        df_match_type = self.matches_by_type.reset_index()
+        df_match_type.columns = ["Match Type", "Count"]
+        self._df_to_latex(df_match_type, "Count of Matches by Type", "match-type-counts", output_dir / "match_type_counts.tex")
+
+        # Table: Average Score by Match Type
+        if not self.avg_score_by_type.empty:
+            df_avg_score_type = self.avg_score_by_type.round(4).reset_index()
+            df_avg_score_type.columns = ["Match Type", "Average Score"]
+            self._df_to_latex(df_avg_score_type, "Average Similarity Score by Match Type", "avg-score-by-type", output_dir / "avg_score_by_type.tex")
+
+        # Table: Matches by Source Framework
+        df_matches_framework = self.matches_by_framework.reset_index()
+        df_matches_framework.columns = ["Source Framework", "Matches"]
+        self._df_to_latex(df_matches_framework, "Total Matches per Source Framework", "matches-by-framework", output_dir / "matches_by_framework.tex")
+
+        # Table: Matches by Target Project
+        df_matches_project = self.matches_by_project.reset_index()
+        df_matches_project.columns = ["Target Project", "Matches"]
+        self._df_to_latex(df_matches_project, "Total Matches per Target Project", "matches-by-project", output_dir / "matches_by_project.tex")
+
+        if not self.df_with_patterns.empty:
+            # Table: Source Pattern Analysis
+            df_source = self.source_table.reset_index()
+            df_source.columns = ["Pattern", "Total Matches", "Source Frameworks"]
+            self._df_to_latex(df_source, "Source Pattern Analysis: Origin and Frequency", "source-pattern-analysis", output_dir / "source_pattern_analysis.tex")
+
+            # Table: Adoption Pattern Analysis
+            df_adoption = self.adoption_table.reset_index()
+            df_adoption.columns = ["Pattern", "Project Coverage", "Found In Projects"]
+            self._df_to_latex(df_adoption, "Adoption Pattern Analysis: Usage Across Target Projects", "adoption-pattern-analysis", output_dir / "adoption_pattern_analysis.tex")
+
+            # Table: Patterns by Match Count
+            df_pattern_counts = self.matches_by_pattern.reset_index()
+            df_pattern_counts.columns = ["Pattern", "Total Matches"]
+            self._df_to_latex(df_pattern_counts, "Frequency of Quantum Patterns by Match Count", "patterns-by-match-count", output_dir / "patterns_by_match_count.tex")
+
+            # Table: Average Score by Pattern
+            df_avg_score_pattern = self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index()
+            df_avg_score_pattern.columns = ["Pattern", "Average Score"]
+            self._df_to_latex(df_avg_score_pattern, "Average Similarity Score by Pattern", "avg-score-by-pattern", output_dir / "avg_score_by_pattern.tex")
+
+            # Tables: Patterns within each framework
+            for framework, data in self.patterns_in_frameworks.groupby(level=0):
+                df_framework_patterns = data.droplevel(0).reset_index()
+                df_framework_patterns.columns = ["Pattern", "Matches"]
+                self._df_to_latex(
+                    df=df_framework_patterns,
+                    caption=f"Pattern Frequency in {framework.capitalize()}",
+                    label=f"patterns-in-{framework.lower()}",
+                    output_path=output_dir / f"patterns_in_{framework.lower()}.tex"
+                )
+        print("LaTeX table generation complete.")
+
+    # --- Other Report Generation Methods ---
+
     def generate_txt_report(self, path: Path):
         """Generates the plain text report."""
         original_stdout = sys.stdout
@@ -165,9 +323,9 @@ class ReportGenerator:
         """Export all generated tables as individual CSV files."""
         # Create output directory if it doesn't exist
         output_dir.mkdir(parents=True, exist_ok=True)
-        
-        print(f"Exporting tables to CSV files in '{output_dir}'...")
-        
+
+        print(f"\nExporting tables to CSV files in '{output_dir}'...")
+
         # Export basic statistics tables
         self.matches_by_type.reset_index().to_csv(
             output_dir / "match_type_counts.csv", index=False
@@ -187,7 +345,7 @@ class ReportGenerator:
         self.matches_by_project.reset_index().to_csv(
             output_dir / "matches_by_project.csv", index=False
         )
-        
+
         # Export pattern analysis tables if they exist
         if not self.df_with_patterns.empty:
             # Source pattern analysis
@@ -198,7 +356,7 @@ class ReportGenerator:
             self.source_table.reset_index().rename(columns=source_headers).to_csv(
                 output_dir / "source_pattern_analysis.csv", index=False
             )
-            
+
             # Adoption pattern analysis
             adoption_headers = {
                 "target_project_coverage": "Project Coverage",
@@ -207,35 +365,39 @@ class ReportGenerator:
             self.adoption_table.reset_index().rename(columns=adoption_headers).to_csv(
                 output_dir / "adoption_pattern_analysis.csv", index=False
             )
-            
+
             # Pattern analysis tables
             self.matches_by_pattern.reset_index().to_csv(
                 output_dir / "patterns_by_match_count.csv", index=False
             )
-            self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index().to_csv(
+            self.avg_score_by_pattern.round(4).sort_values(
+                ascending=False
+            ).reset_index().to_csv(
                 output_dir / "avg_score_by_pattern.csv", index=False
             )
-            
+
             # Patterns by framework
             for framework, data in self.patterns_in_frameworks.groupby(level=0):
                 framework_name = framework.capitalize()
                 data.droplevel(0).reset_index().to_csv(
                     output_dir / f"patterns_in_{framework.lower()}.csv", index=False
                 )
-        
+
         # Export top concepts table
         self.top_20_table_data.to_csv(
             output_dir / "top_matched_concepts.csv", index=False
         )
-        
+
         # Export unmatched patterns as a simple list
         if self.unmatched_patterns:
-            unmatched_df = pd.DataFrame({"unmatched_patterns": list(self.unmatched_patterns)})
-            unmatched_df.to_csv(
-                output_dir / "unmatched_patterns.csv", index=False
+            unmatched_df = pd.DataFrame(
+                {"unmatched_patterns": list(self.unmatched_patterns)}
             )
-        
-        print(f"Successfully exported {len(list(output_dir.glob('*.csv')))} CSV files to '{output_dir}'")
+            unmatched_df.to_csv(output_dir / "unmatched_patterns.csv", index=False)
+
+        print(
+            f"Successfully exported {len(list(output_dir.glob('*.csv')))} CSV files to '{output_dir}'"
+        )
 
     def _write_report_content(self, is_md: bool, md_print=print):
         """Writes the report content, adapting format for TXT or MD."""
@@ -486,11 +648,10 @@ def main():
 
     reporter = ReportGenerator(df, all_patterns)
 
-    # Generate both reports
+    # Generate all reports
     reporter.generate_txt_report(REPORT_TXT_PATH)
     reporter.generate_md_report(REPORT_MD_PATH)
-    
-    # Export all tables as CSV files
+    reporter.generate_latex_report(LATEX_OUTPUT_DIR)
     reporter.export_tables_to_csv(CSV_OUTPUT_DIR)
 
 

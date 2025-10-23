@@ -4,8 +4,8 @@
 - **Total Matches Found:** 573
 - **Unique Files with Matches:** 251
 - **Unique Concepts Matched:** 117
-- **Total Patterns Defined:** 25
-- **Total Patterns Found:** 23
+- **Total Patterns Defined:** 24
+- **Total Patterns Found:** 22
 - **Average Similarity Score:** 0.8951
 
 ## II. Match Type Breakdown
@@ -76,8 +76,8 @@
 |:--------------------------------------------------|----------------:|:---------------------------|
 | Basis Change                                      |             161 | classiq, pennylane, qiskit |
 | Quantum Phase Estimation (QPE)                    |              57 | classiq, pennylane         |
+| Domain Specific Application                       |              53 | classiq, pennylane         |
 | Quantum Arithmetic                                |              43 | classiq, pennylane, qiskit |
-| Domain Specific Application                       |              41 | classiq, pennylane         |
 | Circuit Construction Utility                      |              40 | classiq, pennylane, qiskit |
 | Data Encoding                                     |              37 | classiq, pennylane, qiskit |
 | Amplitude Amplification                           |              26 | classiq                    |
@@ -86,7 +86,6 @@
 | Variational Quantum Algorithm (VQA)               |              19 | classiq, pennylane, qiskit |
 | Quantum Logical Operators                         |              13 | qiskit                     |
 | Oracle                                            |              13 | classiq, qiskit            |
-| Quantum Singular Value Transformation             |              12 | classiq                    |
 | Quantum Neural Network (QNN)                      |              11 | pennylane                  |
 | Quantum Approximate Optimization Algorithm (QAOA) |              10 | classiq, pennylane, qiskit |
 | Grover                                            |              10 | classiq, pennylane, qiskit |
@@ -120,7 +119,6 @@
 | Variational Quantum Eigensolver (VQE)             |                  3 | amazon-braket-examples, classiq-library, qiskit-nature                                                                                                            |
 | Phase Shift                                       |                  2 | catalyst, classiq-library                                                                                                                                         |
 | Hamiltonian Simulation                            |                  2 | classiq-library, qiskit-algorithms                                                                                                                                |
-| Quantum Singular Value Transformation             |                  2 | Qualtran, classiq-library                                                                                                                                         |
 | Quantum Amplitude Estimation                      |                  1 | classiq-library                                                                                                                                                   |
 | Linear Combination of Unitaries                   |                  1 | classiq-library                                                                                                                                                   |
 | SWAP Test                                         |                  1 | classiq-library                                                                                                                                                   |
@@ -136,8 +134,8 @@
 |:--------------------------------------------------|--------:|
 | Basis Change                                      |     161 |
 | Quantum Phase Estimation (QPE)                    |      57 |
+| Domain Specific Application                       |      53 |
 | Quantum Arithmetic                                |      43 |
-| Domain Specific Application                       |      41 |
 | Circuit Construction Utility                      |      40 |
 | Data Encoding                                     |      37 |
 | Amplitude Amplification                           |      26 |
@@ -146,7 +144,6 @@
 | Variational Quantum Algorithm (VQA)               |      19 |
 | Oracle                                            |      13 |
 | Quantum Logical Operators                         |      13 |
-| Quantum Singular Value Transformation             |      12 |
 | Quantum Neural Network (QNN)                      |      11 |
 | Grover                                            |      10 |
 | Quantum Approximate Optimization Algorithm (QAOA) |      10 |
@@ -179,12 +176,11 @@
 | Circuit Construction Utility                      |             0.893  |
 | Grover                                            |             0.8831 |
 | Variational Quantum Eigensolver (VQE)             |             0.8698 |
-| Quantum Singular Value Transformation             |             0.8474 |
 | Quantum Phase Estimation (QPE)                    |             0.822  |
 | Quantum Arithmetic                                |             0.8082 |
 | Quantum Approximate Optimization Algorithm (QAOA) |             0.8017 |
 | Quantum Neural Network (QNN)                      |             0.7971 |
-| Domain Specific Application                       |             0.7701 |
+| Domain Specific Application                       |             0.7876 |
 
 ### All Patterns within each Source Framework (Sorted by Frequency)
 
@@ -195,13 +191,12 @@
 |:--------------------------------------------------|--------:|
 | Basis Change                                      |     107 |
 | Quantum Phase Estimation (QPE)                    |      56 |
+| Domain Specific Application                       |      38 |
 | Amplitude Amplification                           |      26 |
-| Domain Specific Application                       |      26 |
 | Initialization                                    |      18 |
 | Circuit Construction Utility                      |      17 |
 | Quantum Arithmetic                                |      17 |
 | Hamiltonian Simulation                            |      15 |
-| Quantum Singular Value Transformation             |      12 |
 | Data Encoding                                     |      10 |
 | Oracle                                            |       9 |
 | Linear Combination of Unitaries                   |       7 |

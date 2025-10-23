@@ -1,26 +1,61 @@
-PatternName
+Ad-hoc Hybrid Code Execution
+Alternating Operator Ansatz (AOA)
 Amplitude Amplification
 Basis Change
+Biased Initial State
+Chained Optimization
 Circuit Construction Utility
+Circuit Cutting
+Classical-Quantum Interface
 Creating Entanglement
 Data Encoding
 Domain Specific Application
 Dynamic Circuit
+Error Correction
 Function Table
+Gate Cut
+Gate Error Mitigation
 Grover
+Hadamard Test
 Hamiltonian Simulation
+Hybrid Module
 Initialization
 Linear Combination of Unitaries
+Mid-Circuit Measurement
+Orchestrated Execution
 Oracle
 Phase Shift
+Post-Selective Measurement
+Pre-deployed Execution
+Pre-Trained Feature Extractor
+Prioritized Execution
 Quantum Amplitude Estimation
+Quantum Application Archive
+Quantum Application Testing
 Quantum Approximate Optimization Algorithm (QAOA)
 Quantum Arithmetic
+Quantum Circuit Translator
+Quantum Classification
+Quantum Clustering
+Quantum Hardware Selection
+Quantum Kernel Estimator (QKE)
 Quantum Logical Operators
+Quantum Module
+Quantum Module Template
 Quantum Neural Network (QNN)
 Quantum Phase Estimation (QPE)
-Quantum Singular Value Transformation
+Quantum-Classic Split
+Readout Error Mitigation
 SWAP Test
 Schmidt Decomposition
+Speedup via Verifying
+Standalone Circuit Execution
+Uncompute
+Unified Execution
+Unified Observability
+Uniform Superposition
+Variational Parameter Transfer
 Variational Quantum Algorithm (VQA)
 Variational Quantum Eigensolver (VQE)
+Warm Start
+Wire Cut

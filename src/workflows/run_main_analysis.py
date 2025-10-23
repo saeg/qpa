@@ -191,7 +191,7 @@ def extract_and_save_unique_patterns(input_files: list[Path], output_file: Path)
 
 
 def main():
-    OUTPUT_PATTERN_FILE = config.RESULTS_DIR / "extended_pattern_list.csv"
+    OUTPUT_PATTERN_FILE = config.RESULTS_DIR / "patterns_used_in_categorization.csv"
     extract_and_save_unique_patterns(PATTERN_FILES, OUTPUT_PATTERN_FILE)
 
     print(f"\nLoading patterns from {len(PATTERN_FILES)} CSV files...")

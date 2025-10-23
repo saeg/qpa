@@ -1,86 +1,65 @@
 name,summary,pattern
-arithmetic.adders.adder.Adder,Compute the sum of two equally sized qubit registers.,Quantum Arithmetic
-arithmetic.adders.adder.HalfAdderGate,"Compute the sum of two equally-sized qubit registers, including a carry-out bit.",Quantum Arithmetic
-arithmetic.adders.adder.ModularAdderGate,Compute the sum modulo :math:`2^n` of two :math:`n`-sized qubit registers.,Quantum Arithmetic
-arithmetic.adders.adder.FullAdderGate,"Compute the sum of two :math:`n`-sized qubit registers, including carry-in and -out bits.",Quantum Arithmetic
-arithmetic.adders.cdkm_ripple_carry_adder.CDKMRippleCarryAdder,A ripple-carry circuit to perform in-place addition on two qubit registers.,Quantum Arithmetic
-arithmetic.adders.draper_qft_adder.DraperQFTAdder,A circuit that uses QFT to perform in-place addition on two qubit registers.,Quantum Arithmetic
-arithmetic.adders.vbe_ripple_carry_adder.VBERippleCarryAdder,The VBE ripple carry adder [1].,Quantum Arithmetic
-arithmetic.exact_reciprocal.ExactReciprocal,Exact reciprocal,Quantum Arithmetic
-arithmetic.exact_reciprocal.ExactReciprocalGate,Implements an exact reciprocal function.,Quantum Arithmetic
-arithmetic.functional_pauli_rotations.FunctionalPauliRotations,Base class for functional Pauli rotations.,Quantum Arithmetic
-arithmetic.integer_comparator.IntegerComparator,Integer Comparator.,Quantum Arithmetic
-arithmetic.integer_comparator.IntegerComparatorGate,Perform a :math:`\geq` (or :math:`<`) on a qubit register against a classical integer.,Quantum Arithmetic
-arithmetic.linear_amplitude_function.LinearAmplitudeFunctionGate,A circuit implementing a (piecewise) linear function on qubit amplitudes.,Quantum Arithmetic
-arithmetic.linear_pauli_rotations.LinearPauliRotationsGate,"Linearly-controlled X, Y or Z rotation.",Quantum Arithmetic
-arithmetic.multipliers.hrs_cumulative_multiplier.HRSCumulativeMultiplier,A multiplication circuit to store product of two input registers out-of-place.,Quantum Arithmetic
-arithmetic.multipliers.multiplier.MultiplierGate,Compute the product of two equally sized qubit registers into a new register.,Quantum Arithmetic
-arithmetic.multipliers.rg_qft_multiplier.RGQFTMultiplier,A QFT multiplication circuit to store product of two input registers out-of-place.,Quantum Arithmetic
-arithmetic.piecewise_chebyshev.PiecewiseChebyshevGate,Piecewise Chebyshev approximation to an input function.,Quantum Arithmetic
-arithmetic.piecewise_linear_pauli_rotations.PiecewiseLinearPauliRotationsGate,Piecewise-linearly-controlled Pauli rotations.,Quantum Arithmetic
-arithmetic.piecewise_polynomial_pauli_rotations.PiecewisePolynomialPauliRotationsGate,Piecewise-polynomially-controlled Pauli rotations.,Quantum Arithmetic
-arithmetic.polynomial_pauli_rotations.PolynomialPauliRotations,A circuit implementing polynomial Pauli rotations.,Quantum Arithmetic
-arithmetic.polynomial_pauli_rotations.PolynomialPauliRotationsGate,A gate implementing polynomial Pauli rotations.,Quantum Arithmetic
-arithmetic.quadratic_form.QuadraticFormGate,Implements a quadratic form on binary variables encoded in qubit registers.,Quantum Arithmetic
-arithmetic.weighted_adder.WeightedAdder,A circuit to compute the weighted sum of qubit registers.,Quantum Arithmetic
-arithmetic.weighted_adder.WeightedSumGate,A gate to compute the weighted sum of qubit registers.,Quantum Arithmetic
-basis_change.qft.QFT,Quantum Fourier Transform Circuit.,Basis Change
-basis_change.qft.QFTGate,Quantum Fourier Transform Gate.,Basis Change
-bit_flip_oracle.BitFlipOracleGate,Implements a bit-flip oracle,Oracle
-blueprintcircuit.BlueprintCircuit,Blueprint circuit object.,Circuit Construction Utility
-boolean_logic.inner_product.InnerProductGate,A 2n-qubit Boolean function that computes the inner product of two n-qubit vectors over :math:`F_2`.,Quantum Logical Operators
-boolean_logic.quantum_and.AND,A circuit implementing the logical AND operation on a number of qubits.,Quantum Logical Operators
-boolean_logic.quantum_and.AndGate,A gate representing the logical AND operation on a number of qubits.,Quantum Logical Operators
-boolean_logic.quantum_or.OR,A circuit implementing the logical OR operation on a number of qubits.,Quantum Logical Operators
-boolean_logic.quantum_xor.BitwiseXorGate,An n-qubit gate for bitwise xor-ing the input with some integer ``amount``.,Quantum Logical Operators
-boolean_logic.quantum_xor.random_bitwise_xor,Create a random BitwiseXorGate.,Quantum Logical Operators
-data_preparation.pauli_feature_map.z_feature_map,The first order Pauli Z-evolution circuit.,Data Encoding
-data_preparation.pauli_feature_map.zz_feature_map,Second-order Pauli-Z evolution circuit.,Data Encoding
-data_preparation.initializer.Initialize,Complex amplitude initialization.,Initialization
-data_preparation.pauli_feature_map.PauliFeatureMap,The Pauli Expansion circuit.,Data Encoding
-data_preparation.state_preparation.StatePreparation,Complex amplitude state preparation.,Initialization
-data_preparation.state_preparation.UniformSuperpositionGate,Implements a uniform superposition state.,Basis Change
-fourier_checking.FourierChecking,Fourier checking circuit.,Circuit Construction Utility
-generalized_gates.diagonal.Diagonal,Circuit implementing a diagonal transformation.,Circuit Construction Utility
-generalized_gates.diagonal.DiagonalGate,A generic diagonal quantum gate.,Circuit Construction Utility
-generalized_gates.gms.GMS,Global Mølmer–Sørensen gate.,Circuit Construction Utility
-generalized_gates.gms.MSGate,The Mølmer–Sørensen gate.,Circuit Construction Utility
-generalized_gates.gr.GR,Global R gate.,Circuit Construction Utility
-generalized_gates.gr.GRX,Global RX gate.,Circuit Construction Utility
-generalized_gates.gr.GRY,Global RY gate.,Circuit Construction Utility
-generalized_gates.gr.GRZ,Global RZ gate.,Circuit Construction Utility
-generalized_gates.isometry.Isometry,Decomposition of arbitrary isometries from :math:`m` to :math:`n` qubits.,Circuit Construction Utility
-generalized_gates.linear_function.LinearFunction,A linear reversible circuit on n qubits.,Circuit Construction Utility
-generalized_gates.mcg_up_to_diagonal.MCGupDiag,Decomposes a multi-controlled gate :math:`U` up to a diagonal :math:`D`.,Circuit Construction Utility
-generalized_gates.mcmt.MCMTGate,"The multi-controlled multi-target gate, for an arbitrary singly controlled target gate.",Circuit Construction Utility
-generalized_gates.mcmt.MCMTVChain,The MCMT implementation using the CCX V-chain.,Circuit Construction Utility
-generalized_gates.pauli.PauliGate,A multi-qubit Pauli gate.,Circuit Construction Utility
-generalized_gates.permutation.Permutation,An n_qubit circuit that permutes qubits.,Circuit Construction Utility
-generalized_gates.permutation.PermutationGate,A gate that permutes qubits.,Circuit Construction Utility
-generalized_gates.rv.RVGate,Rotation around arbitrary rotation axis.,Circuit Construction Utility
-generalized_gates.uc.UCGate,Uniformly controlled gate (also called multiplexed gate).,Circuit Construction Utility
-generalized_gates.uc_pauli_rot.UCPauliRotGate,Uniformly controlled Pauli rotations.,Circuit Construction Utility
-generalized_gates.ucrz.UCRZGate,Uniformly controlled Pauli-Z rotations.,Circuit Construction Utility
-generalized_gates.unitary.UnitaryGate,Class quantum gates specified by a unitary matrix.,Circuit Construction Utility
-graph_state.GraphState,Circuit to prepare a graph state.,Circuit Construction Utility
-graph_state.GraphStateGate,A gate representing a graph state.,Circuit Construction Utility
-grover_operator.GroverOperator,The Grover operator.,Grover
-hamiltonian_gate.HamiltonianGate,Class for representing evolution by a Hamiltonian operator as a gate.,Circuit Construction Utility
-hidden_linear_function.HiddenLinearFunction,Circuit to solve the hidden linear function problem.,Oracle
-iqp.IQP,Instantaneous quantum polynomial (IQP) circuit.,Circuit Construction Utility
-iqp.random_iqp,A random instantaneous quantum polynomial time (IQP) circuit.,Circuit Construction Utility
-n_local.efficient_su2.EfficientSU2,The hardware efficient SU(2) 2-local circuit.,Variational Quantum Algorithm (VQA)
-n_local.evolved_operator_ansatz.hamiltonian_variational_ansatz,Construct a Hamiltonian variational ansatz.,Circuit Construction Utility
-n_local.evolved_operator_ansatz.EvolvedOperatorAnsatz,The evolved operator ansatz.,Variational Quantum Algorithm (VQA)
-n_local.excitation_preserving.ExcitationPreserving,The heuristic excitation-preserving wave function ansatz.,Variational Quantum Algorithm (VQA)
-n_local.n_local.NLocal,The n-local circuit class.,Variational Quantum Algorithm (VQA)
-n_local.pauli_two_design.PauliTwoDesign,The Pauli Two-Design ansatz.,Variational Quantum Algorithm (VQA)
-n_local.qaoa_ansatz.QAOAAnsatz,A generalized QAOA quantum circuit with a support of custom initial states and mixers.,Quantum Approximate Optimization Algorithm (QAOA)
-n_local.real_amplitudes.RealAmplitudes,The real-amplitudes 2-local circuit.,Variational Quantum Algorithm (VQA)
-n_local.two_local.TwoLocal,The two-local circuit.,Variational Quantum Algorithm (VQA)
-overlap.UnitaryOverlap,Circuit that returns the overlap between two unitaries.,Circuit Construction Utility
-pauli_evolution.PauliEvolutionGate,Time-evolution of an operator consisting of Paulis.,Hamiltonian Simulation
-phase_estimation.PhaseEstimation,Phase Estimation circuit.,Quantum Phase Estimation (QPE)
-phase_oracle.PhaseOracle,Phase Oracle.,Oracle
-phase_oracle.PhaseOracleGate,Implements a phase oracle.,Oracle
-quantum_volume.QuantumVolume,A quantum volume model circuit.,Circuit Construction Utility
+/classiq/open_library.functions.amplitude_amplification.amplitude_amplification,"Applies the Amplitude Amplification algorithm; Prepares a state using the given `space_transform` function, and applies `reps` repetititions of the grover operator, using the given `oracle` functions which marks the ""good"" states.",Amplitude Amplification
+/classiq/open_library.functions.amplitude_amplification.exact_amplitude_amplification,"Applies an exact version of the Amplitude Amplification algorithm, assuming knowledge of the amplitude of the marked state. The function should be applied on the zero state, and it takes care for preparing the initial state before amplification using the `space_transform`.",Amplitude Amplification
+/classiq/open_library.functions.amplitude_estimation.amplitude_estimation,"Estimate the probability of a state being marked by the operand `oracle` as a ""good state. "".",Quantum Amplitude Estimation
+/classiq/open_library.functions.discrete_sine_cosine_transform.qct_qst_type1,Applies the quantum discrete cosine (DCT) and sine (DST) transform of type 1 to the qubit array `x`. Corresponds to the matrix (with $n\equiv$`x.,Basis Change
+/classiq/open_library.functions.discrete_sine_cosine_transform.qct_qst_type2,"Applies the quantum discrete cosine (DCT) and sine (DST) transform of type 2 to the qubit array `x` concatenated with `q`, with `q` being the MSB. Corresponds to the matrix (with $n\equiv$`x.",Basis Change
+/classiq/open_library.functions.discrete_sine_cosine_transform.qct_type2,"Applies the quantum discrete cosine (DCT) transform of type 2, ${ m DCT}^{(2)}$, to the qubit array `x`.",Basis Change
+/classiq/open_library.functions.discrete_sine_cosine_transform.qst_type2,"Applies the quantum discrete sine (DST) transform of type 2, ${ m DST}^{(2)}$, to the qubit array `x`.",Basis Change
+/classiq/open_library.functions.grover.phase_oracle,Creates a phase oracle operator based on a predicate function.,Oracle
+/classiq/open_library.functions.grover.reflect_about_zero,"Reflects the state about the |0> state (i. e.",Amplitude Amplification
+/classiq/open_library.functions.grover.grover_diffuser,"Reflects the given state about the A|0> state, where A is the `space_transform` parameter. It is defined as:.",Amplitude Amplification
+/classiq/open_library.functions.grover.grover_operator,"Applies the grover operator, defined by:.",Amplitude Amplification
+/classiq/open_library.functions.grover.grover_search,Applies Grover search algorithm.,Grover
+/classiq/open_library.functions.hea.full_hea,Implements an ansatz on a qubit array `x` with the given 1-qubit and 2-qubit operations.,Variational Quantum Algorithm (VQA)
+/classiq/open_library.functions.lcu.lcu,"Implements a general linear combination of unitaries (LCU) procedure. The algorithm prepares a superposition over the `unitaries` according to `magnitudes`, and then conditionally applies each unitary controlled by the `block`.",Linear Combination of Unitaries
+/classiq/open_library.functions.lcu.lcu_pauli,"Applies a linear combination of unitaries (LCU) where each unitary is a Pauli term, represented as a tensor product of Pauli operators. The function prepares a superposition over the unitaries according to the given magnitudes and phases, and applies the corresponding Pauli operators conditionally.",Linear Combination of Unitaries
+/classiq/open_library.functions.linear_pauli_rotation.linear_pauli_rotations,"Performs a rotation on a series of $m$ target qubits, where the rotation angle is a linear function of an $n$-qubit control register.",Data Encoding
+/classiq/open_library.functions.lookup_table.span_lookup_table,Applies a classical function to quantum numbers.,Function Table
+/classiq/open_library.functions.modular_exponentiation.qft_space_add_const,"Adds a constant to a quantum number (in the Fourier space) using the Quantum Fourier Transform (QFT) Adder algorithm. Assuming that the input `phi_b` has `n` qubits, the result will be $\phi_b+=value \mod 2^n$.",Quantum Arithmetic
+/classiq/open_library.functions.modular_exponentiation.cc_modular_add,"Adds a constant `a` to a quantum number `phi_b` modulo the constant `n`, controlled by 2 qubits. The quantum number `phi_b` and the constant `a` are assumed to be in the QFT space.",Quantum Arithmetic
+/classiq/open_library.functions.modular_exponentiation.c_modular_multiply,"Performs out-of-place multiplication of a quantum number `x` by a classical number `a` modulo classical number `n`, controlled by a quantum bit `ctrl` and adds the result to a quantum array `b`. Applies $b += xa \mod n$ if `ctrl=1`, and the identity otherwise.",Quantum Arithmetic
+/classiq/open_library.functions.modular_exponentiation.modular_multiply,"Performs out-of-place multiplication of a quantum number `x` by a classical number `a` modulo classical number `n`, and adds the result to a quantum array `b` (Applies $b += xa \mod n$).",Quantum Arithmetic
+/classiq/open_library.functions.modular_exponentiation.multiswap,"Swaps the qubit states between two arrays. Qubits of respective indices are swapped, and additional qubits in the longer array are left unchanged.",Circuit Construction Utility
+/classiq/open_library.functions.modular_exponentiation.inplace_c_modular_multiply,"Performs multiplication of a quantum number `x` by a classical number `a` modulo classical number `n`, controlled by a quantum bit `ctrl`. Applies $x=xa \mod n$ if `ctrl=1`, and the identity otherwise.",Quantum Arithmetic
+/classiq/open_library.functions.modular_exponentiation.inplace_modular_multiply,Performs multiplication of a quantum number `x` by a classical number `a` modulo classical number `n` (Applies $x=xa \mod n$).,Quantum Arithmetic
+/classiq/open_library.functions.modular_exponentiation.modular_exp,Raises a classical integer `a` to the power of a quantum number `power` modulo classical integer `n` times a quantum number `x`. Performs $x=(a^{power} \mod n)*x$ in-place.,Quantum Arithmetic
+/classiq/open_library.functions.qaoa_penalty.qaoa_mixer_layer,Applies the mixer layer for the QAOA algorithm. The mixer layer is a sequence of `X` gates applied to each qubit in the target quantum array variable.,Quantum Approximate Optimization Algorithm (QAOA)
+/classiq/open_library.functions.qaoa_penalty.qaoa_cost_layer,Applies the cost layer to the QAOA model.,Quantum Approximate Optimization Algorithm (QAOA)
+/classiq/open_library.functions.qaoa_penalty.qaoa_layer,"Applies the QAOA layer, which concatenates the cost layer and the mixer layer.",Quantum Approximate Optimization Algorithm (QAOA)
+/classiq/open_library.functions.qaoa_penalty.qaoa_init,Initializes the QAOA circuit by applying the Hadamard gate to all qubits.,Initialization
+/classiq/open_library.functions.qaoa_penalty.qaoa_penalty,Applies the penalty layer to the QAOA model.,Quantum Approximate Optimization Algorithm (QAOA)
+/classiq/open_library.functions.qft_functions.qft_no_swap,Applies the Quantum Fourier Transform (QFT) without the swap gates.,Basis Change
+/classiq/open_library.functions.qft_functions.qft,Performs the Quantum Fourier Transform (QFT) on `target` in-place. Implements the following transformation:.,Basis Change
+/classiq/open_library.functions.qpe.qpe_flexible,"Implements the Quantum Phase Estimation (QPE) algorithm, which estimates the phase (eigenvalue) associated with an eigenstate of a given unitary operator $U$. This is a flexible version that allows the user to provide a callable that generates the unitary operator $U^k$ for a given integer $k$, offering greater flexibility in handling different quantum circuits using some powering rule.",Quantum Phase Estimation (QPE)
+/classiq/open_library.functions.qpe.qpe,"Implements the standard Quantum Phase Estimation (QPE) algorithm, which estimates the phase (eigenvalue) associated with an eigenstate of a given unitary operator $U$.",Quantum Phase Estimation (QPE)
+/classiq/open_library.functions.qsvt.qsvt_step,"Applies a single QSVT step, composed of 2 projector-controlled-phase rotations, and applications of the block encoding unitary `u` and its inverse:.",Domain Specific Application
+/classiq/open_library.functions.qsvt.qsvt,"Implements the Quantum Singular Value Transformation (QSVT) - an algorithmic framework, used to apply polynomial transformations of degree `d` on the singular values of a block encoded matrix, given as the unitary `u`. Given a unitary $U$, a list of phase angles $\phi_1, \phi_2,.",Domain Specific Application
+/classiq/open_library.functions.qsvt.projector_controlled_phase,Assigns a phase to the entire subspace determined by the given projector. Corresponds to the operation:.,Phase Shift
+/classiq/open_library.functions.qsvt.qsvt_inversion,"Implements matrix inversion on a given block-encoding of a square matrix, using the QSVT framework. Applies a polynomial approximation of the inverse of the singular values of the matrix encoded in `u`.",Domain Specific Application
+/classiq/open_library.functions.qsvt.projector_controlled_double_phase,"Assigns 2 phases to the entire subspace determined by the given projector, each one is controlled differentely on a given `lcu` qvar. Used in the context of the `qsvt_lcu` function.",Phase Shift
+/classiq/open_library.functions.qsvt.qsvt_lcu_step,"Applies a single QSVT-lcu step, composed of 2 double phase projector-controlled-phase rotations, and applications of the block encoding unitary `u` and its inverse:.",Domain Specific Application
+/classiq/open_library.functions.qsvt.qsvt_lcu,"Implements the Quantum Singular Value Transformation (QSVT) for a linear combination of odd and even polynomials, so that it is possible to encode a polynomial of indefinite parity, such as approximation to exp(i*A) or exp(A). Should work for Hermitian block encodings.",Domain Specific Application
+/classiq/open_library.functions.qsvt.gqsp,"Implements Generalized Quantum Signal Processing (GQSP), which realizes a (Laurent) polynomial transformation of degree d on the eigenvalues of the given signal unitary `u`. The protocol is according to https://arxiv.",Domain Specific Application
+/classiq/open_library.functions.state_preparation.prepare_uniform_trimmed_state,Initializes a quantum variable in a uniform superposition of the first `m` computational basis states:.,Initialization
+/classiq/open_library.functions.state_preparation.prepare_uniform_interval_state,Initializes a quantum variable in a uniform superposition of the specified interval in the computational basis states:.,Initialization
+/classiq/open_library.functions.state_preparation.prepare_ghz_state,Initializes a quantum variable in a Greenberger-Horne-Zeilinger (GHZ) state. i.,Creating Entanglement
+/classiq/open_library.functions.state_preparation.prepare_exponential_state,"Prepares a quantum state with exponentially decreasing amplitudes. The state is prepared in the computational basis, with the amplitudes of the states decreasing exponentially with the index of the state:.",Initialization
+/classiq/open_library.functions.state_preparation.prepare_bell_state,Initializes a quantum array of size 2 in one of the four Bell states.,Creating Entanglement
+/classiq/open_library.functions.state_preparation.inplace_prepare_complex_amplitudes,"Prepares a quantum state with amplitudes and phases for each state according to the given parameters, in polar representation. Expects to act on an initialized zero state $|0\rangle$.",Initialization
+/classiq/open_library.functions.state_preparation.prepare_complex_amplitudes,"Initializes and prepares a quantum state with amplitudes and phases for each state according to the given parameters, in polar representation.",Initialization
+/classiq/open_library.functions.state_preparation.prepare_dicke_state_unary_input,Prepares a Dicke state with a variable number of excitations based on an unary-encoded input.,Initialization
+/classiq/open_library.functions.state_preparation.prepare_dicke_state,Prepares a Dicke state with k excitations over the provided quantum register.,Initialization
+/classiq/open_library.functions.state_preparation.prepare_basis_state,Initializes a quantum array in the specified basis state.,Initialization
+/classiq/open_library.functions.state_preparation.prepare_linear_amplitudes,Initializes a quantum variable in a state with linear amplitudes: $$|\psi angle = rac{1}{Z}\sum_{x=0}^{2^n-1}{x|x angle}$$ Where $Z$ is a normalization constant,Initialization
+/classiq/open_library.functions.swap_test.swap_test,Tests the overlap (in terms of fidelity) of two quantum states. The fidelity of `state1` and `state2` is calculated from the probability of measuring `test` qubit in the state 0 as follows:.,SWAP Test
+/classiq/open_library.functions.utility_functions.apply_to_all,Applies the single-qubit operand `gate_operand` to each qubit in the qubit array `target`.,Circuit Construction Utility
+/classiq/open_library.functions.utility_functions.hadamard_transform,Applies Hadamard transform to the target qubits.,Basis Change
+/classiq/open_library.functions.utility_functions.switch,Implements a switch-case statement to select and execute a quantum function from a list.,Dynamic Circuit
+/classiq/open_library.functions.utility_functions.modular_increment,"Adds $a$ to $x$ modulo the range of $x$, assumed that $x$ is a non-negative integer and $a$ is an integer. Mathematically it is described as:.",Quantum Arithmetic
+/classiq/open_library.functions.variational.encode_in_angle,Creates an angle encoding of n data points on n qubits.,Data Encoding
+/classiq/open_library.functions.variational.encode_on_bloch,Creates a dense angle encoding of n data points on n//2 qubits.,Data Encoding
+/classiq/qmod.builtins.functions.exponentiation.suzuki_trotter,Applies the Suzuki-Trotter decomposition to a Pauli operator.,Hamiltonian Simulation
+/classiq/open_library.functions.state_preparation.inplace_prepare_sparse_amplitudes,"Prepares a quantum state with the given (complex) amplitudes. The input is given sparse format, as a list of non-zero states and their corresponding amplitudes.",Initialization
+/classiq/open_library.functions.state_preparation.prepare_sparse_amplitudes,"Initializes and prepares a quantum state with the given (complex) amplitudes. The input is given sparse format, as a list of non-zero states and their corresponding amplitudes.",Initialization
+/classiq/open_library.functions.modular_exponentiation.modular_add_qft_space,Adds a constant `a` to a quantum number `phi_b` modulo the constant `n`. The quantum number `phi_b` is assumed to be in the QFT space.,Quantum Arithmetic
