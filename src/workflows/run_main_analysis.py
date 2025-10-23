@@ -21,9 +21,9 @@ CONCEPT_FILES = [
     ]
 
 PATTERN_FILES = [
-    config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
-    config.RESULTS_DIR / "enriched_pennylane_quantum_patterns.csv",
-    config.RESULTS_DIR / "enriched_qiskit_quantum_patterns.csv",
+    config.RESULTS_DIR / "knowledge_base/enriched_classiq_quantum_patterns.csv",
+    config.RESULTS_DIR / "knowledge_base/enriched_pennylane_quantum_patterns.csv",
+    config.RESULTS_DIR / "knowledge_base/enriched_qiskit_quantum_patterns.csv",
     ]
 
 

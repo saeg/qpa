@@ -18,9 +18,9 @@ LATEX_OUTPUT_DIR = config.RESULTS_DIR / "latex_report_tables"
 CSV_OUTPUT_DIR = config.RESULTS_DIR / "report"
 
 PATTERN_FILES = [
-    config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
-    config.RESULTS_DIR / "enriched_pennylane_quantum_patterns.csv",
-    config.RESULTS_DIR / "enriched_qiskit_quantum_patterns.csv",
+    config.RESULTS_DIR / "knowledge_base/enriched_classiq_quantum_patterns.csv",
+    config.RESULTS_DIR / "knowledge_base/enriched_pennylane_quantum_patterns.csv",
+    config.RESULTS_DIR / "knowledge_base/enriched_qiskit_quantum_patterns.csv",
     ]
 TOP_N_CONCEPTS = 20
 

@@ -114,9 +114,9 @@ def analyze_pattern_coverage() -> dict:
 
     # Define enriched files for each framework
     enriched_files = {
-        "Classiq": config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
-        "PennyLane": config.RESULTS_DIR / "enriched_pennylane_quantum_patterns.csv",
-        "Qiskit": config.RESULTS_DIR / "enriched_qiskit_quantum_patterns.csv"
+        "Classiq": config.RESULTS_DIR / "knowledge_base/enriched_classiq_quantum_patterns.csv",
+        "PennyLane": config.RESULTS_DIR / "knowledge_base/enriched_pennylane_quantum_patterns.csv",
+        "Qiskit": config.RESULTS_DIR / "knowledge_base/enriched_qiskit_quantum_patterns.csv"
     }
 
     # Extract patterns from each framework
@@ -170,9 +170,9 @@ def analyze_pattern_coverage_with_sources() -> dict:
 
     # Define enriched files for each framework
     enriched_files = {
-        "Classiq": config.RESULTS_DIR / "enriched_classiq_quantum_patterns.csv",
-        "PennyLane": config.RESULTS_DIR / "enriched_pennylane_quantum_patterns.csv",
-        "Qiskit": config.RESULTS_DIR / "enriched_qiskit_quantum_patterns.csv"
+        "Classiq": config.RESULTS_DIR / "knowledge_base/enriched_classiq_quantum_patterns.csv",
+        "PennyLane": config.RESULTS_DIR / "knowledge_base/enriched_pennylane_quantum_patterns.csv",
+        "Qiskit": config.RESULTS_DIR / "knowledge_base/enriched_qiskit_quantum_patterns.csv"
     }
 
     # Extract patterns from each framework with sources
