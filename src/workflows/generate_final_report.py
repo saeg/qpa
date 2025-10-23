@@ -24,6 +24,19 @@ PATTERN_FILES = [
     ]
 TOP_N_CONCEPTS = 20
 
+# The 9 newly defined patterns to specifically track
+NEWLY_DEFINED_PATTERNS = [
+    "Basis Change",
+    "Circuit Construction Utility",
+    "Data Encoding",
+    "Domain Specific Application",
+    "Hamiltonian Simulation",
+    "Linear Combination of Unitaries",
+    "Quantum Amplitude Estimation",
+    "Quantum Arithmetic",
+    "Quantum Logical Operators",
+]
+
 
 # --- Helper Functions ---
 def extract_framework(concept_name: str) -> str:
@@ -63,9 +76,10 @@ def load_all_patterns_from_files(file_paths: list[Path]) -> set[str]:
 
 # --- ReportGenerator Class ---
 class ReportGenerator:
-    def __init__(self, df: pd.DataFrame, all_patterns: set):
+    def __init__(self, df: pd.DataFrame, all_patterns: set, new_patterns: list):
         self.df = df
         self.all_patterns = all_patterns
+        self.newly_defined_patterns = new_patterns
         self._prepare_data()
 
     def _prepare_data(self):
@@ -74,12 +88,10 @@ class ReportGenerator:
         self.unique_files_matched = self.df["file_path"].nunique()
         self.unique_concepts_matched = self.df["concept_name"].nunique()
 
-        # Convert similarity_score to numeric, handling non-numeric values
         self.df["similarity_score"] = pd.to_numeric(
             self.df["similarity_score"], errors="coerce"
         )
 
-        # Handle case where all similarity scores are NaN or data is empty
         if self.df["similarity_score"].isna().all() or len(self.df) == 0:
             self.avg_score = 0.0
             self.avg_score_by_type = pd.Series(dtype=float)
@@ -124,6 +136,25 @@ class ReportGenerator:
             self.patterns_in_frameworks = self.df_with_patterns.groupby("framework")[
                 "pattern"
             ].value_counts()
+
+            found_new_patterns = self.found_patterns.intersection(
+                self.newly_defined_patterns
+            )
+            self.num_new_patterns_found = len(found_new_patterns)
+
+            new_patterns_df = pd.DataFrame(
+                {"Pattern": self.newly_defined_patterns}
+            )
+            new_patterns_df["Matches"] = (
+                new_patterns_df["Pattern"]
+                .map(self.matches_by_pattern)
+                .fillna(0)
+                .astype(int)
+            )
+            self.new_patterns_table_data = new_patterns_df.sort_values(
+                by="Matches", ascending=False
+            )
+            
 
             cross_framework_analysis = self.df_with_patterns.groupby("pattern").agg(
                 total_matches=("pattern", "size"),
@@ -178,7 +209,6 @@ class ReportGenerator:
         if texttt_cols is None:
             texttt_cols = []
 
-        # Prepare column alignment string
         num_cols = len(df.columns)
         alignments = [
             "r" if pd.api.types.is_numeric_dtype(df[col]) else "l"
@@ -193,13 +223,11 @@ class ReportGenerator:
             col_spec = alignments[0]
         tabular_spec = f"{{@{{}} {col_spec} @{{}}}}"
 
-        # Header
         header = (
                 " & ".join([f"\\textbf{{{self._escape_latex(col)}}}" for col in df.columns])
                 + " \\\\\n"
         )
 
-        # Body
         body_rows = []
         for _, row in df.iterrows():
             row_items = []
@@ -212,7 +240,6 @@ class ReportGenerator:
             body_rows.append(" & ".join(row_items) + " \\\\")
         body = "\n".join(body_rows)
 
-        # Assemble the full table
         latex_string = f"""\\begin{{table}}[ht]
 \\centering
 \\caption{{{caption}}}
@@ -235,7 +262,6 @@ class ReportGenerator:
         print(f"\nGenerating LaTeX tables in '{output_dir}'...")
         print("(Note: These tables require the 'booktabs' package in LaTeX: \\usepackage{booktabs})")
 
-        # Table: Top Matched Concepts
         self._df_to_latex(
             df=self.top_20_table_data,
             caption=f"Top {TOP_N_CONCEPTS} Most Frequently Matched Quantum Concepts",
@@ -244,49 +270,48 @@ class ReportGenerator:
             texttt_cols=["Concept"],
         )
 
-        # Table: Match Type Counts
         df_match_type = self.matches_by_type.reset_index()
         df_match_type.columns = ["Match Type", "Count"]
         self._df_to_latex(df_match_type, "Count of Matches by Type", "match-type-counts", output_dir / "match_type_counts.tex")
 
-        # Table: Average Score by Match Type
         if not self.avg_score_by_type.empty:
             df_avg_score_type = self.avg_score_by_type.round(4).reset_index()
             df_avg_score_type.columns = ["Match Type", "Average Score"]
             self._df_to_latex(df_avg_score_type, "Average Similarity Score by Match Type", "avg-score-by-type", output_dir / "avg_score_by_type.tex")
 
-        # Table: Matches by Source Framework
         df_matches_framework = self.matches_by_framework.reset_index()
         df_matches_framework.columns = ["Source Framework", "Matches"]
         self._df_to_latex(df_matches_framework, "Total Matches per Source Framework", "matches-by-framework", output_dir / "matches_by_framework.tex")
 
-        # Table: Matches by Target Project
         df_matches_project = self.matches_by_project.reset_index()
         df_matches_project.columns = ["Target Project", "Matches"]
         self._df_to_latex(df_matches_project, "Total Matches per Target Project", "matches-by-project", output_dir / "matches_by_project.tex")
 
         if not self.df_with_patterns.empty:
-            # Table: Source Pattern Analysis
+            self._df_to_latex(
+                df=self.new_patterns_table_data,
+                caption="Occurrence of Newly Defined Quantum Patterns",
+                label="new-patterns-occurrence",
+                output_path=output_dir / "newly_defined_patterns_occurrence.tex"
+            )
+            
+
             df_source = self.source_table.reset_index()
             df_source.columns = ["Pattern", "Total Matches", "Source Frameworks"]
             self._df_to_latex(df_source, "Source Pattern Analysis: Origin and Frequency", "source-pattern-analysis", output_dir / "source_pattern_analysis.tex")
 
-            # Table: Adoption Pattern Analysis
             df_adoption = self.adoption_table.reset_index()
             df_adoption.columns = ["Pattern", "Project Coverage", "Found In Projects"]
             self._df_to_latex(df_adoption, "Adoption Pattern Analysis: Usage Across Target Projects", "adoption-pattern-analysis", output_dir / "adoption_pattern_analysis.tex")
 
-            # Table: Patterns by Match Count
             df_pattern_counts = self.matches_by_pattern.reset_index()
             df_pattern_counts.columns = ["Pattern", "Total Matches"]
             self._df_to_latex(df_pattern_counts, "Frequency of Quantum Patterns by Match Count", "patterns-by-match-count", output_dir / "patterns_by_match_count.tex")
 
-            # Table: Average Score by Pattern
             df_avg_score_pattern = self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index()
             df_avg_score_pattern.columns = ["Pattern", "Average Score"]
             self._df_to_latex(df_avg_score_pattern, "Average Similarity Score by Pattern", "avg-score-by-pattern", output_dir / "avg_score_by_pattern.tex")
 
-            # Tables: Patterns within each framework
             for framework, data in self.patterns_in_frameworks.groupby(level=0):
                 df_framework_patterns = data.droplevel(0).reset_index()
                 df_framework_patterns.columns = ["Pattern", "Matches"]
@@ -299,9 +324,7 @@ class ReportGenerator:
         print("LaTeX table generation complete.")
 
     # --- Other Report Generation Methods ---
-
     def generate_txt_report(self, path: Path):
-        """Generates the plain text report."""
         original_stdout = sys.stdout
         with open(path, "w", encoding="utf-8") as f:
             sys.stdout = f
@@ -310,165 +333,71 @@ class ReportGenerator:
         print(f"Text report successfully generated at '{path}'")
 
     def generate_md_report(self, path: Path):
-        """Generates the Markdown report."""
         with open(path, "w", encoding="utf-8") as f:
-            # Redirect print to the file
             def md_print(*args, **kwargs):
                 print(*args, file=f, **kwargs)
-
             self._write_report_content(is_md=True, md_print=md_print)
         print(f"Markdown report successfully generated at '{path}'")
 
     def export_tables_to_csv(self, output_dir: Path):
-        """Export all generated tables as individual CSV files."""
-        # Create output directory if it doesn't exist
         output_dir.mkdir(parents=True, exist_ok=True)
-
         print(f"\nExporting tables to CSV files in '{output_dir}'...")
 
-        # Export basic statistics tables
-        self.matches_by_type.reset_index().to_csv(
-            output_dir / "match_type_counts.csv", index=False
-        )
+        self.matches_by_type.reset_index().to_csv(output_dir / "match_type_counts.csv", index=False)
         if len(self.avg_score_by_type) > 0:
-            self.avg_score_by_type.round(4).reset_index().to_csv(
-                output_dir / "avg_score_by_type.csv", index=False
-            )
+            self.avg_score_by_type.round(4).reset_index().to_csv(output_dir / "avg_score_by_type.csv", index=False)
         else:
-            # Create empty CSV with headers
-            pd.DataFrame(columns=["match_type", "similarity_score"]).to_csv(
-                output_dir / "avg_score_by_type.csv", index=False
-            )
-        self.matches_by_framework.reset_index().to_csv(
-            output_dir / "matches_by_framework.csv", index=False
-        )
-        self.matches_by_project.reset_index().to_csv(
-            output_dir / "matches_by_project.csv", index=False
-        )
+            pd.DataFrame(columns=["match_type", "similarity_score"]).to_csv(output_dir / "avg_score_by_type.csv", index=False)
 
-        # Export pattern analysis tables if they exist
+        self.matches_by_framework.reset_index().to_csv(output_dir / "matches_by_framework.csv", index=False)
+        self.matches_by_project.reset_index().to_csv(output_dir / "matches_by_project.csv", index=False)
+
         if not self.df_with_patterns.empty:
-            # Source pattern analysis
-            source_headers = {
-                "total_matches": "Total Matches",
-                "source_framework_names": "Source Frameworks",
-            }
-            self.source_table.reset_index().rename(columns=source_headers).to_csv(
-                output_dir / "source_pattern_analysis.csv", index=False
+            self.new_patterns_table_data.to_csv(
+                output_dir / "newly_defined_patterns_occurrence.csv", index=False
             )
 
-            # Adoption pattern analysis
-            adoption_headers = {
-                "target_project_coverage": "Project Coverage",
-                "target_project_names": "Found In Projects",
-            }
-            self.adoption_table.reset_index().rename(columns=adoption_headers).to_csv(
-                output_dir / "adoption_pattern_analysis.csv", index=False
-            )
+            source_headers = {"total_matches": "Total Matches", "source_framework_names": "Source Frameworks"}
+            self.source_table.reset_index().rename(columns=source_headers).to_csv(output_dir / "source_pattern_analysis.csv", index=False)
 
-            # Pattern analysis tables
-            self.matches_by_pattern.reset_index().to_csv(
-                output_dir / "patterns_by_match_count.csv", index=False
-            )
-            self.avg_score_by_pattern.round(4).sort_values(
-                ascending=False
-            ).reset_index().to_csv(
-                output_dir / "avg_score_by_pattern.csv", index=False
-            )
+            adoption_headers = {"target_project_coverage": "Project Coverage", "target_project_names": "Found In Projects"}
+            self.adoption_table.reset_index().rename(columns=adoption_headers).to_csv(output_dir / "adoption_pattern_analysis.csv", index=False)
 
-            # Patterns by framework
+            self.matches_by_pattern.reset_index().to_csv(output_dir / "patterns_by_match_count.csv", index=False)
+            self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index().to_csv(output_dir / "avg_score_by_pattern.csv", index=False)
+
             for framework, data in self.patterns_in_frameworks.groupby(level=0):
-                framework_name = framework.capitalize()
-                data.droplevel(0).reset_index().to_csv(
-                    output_dir / f"patterns_in_{framework.lower()}.csv", index=False
-                )
+                data.droplevel(0).reset_index().to_csv(output_dir / f"patterns_in_{framework.lower()}.csv", index=False)
 
-        # Export top concepts table
-        self.top_20_table_data.to_csv(
-            output_dir / "top_matched_concepts.csv", index=False
-        )
-
-        # Export unmatched patterns as a simple list
+        self.top_20_table_data.to_csv(output_dir / "top_matched_concepts.csv", index=False)
         if self.unmatched_patterns:
-            unmatched_df = pd.DataFrame(
-                {"unmatched_patterns": list(self.unmatched_patterns)}
-            )
+            unmatched_df = pd.DataFrame({"unmatched_patterns": list(self.unmatched_patterns)})
             unmatched_df.to_csv(output_dir / "unmatched_patterns.csv", index=False)
 
-        print(
-            f"Successfully exported {len(list(output_dir.glob('*.csv')))} CSV files to '{output_dir}'"
-        )
+        print(f"Successfully exported {len(list(output_dir.glob('*.csv')))} CSV files to '{output_dir}'")
 
     def _write_report_content(self, is_md: bool, md_print=print):
-        """Writes the report content, adapting format for TXT or MD."""
-
-        # Helper to format tables
         def to_format(df, index=False, headers="keys"):
             if is_md:
                 return df.to_markdown(index=index, headers=headers)
             else:
-                return df.to_string(
-                    index=index, header=True if headers == "keys" else bool(headers)
-                )
+                return df.to_string(index=index, header=True if headers == "keys" else bool(headers))
 
-        # Title
-        if is_md:
-            md_print("# QUANTUM CONCEPT ANALYSIS REPORT\n")
-        else:
-            print(
-                "=" * 80
-                + "\n"
-                + "                      QUANTUM CONCEPT ANALYSIS REPORT"
-                + "\n"
-                + "=" * 80
-            )
+        if is_md: md_print("# QUANTUM CONCEPT ANALYSIS REPORT\n")
+        else: print("=" * 80 + "\n" + "                      QUANTUM CONCEPT ANALYSIS REPORT" + "\n" + "=" * 80)
 
-        # I. Overall Summary
         md_print("## I. Overall Summary" if is_md else "\n--- I. Overall Summary ---")
-        md_print(
-            f"- **Total Matches Found:** {self.total_matches}"
-            if is_md
-            else f"Total Matches Found:          {self.total_matches}"
-        )
-        md_print(
-            f"- **Unique Files with Matches:** {self.unique_files_matched}"
-            if is_md
-            else f"Unique Files with Matches:    {self.unique_files_matched}"
-        )
-        md_print(
-            f"- **Unique Concepts Matched:** {self.unique_concepts_matched}"
-            if is_md
-            else f"Unique Concepts Matched:      {self.unique_concepts_matched}"
-        )
-        md_print(
-            f"- **Total Patterns Defined:** {len(self.all_patterns)}"
-            if is_md
-            else f"Total Patterns Defined:       {len(self.all_patterns)}"
-        )
-        md_print(
-            f"- **Total Patterns Found:** {len(self.found_patterns)}"
-            if is_md
-            else f"Total Patterns Found:         {len(self.found_patterns)}"
-        )
-        md_print(
-            f"- **Average Similarity Score:** {self.avg_score:.4f}"
-            if is_md
-            else f"Average Similarity Score:     {self.avg_score:.4f}"
-        )
+        md_print(f"- **Total Matches Found:** {self.total_matches}" if is_md else f"Total Matches Found:          {self.total_matches}")
+        md_print(f"- **Unique Files with Matches:** {self.unique_files_matched}" if is_md else f"Unique Files with Matches:    {self.unique_files_matched}")
+        md_print(f"- **Unique Concepts Matched:** {self.unique_concepts_matched}" if is_md else f"Unique Concepts Matched:      {self.unique_concepts_matched}")
+        md_print(f"- **Total Patterns Defined:** {len(self.all_patterns)}" if is_md else f"Total Patterns Defined:       {len(self.all_patterns)}")
+        md_print(f"- **Total Patterns Found:** {len(self.found_patterns)}" if is_md else f"Total Patterns Found:         {len(self.found_patterns)}")
+        md_print(f"- **Average Similarity Score:** {self.avg_score:.4f}" if is_md else f"Average Similarity Score:     {self.avg_score:.4f}")
 
-        # II. Match Type Breakdown
-        md_print(
-            "\n## II. Match Type Breakdown"
-            if is_md
-            else "\n--- II. Match Type Breakdown ---"
-        )
+        md_print("\n## II. Match Type Breakdown" if is_md else "\n--- II. Match Type Breakdown ---")
         md_print("\n### Match Type Counts\n" if is_md else "")
         md_print(to_format(self.matches_by_type.reset_index()))
-        md_print(
-            "\n### Average Score by Match Type\n"
-            if is_md
-            else "\nAverage Score by Match Type:"
-        )
+        md_print("\n### Average Score by Match Type\n" if is_md else "\nAverage Score by Match Type:")
         if len(self.avg_score_by_type) > 0:
             md_print(to_format(self.avg_score_by_type.round(4).reset_index()))
         else:
@@ -476,154 +405,66 @@ class ReportGenerator:
 
         md_print("\n---\n" if is_md else "\n" + "-" * 80)
 
-        # III. Source Framework & Target Project Breakdown
-        md_print(
-            "## III. Source Framework & Target Project Breakdown"
-            if is_md
-            else "\n--- III. Source Framework & Target Project Breakdown ---"
-        )
-        md_print(
-            "\n### Matches by Source Framework\n"
-            if is_md
-            else "\nMatches by Source Framework:"
-        )
+        md_print("## III. Source Framework & Target Project Breakdown" if is_md else "\n--- III. Source Framework & Target Project Breakdown ---")
+        md_print("\n### Matches by Source Framework\n" if is_md else "\nMatches by Source Framework:")
         md_print(to_format(self.matches_by_framework.reset_index()))
-        md_print(
-            "\n### Matches by Target Project\n"
-            if is_md
-            else "\nMatches by Target Project:"
-        )
+        md_print("\n### Matches by Target Project\n" if is_md else "\nMatches by Target Project:")
         md_print(to_format(self.matches_by_project.reset_index()))
 
         md_print("\n---\n" if is_md else "\n" + "-" * 80)
 
-        # IV & V. Pattern Analysis
         if not self.df_with_patterns.empty:
-            md_print(
-                "## IV. Cross-Framework Pattern Analysis"
-                if is_md
-                else "\n--- IV. Cross-Framework Pattern Analysis ---"
-            )
-            source_headers = {
-                "total_matches": "Total Matches",
-                "source_framework_names": "Source Frameworks",
-            }
-            md_print(
-                "\n### Table 4.1: Source Pattern Analysis (Where patterns originate)\n"
-                if is_md
-                else "\nTable 4.1: Source Pattern Analysis (Where patterns originate)"
-            )
-            md_print(
-                to_format(
-                    self.source_table.reset_index().rename(columns=source_headers)
-                )
-            )
+            md_print("## IV. Cross-Framework Pattern Analysis" if is_md else "\n--- IV. Cross-Framework Pattern Analysis ---")
+            source_headers = {"total_matches": "Total Matches", "source_framework_names": "Source Frameworks"}
+            md_print("\n### Table 4.1: Source Pattern Analysis (Where patterns originate)\n" if is_md else "\nTable 4.1: Source Pattern Analysis (Where patterns originate)")
+            md_print(to_format(self.source_table.reset_index().rename(columns=source_headers)))
 
-            adoption_headers = {
-                "target_project_coverage": "Project Coverage",
-                "target_project_names": "Found In Projects",
-            }
-            md_print(
-                "\n### Table 4.2: Adoption Pattern Analysis (Where patterns are used)\n"
-                if is_md
-                else "\n\nTable 4.2: Adoption Pattern Analysis (Where patterns are used)"
-            )
-            md_print(
-                to_format(
-                    self.adoption_table.reset_index().rename(columns=adoption_headers)
-                )
-            )
+            adoption_headers = {"target_project_coverage": "Project Coverage", "target_project_names": "Found In Projects"}
+            md_print("\n### Table 4.2: Adoption Pattern Analysis (Where patterns are used)\n" if is_md else "\n\nTable 4.2: Adoption Pattern Analysis (Where patterns are used)")
+            md_print(to_format(self.adoption_table.reset_index().rename(columns=adoption_headers)))
 
             md_print("\n---\n" if is_md else "\n" + "-" * 80)
 
-            md_print(
-                "## V. Quantum Pattern Analysis"
+            md_print("## V. Quantum Pattern Analysis" if is_md else "\n--- V. Quantum Pattern Analysis ---")
+
+            md_print("\n### Analysis of Newly Defined Patterns\n" if is_md else "\nAnalysis of Newly Defined Patterns")
+            summary_text = (
+                f"Found **{self.num_new_patterns_found}** out of **{len(self.newly_defined_patterns)}** newly defined patterns in the target projects."
                 if is_md
-                else "\n--- V. Quantum Pattern Analysis ---"
+                else f"Found {self.num_new_patterns_found} out of {len(self.newly_defined_patterns)} newly defined patterns in the target projects."
             )
-            md_print(
-                "\n### Patterns by Match Count (Overall)\n"
-                if is_md
-                else "\nPatterns by Match Count (Overall):"
-            )
+            md_print(summary_text)
+            md_print(to_format(self.new_patterns_table_data))
+
+            md_print("\n### Patterns by Match Count (Overall)\n" if is_md else "\n\nPatterns by Match Count (Overall):")
             md_print(to_format(self.matches_by_pattern.reset_index()))
 
-            md_print(
-                "\n### Average Score by Pattern\n"
-                if is_md
-                else "\nAverage Score by Pattern:"
-            )
-            md_print(
-                to_format(
-                    self.avg_score_by_pattern.round(4)
-                    .sort_values(ascending=False)
-                    .reset_index()
-                )
-            )
+            md_print("\n### Average Score by Pattern\n" if is_md else "\nAverage Score by Pattern:")
+            md_print(to_format(self.avg_score_by_pattern.round(4).sort_values(ascending=False).reset_index()))
 
-            md_print(
-                "\n### All Patterns within each Source Framework (Sorted by Frequency)\n"
-                if is_md
-                else "\nAll Patterns within each Source Framework (Sorted by Frequency):"
-            )
+            md_print("\n### All Patterns within each Source Framework (Sorted by Frequency)\n" if is_md else "\nAll Patterns within each Source Framework (Sorted by Frequency):")
             for framework, data in self.patterns_in_frameworks.groupby(level=0):
-                md_print(
-                    f"\n#### {framework.capitalize()}\n"
-                    if is_md
-                    else f"\n  -- {framework} --"
-                )
+                md_print(f"\n#### {framework.capitalize()}\n" if is_md else f"\n  -- {framework} --")
                 md_print(to_format(data.droplevel(0).reset_index()))
 
         md_print("\n---\n" if is_md else "\n" + "-" * 80)
 
-        # VI. Top Matched Concepts
-        md_print(
-            "## VI. Top Matched Concepts"
-            if is_md
-            else "\n--- VI. Top Matched Concepts ---"
-        )
-        md_print(
-            f"\n### Top {TOP_N_CONCEPTS} Most Frequently Matched Concepts\n"
-            if is_md
-            else f"\nTop {TOP_N_CONCEPTS} Most Frequently Matched Concepts:"
-        )
-        md_print(
-            to_format(
-                self.top_20_table_data, headers=["Framework", "Concept", "Matches"]
-            )
-        )
+        md_print("## VI. Top Matched Concepts" if is_md else "\n--- VI. Top Matched Concepts ---")
+        md_print(f"\n### Top {TOP_N_CONCEPTS} Most Frequently Matched Concepts\n" if is_md else f"\nTop {TOP_N_CONCEPTS} Most Frequently Matched Concepts:")
+        md_print(to_format(self.top_20_table_data, headers=["Framework", "Concept", "Matches"]))
 
         md_print("\n---\n" if is_md else "\n" + "-" * 80)
 
-        # VII. Unmatched Pattern Analysis
-        md_print(
-            "## VII. Unmatched Pattern Analysis"
-            if is_md
-            else "\n--- VII. Unmatched Pattern Analysis ---"
-        )
+        md_print("## VII. Unmatched Pattern Analysis" if is_md else "\n--- VII. Unmatched Pattern Analysis ---")
         if self.unmatched_patterns:
-            md_print(
-                f"\nThe following **{len(self.unmatched_patterns)}** patterns from the source files were **NOT found** in any project:\n"
-                if is_md
-                else f"\nThe following {len(self.unmatched_patterns)} patterns from the source files were NOT found in any project:"
-            )
+            md_print(f"\nThe following **{len(self.unmatched_patterns)}** patterns from the source files were **NOT found** in any project:\n" if is_md else f"\nThe following {len(self.unmatched_patterns)} patterns from the source files were NOT found in any project:")
             for pattern in self.unmatched_patterns:
                 md_print(f"- {pattern}")
         else:
-            md_print(
-                "\nAll patterns defined in the source files were found in the analysis."
-            )
+            md_print("\nAll patterns defined in the source files were found in the analysis.")
 
-        # End of Report
         if not is_md:
-            print(
-                "\n"
-                + "=" * 80
-                + "\n"
-                + "                              END OF REPORT"
-                + "\n"
-                + "=" * 80
-            )
+            print("\n" + "=" * 80 + "\n" + "                              END OF REPORT" + "\n" + "=" * 80)
 
 
 # --- Main Execution ---
@@ -646,7 +487,7 @@ def main():
 
     all_patterns = load_all_patterns_from_files(PATTERN_FILES)
 
-    reporter = ReportGenerator(df, all_patterns)
+    reporter = ReportGenerator(df, all_patterns, NEWLY_DEFINED_PATTERNS)
 
     # Generate all reports
     reporter.generate_txt_report(REPORT_TXT_PATH)

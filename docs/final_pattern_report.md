@@ -128,6 +128,21 @@
 
 ## V. Quantum Pattern Analysis
 
+### Analysis of Newly Defined Patterns
+
+Found **9** out of **9** newly defined patterns in the target projects.
+| Pattern                         |   Matches |
+|:--------------------------------|----------:|
+| Basis Change                    |       161 |
+| Domain Specific Application     |        53 |
+| Quantum Arithmetic              |        43 |
+| Circuit Construction Utility    |        40 |
+| Data Encoding                   |        37 |
+| Hamiltonian Simulation          |        20 |
+| Quantum Logical Operators       |        13 |
+| Linear Combination of Unitaries |         7 |
+| Quantum Amplitude Estimation    |         1 |
+
 ### Patterns by Match Count (Overall)
 
 | pattern                                           |   count |
