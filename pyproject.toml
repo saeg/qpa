@@ -28,6 +28,7 @@ dependencies = [
     "markdown>=3.7.0",
     "weasyprint>=62.0",
     "pdfkit>=1.0.0",
+    "statsmodels>=0.14.0",
 
 ]
 
