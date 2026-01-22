@@ -4,6 +4,27 @@ This project provides an automated framework and toolchain for analyzing the sou
 
 The project features a **dynamic discovery workflow**: it queries the GitHub API to find relevant quantum software projects, clones them, preprocesses their code (including Jupyter Notebooks), and then runs a series of analysis scripts to extract and classify core programming concepts.
 
+## Citation:
+@software{leite_ramalho_2026_18342945,
+  author       = {Leite Ramalho, Neilson Carlos and
+                  da Silva, Érico Augusto and
+                  Amario de Souza, Higor and
+                  Chaim, Marcos},
+  title        = {qpq: Quantum Pattern Analysis},
+  month        = jan,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {1.1},
+  doi          = {10.5281/zenodo.18342945},
+  url          = {https://doi.org/10.5281/zenodo.18342945},
+  swhid        = {swh:1:dir:63293ad3d0f0f18896e99b3b454c28a93929421e
+                   ;origin=https://doi.org/10.5281/zenodo.18342944;vi
+                   sit=swh:1:snp:3466c29fd5ee3076ca594d3ad740174429b4
+                   aa11;anchor=swh:1:rel:a6da4a8da9a5381ade9c3e7c87fa
+                   d743d0bd0215;path=ramalhoneilson-qpa-a2a2f9d
+                  },
+}
+
 ## 📊 Experimental Data & Results
 
 ### Complete Experimental Datasets
