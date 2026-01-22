@@ -5,6 +5,7 @@ This project provides an automated framework and toolchain for analyzing the sou
 The project features a **dynamic discovery workflow**: it queries the GitHub API to find relevant quantum software projects, clones them, preprocesses their code (including Jupyter Notebooks), and then runs a series of analysis scripts to extract and classify core programming concepts.
 
 ## Citation:
+```json
 @software{leite_ramalho_2026_18342945,
   author       = {Leite Ramalho, Neilson Carlos and
                   da Silva, Érico Augusto and
@@ -24,6 +25,7 @@ The project features a **dynamic discovery workflow**: it queries the GitHub API
                    d743d0bd0215;path=ramalhoneilson-qpa-a2a2f9d
                   },
 }
+```
 
 ## 📊 Experimental Data & Results
 
