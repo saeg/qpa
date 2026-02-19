@@ -1,0 +1,58 @@
+site_name: QPA
+site_description: Quantum Software Analysis Project — reproducible framework for analyzing quantum software patterns.
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - toc.integrate
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.magiclink
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Experimental Data: experimental_data.md
+  - Extracted Concepts: extracted_concepts_summary.md
+  - Quantum Patterns Report: quantum_patterns_report.md
+  - Final Pattern Report: final_pattern_report.md
+  - Extended Pattern Coverage: extended_pattern_coverage_analysis.md
+  - CSV Export Feature: csv_export_feature.md
+  - Experimental Data Report: experimental_data_report.md
