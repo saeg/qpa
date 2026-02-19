@@ -1,5 +1,7 @@
 # Quantum Software Analysis Project
 
+ [![Pages build](https://github.com/ramalhoneilson/qpa/actions/workflows/pages.yml/badge.svg)](https://github.com/ramalhoneilson/qpa/actions/workflows/pages.yml) [![GitHub Pages](https://img.shields.io/badge/Pages-ramalhoneilson.github.io%2Fqpa-blue)](https://ramalhoneilson.github.io/qpa/)
+
 This project provides an automated framework and toolchain for analyzing the source code of popular quantum computing libraries to identify recurring software patterns. It uses `just` as a command runner to orchestrate the entire pipeline, from data collection to final analysis and reporting.
 
 The project features a **dynamic discovery workflow**: it queries the GitHub API to find relevant quantum software projects, clones them, preprocesses their code (including Jupyter Notebooks), and then runs a series of analysis scripts to extract and classify core programming concepts.
