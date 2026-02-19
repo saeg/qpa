@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Jekyll
         run: |
-          gem install bundler jekyll
+          gem install bundler jekyll minima jekyll-feed
 
       - name: Build Jekyll site
         run: jekyll build -s docs -d public
